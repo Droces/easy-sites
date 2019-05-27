@@ -1,5 +1,7 @@
 <div class="sections">
-  <section *ngFor="let section of sections">
+  <section *ngFor="let section of page.sections">
     {{ section.content }}
   </section>
+  <button (click)="addSection()">+</button>
+  <button (click)="removeLastSection()">-</button>
 </div>

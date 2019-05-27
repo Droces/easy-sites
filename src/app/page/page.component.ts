@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { PageService } from '../page.service';
 
-import { Section } from '../section';
 import { Page } from '../page';
+import { Section } from '../section';
 
 @Component({
   selector: 'app-page',
@@ -11,8 +11,8 @@ import { Page } from '../page';
   styleUrls: ['./page.component.scss']
 })
 export class PageComponent implements OnInit {
-  sections: Section = [{ colourStyle: 'default', content: 'Section 1' }];
-  // sections: Section[];
+  page: Page;
+  sections: Section[];
 
   constructor(public pageService: PageService) { }
 
@@ -20,5 +20,16 @@ export class PageComponent implements OnInit {
     this.getPage();
   }
 
-  getPage(): void {}
+  getPage(): void {
+    this.page = this.pageService.getPages()[0];
+    this.sections = this.page.sections;
+  }
+
+  addSection(): void {
+    this.sections.push({ colourStyle: 'default', content: 'Section' });
+  }
+
+  removeLastSection(): void {
+    this.sections.pop();
+  }
 }
