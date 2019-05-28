@@ -1,0 +1,10 @@
+.group {
+  background: rgba(0, 0, 0, 0.07);
+  padding: 20px;
+}
+app-block {
+  display: block;
+}
+app-block + app-block {
+  margin-top: 10px;
+}

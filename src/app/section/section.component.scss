@@ -9,4 +9,9 @@ section {
   margin-left: auto;
   margin-right: auto;
   box-sizing: content-box;
+  display: flex;
+
+  & > * {
+    flex: 1 1 auto;
+  }
 }
