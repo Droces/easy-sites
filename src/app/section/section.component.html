@@ -1,1 +1,7 @@
-{{ content }}
+<section>
+  <div class="groups">
+    {{ section.content }}
+  </div>
+  <button (click)="addGroup()">+</button>
+  <button (click)="removeLastGroup()">-</button>
+</section>
