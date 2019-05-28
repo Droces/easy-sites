@@ -1,6 +1,6 @@
 <section>
   <div class="groups">
-    {{ section.content }}
+    <app-group *ngFor="let group of section.groups" [group]="group"></app-group>
   </div>
   <button (click)="addGroup()">+</button>
   <button (click)="removeLastGroup()">-</button>

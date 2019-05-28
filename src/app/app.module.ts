@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
 import { SectionComponent } from './section/section.component';
+import { GroupComponent } from './group/group.component';
+import { BlockComponent } from './block/block.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageComponent,
-    SectionComponent
+    SectionComponent,
+    GroupComponent,
+    BlockComponent
   ],
   imports: [
     BrowserModule,

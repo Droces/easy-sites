@@ -1,4 +1,6 @@
+import { Group } from './group';
+
 export class Section {
   colourStyle: string;
-  content: string;
+  groups: Group;
 }

@@ -12,7 +12,6 @@ import { Section } from '../section';
 })
 export class PageComponent implements OnInit {
   page: Page;
-  sections: Section[];
 
   constructor(public pageService: PageService) { }
 
@@ -22,14 +21,13 @@ export class PageComponent implements OnInit {
 
   getPage(): void {
     this.page = this.pageService.getPages()[0];
-    this.sections = this.page.sections;
   }
 
   addSection(): void {
-    this.sections.push({ colourStyle: 'default', content: 'Section' });
+    this.page.sections.push({ colourStyle: 'default', groups: []});
   }
 
   removeLastSection(): void {
-    this.sections.pop();
+    this.page.sections.pop();
   }
 }

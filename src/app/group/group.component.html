@@ -1,0 +1,5 @@
+<div class="group">
+  <app-block *ngFor="let block of group.blocks" [block]="block"></app-block>
+  <button (click)="addBlock()">+</button>
+  <button (click)="removeLastBlock()">-</button>
+</div>

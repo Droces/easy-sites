@@ -16,8 +16,10 @@ export class SectionComponent implements OnInit {
   }
 
   addGroup(): void {
-    // section.
+    this.section.groups.push({blocks: []});
   }
 
-  removeLastGroup(): void {}
+  removeLastGroup(): void {
+    this.section.groups.pop();
+  }
 }
