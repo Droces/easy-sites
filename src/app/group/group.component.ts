@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Group } from '../group';
+import { Block } from '../block';
 
 @Component({
   selector: 'app-group',
@@ -9,6 +10,7 @@ import { Group } from '../group';
 })
 export class GroupComponent implements OnInit {
   @Input() group: Group;
+  @Output() removeGroup = new EventEmitter();
 
   constructor() { }
 
@@ -19,7 +21,16 @@ export class GroupComponent implements OnInit {
     this.group.blocks.push({id: Date.now(), content: "new block"});
   }
 
-  removeLastBlock(): void {
-    this.group.blocks.pop();
+  // removeLastBlock(): void {
+  //   this.group.blocks.pop();
+  // }
+
+  removeSelf(): void {
+    this.removeGroup.emit(this.group);
+  }
+
+  removeBlock(block: Block): void {
+    var currentPos = this.group.blocks.indexOf(block);
+    this.group.blocks.splice(currentPos, 1);
   }
 }

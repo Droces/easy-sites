@@ -9,13 +9,16 @@ section {
     background: #e8ecf5;
   }
 }
-.groups {
+.groups,
+.groups-actions {
   max-width: 800px;
-  background: rgba(0, 0, 0, 0.07);
-  padding: 20px;
   margin-left: auto;
   margin-right: auto;
-  box-sizing: content-box;
+  box-sizing: border-box;
+}
+.groups {
+  background: rgba(0, 0, 0, 0.07);
+  padding: 20px;
   display: flex;
 
   & > * {

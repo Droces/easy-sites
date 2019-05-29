@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Section } from '../section';
+import { Group } from '../group';
 
 @Component({
   selector: 'app-section',
@@ -13,6 +14,7 @@ export class SectionComponent implements OnInit {
   // An event emitter
   @Output() moveUp = new EventEmitter();
   @Output() moveDown = new EventEmitter();
+  @Output() removeSection = new EventEmitter();
 
   constructor() { }
 
@@ -21,10 +23,6 @@ export class SectionComponent implements OnInit {
 
   addGroup(): void {
     this.section.groups.push({id: Date.now(), blocks: []});
-  }
-
-  removeLastGroup(): void {
-    this.section.groups.pop();
   }
 
   changeColour(): void {
@@ -46,5 +44,18 @@ export class SectionComponent implements OnInit {
 
   down(): void {
     this.moveDown.emit(this.section);
+  }
+
+  // removeLastGroup(): void {
+  //   this.section.groups.pop();
+  // }
+
+  removeSelf(): void {
+    this.removeSection.emit(this.section);
+  }
+
+  removeGroup(group: Group): void {
+    var currentPos = this.section.groups.indexOf(group);
+    this.section.groups.splice(currentPos, 1);
   }
 }

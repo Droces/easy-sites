@@ -1,10 +1,17 @@
 <section id="{{ section.id }}" [attr.data-colourStyle]="section.colourStyle">
   <div class="groups">
-    <app-group *ngFor="let group of section.groups" [group]="group"></app-group>
+    <app-group *ngFor="let group of section.groups"
+      [group]="group"
+      (removeGroup)="removeGroup(group)">
+    </app-group>
   </div>
-  <button (click)="addGroup()">+</button>
-  <button (click)="removeLastGroup()">-</button>
+  <div class="groups-actions">
+    <button (click)="addGroup()">+</button>
+  </div>
+
+  <!-- <button (click)="removeLastGroup()">-</button> -->
   <button (click)="changeColour()">colour</button>
   <button (click)="up()">&uarr;</button>
   <button (click)="down()">&darr;</button>
+  <button (click)="removeSelf()" class="remove">&times;</button>
 </section>

@@ -27,9 +27,14 @@ export class PageComponent implements OnInit {
     this.page.sections.push({ id: Date.now(), colourStyle: 'default', groups: []});
   }
 
-  removeLastSection(): void {
-    this.page.sections.pop();
+  removeSection(section: Section): void {
+    var currentPos = this.page.sections.indexOf(section);
+    this.page.sections.splice(currentPos, 1);
   }
+
+  // removeLastSection(): void {
+  //   this.page.sections.pop();
+  // }
 
   moveSectionUp(section: Section) {
     var currentPos = this.page.sections.indexOf(section);
@@ -41,6 +46,7 @@ export class PageComponent implements OnInit {
 
   moveSectionDown(section: Section) {
     var currentPos = this.page.sections.indexOf(section);
+    // No check needed for last section
     this.page.sections.splice(currentPos + 1, 0, this.page.sections.splice(currentPos, 1)[0]);
   }
 }
