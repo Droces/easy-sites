@@ -1,13 +1,6 @@
 section {
   border-bottom: dotted 1px lightgrey;
   padding: 20px;
-
-  &[data-colourStyle="default"] {
-    background: white;
-  }
-  &[data-colourStyle="blue"] {
-    background: #e8ecf5;
-  }
 }
 .groups,
 .groups-actions {

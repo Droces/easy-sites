@@ -1,4 +1,5 @@
-<main class="page">
+<main class="page"
+    [attr.data-theme]="theme">
   <div class="sections">
     <app-section *ngFor="let section of page.sections"
       [section]="section"
@@ -9,4 +10,5 @@
   </div>
   <button (click)="addSection()">+</button>
   <!-- <button (click)="removeLastSection()">-</button> -->
+  <button (click)="changeTheme()">Theme</button>
 </main>

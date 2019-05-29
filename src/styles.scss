@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.page[data-theme="red"] {
+  section {
+    &[data-colourStyle=""],
+    &[data-colourStyle="default"] {
+      background: white;
+    }
+    &[data-colourStyle="emphasis1"] {
+      background: red;
+    }
+    &[data-colourStyle="emphasis2"] {
+      background: blue;
+    }
+  }
+}

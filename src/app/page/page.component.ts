@@ -12,6 +12,7 @@ import { Section } from '../section';
 })
 export class PageComponent implements OnInit {
   page: Page;
+  theme: string;
 
   constructor(public pageService: PageService) { }
 
@@ -21,6 +22,10 @@ export class PageComponent implements OnInit {
 
   getPage(): void {
     this.page = this.pageService.getPages()[0];
+  }
+
+  changeTheme(): void {
+    this.theme = "red"
   }
 
   addSection(): void {

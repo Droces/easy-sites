@@ -28,10 +28,14 @@ export class SectionComponent implements OnInit {
   changeColour(): void {
     switch (this.section.colourStyle) {
       case 'default': {
-        this.section.colourStyle = "blue";
+        this.section.colourStyle = "emphasis1";
         break;
       }
-      case 'blue': {
+      case 'emphasis1': {
+        this.section.colourStyle = "emphasis2";
+        break;
+      }
+      case 'emphasis2': {
         this.section.colourStyle = "default";
         break;
       }
