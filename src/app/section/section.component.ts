@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Section } from '../section';
 
@@ -9,6 +9,10 @@ import { Section } from '../section';
 })
 export class SectionComponent implements OnInit {
   @Input() section: Section;
+
+  // An event emitter
+  @Output() moveUp = new EventEmitter();
+  @Output() moveDown = new EventEmitter();
 
   constructor() { }
 
@@ -34,5 +38,13 @@ export class SectionComponent implements OnInit {
         break;
       }
     }
+  }
+
+  up(): void {
+    this.moveUp.emit(this.section);
+  }
+
+  down(): void {
+    this.moveDown.emit(this.section);
   }
 }

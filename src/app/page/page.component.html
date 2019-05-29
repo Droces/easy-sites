@@ -1,6 +1,10 @@
 <main class="page">
   <div class="sections">
-    <app-section *ngFor="let section of page.sections" [section]="section"></app-section>
+    <app-section *ngFor="let section of page.sections"
+      [section]="section"
+      (moveUp)="moveSectionUp(section)"
+      (moveDown)="moveSectionDown(section)">
+    </app-section>
   </div>
   <button (click)="addSection()">+</button>
   <button (click)="removeLastSection()">-</button>

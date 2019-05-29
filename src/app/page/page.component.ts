@@ -30,4 +30,17 @@ export class PageComponent implements OnInit {
   removeLastSection(): void {
     this.page.sections.pop();
   }
+
+  moveSectionUp(section: Section) {
+    var currentPos = this.page.sections.indexOf(section);
+    if (currentPos <= 0) {
+      return null;
+    }
+    this.page.sections.splice(currentPos - 1, 0, this.page.sections.splice(currentPos, 1)[0]);
+  }
+
+  moveSectionDown(section: Section) {
+    var currentPos = this.page.sections.indexOf(section);
+    this.page.sections.splice(currentPos + 1, 0, this.page.sections.splice(currentPos, 1)[0]);
+  }
 }
