@@ -1,6 +1,13 @@
 section {
   border-bottom: dotted 1px lightgrey;
   padding: 20px;
+
+  &[data-colourStyle="default"] {
+    background: white;
+  }
+  &[data-colourStyle="blue"] {
+    background: #e8ecf5;
+  }
 }
 .groups {
   max-width: 800px;
@@ -14,4 +21,8 @@ section {
   & > * {
     flex: 1 1 auto;
   }
+}
+
+app-group + app-group {
+  margin-left: 10px;
 }

@@ -16,10 +16,23 @@ export class SectionComponent implements OnInit {
   }
 
   addGroup(): void {
-    this.section.groups.push({blocks: []});
+    this.section.groups.push({id: Date.now(), blocks: []});
   }
 
   removeLastGroup(): void {
     this.section.groups.pop();
+  }
+
+  changeColour(): void {
+    switch (this.section.colourStyle) {
+      case 'default': {
+        this.section.colourStyle = "blue";
+        break;
+      }
+      case 'blue': {
+        this.section.colourStyle = "default";
+        break;
+      }
+    }
   }
 }

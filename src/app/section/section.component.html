@@ -1,7 +1,8 @@
-<section>
+<section id="{{ section.id }}" [attr.data-colourStyle]="section.colourStyle">
   <div class="groups">
     <app-group *ngFor="let group of section.groups" [group]="group"></app-group>
   </div>
   <button (click)="addGroup()">+</button>
   <button (click)="removeLastGroup()">-</button>
+  <button (click)="changeColour(section.id)">colour</button>
 </section>
