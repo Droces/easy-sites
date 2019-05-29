@@ -3,7 +3,9 @@
     [block]="block"
     (removeBlock)="removeBlock(block)">
   </app-block>
-  <button (click)="addBlock()">+</button>
+  <button (click)="addBlock()" class="icon">
+    <i class="material-icons">add</i></button>
   <!-- <button (click)="removeLastBlock()">-</button> -->
-  <button (click)="removeSelf()" class="remove">&times;</button>
+  <button (click)="removeSelf()" class="remove icon">
+    <i class="material-icons">close</i></button>
 </div>
