@@ -18,6 +18,7 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPage();
+    this.theme = "blue"
   }
 
   getPage(): void {
@@ -25,7 +26,7 @@ export class PageComponent implements OnInit {
   }
 
   changeTheme(): void {
-    this.theme = "red"
+    this.theme = this.theme == "green" ? "blue" : "green";
   }
 
   addSection(): void {

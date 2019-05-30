@@ -5,17 +5,55 @@ body {
   margin: 0;
 }
 
-.page[data-theme="red"] {
+.page:not([data-theme=""]),
+.page[data-theme=""],
+.page[data-theme="blue"] {
   section {
+    &[data-colourStyle=""],
+    &[data-colourStyle="default"],
+    &[data-colourStyle="emphasis1"] {
+      h1, h2 {
+        color: #1e6c93; // blue
+      }
+    }
     &[data-colourStyle=""],
     &[data-colourStyle="default"] {
       background: white;
     }
     &[data-colourStyle="emphasis1"] {
-      background: red;
+      background: #f2f2f2; // pale grey
     }
     &[data-colourStyle="emphasis2"] {
-      background: blue;
+      background: #1e6c93; // blue
+      color: white;
+      h1, h2 {
+        color: inherit;
+      }
+    }
+  }
+}
+.page[data-theme="green"] {
+  section {
+    &[data-colourStyle=""],
+    &[data-colourStyle="default"],
+    &[data-colourStyle="emphasis1"] {
+      h1, h2 {
+        color: #138275; // green
+      }
+    }
+    &[data-colourStyle=""],
+    &[data-colourStyle="default"] {
+      background: white;
+    }
+    &[data-colourStyle="emphasis1"] {
+      background: #f2f2f2; // pale grey
+    }
+    &[data-colourStyle="emphasis2"] {
+      background: #138275; // green
+      color: white;
+      h1, h2 {
+        color: inherit;
+      }
     }
   }
 }
