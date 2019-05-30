@@ -1,0 +1,16 @@
+section {
+  &[data-colourStyle=""],
+  &[data-colourStyle="default"] {
+    background: white;
+  }
+  &[data-colourStyle="emphasis1"] {}
+  &[data-colourStyle="emphasis2"] {
+    color: white;
+    h1, h2 {
+      color: inherit;
+    }
+    button.icon {
+      color: inherit;
+    }
+  }
+}

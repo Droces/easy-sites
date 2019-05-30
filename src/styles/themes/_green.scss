@@ -1,0 +1,21 @@
+// Green
+.page[data-theme="green"] {
+  section {
+    &[data-colourStyle=""],
+    &[data-colourStyle="default"],
+    &[data-colourStyle="emphasis1"] {
+      h1, h2 {
+        color: #138275; // green
+      }
+    }
+    &[data-colourStyle=""],
+    &[data-colourStyle="default"] {
+    }
+    &[data-colourStyle="emphasis1"] {
+      background: #f2f2f2; // pale grey
+    }
+    &[data-colourStyle="emphasis2"] {
+      background: #138275; // green
+    }
+  }
+}
