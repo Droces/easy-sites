@@ -1,6 +1,10 @@
 <header>
   <h1>Easy Sites</h1>
 </header>
-<app-page></app-page>
-
-<router-outlet></router-outlet>
+<div id="main-and-sidebar">
+  <router-outlet></router-outlet>
+  <aside>
+    <h2>Pages</h2>
+    <app-pages-list></app-pages-list>
+  </aside>
+</div>

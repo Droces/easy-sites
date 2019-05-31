@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PageComponent } from './page/page.component';
-import { SectionComponent } from './section/section.component';
+import { PagesListComponent } from './pages-list/pages-list.component';
 
 @Component({
   selector: 'app-root',

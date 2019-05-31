@@ -7,3 +7,22 @@ header {
   color: white;
   padding: 20px;
 }
+[id="main-and-sidebar"] {
+  display: flex;
+
+  & > * {
+    flex: 1 1 auto;
+  }
+  router-outlet {
+    display: none;
+  }
+  aside {
+    width: 200px;
+    flex-grow: 0;
+  }
+}
+
+aside {
+  border-left: solid 1px #dadada;
+  padding-left: 40px;
+}

@@ -16,4 +16,13 @@ export class PageService {
   getPages(): Page[] {
     return PAGES;
   }
+
+  getPage(id: number): Page {
+    for(let page of PAGES) {
+      if (page.id == id) {
+        return page;
+      }
+    }
+    return null;
+  }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { PageService } from '../page.service';
 
@@ -14,15 +16,20 @@ export class PageComponent implements OnInit {
   page: Page;
   theme: string;
 
-  constructor(public pageService: PageService) { }
+  constructor(public pageService: PageService,
+    private route: ActivatedRoute,
+    private location: Location) {
+  }
 
   ngOnInit(): void {
-    this.getPage();
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.getPage(id);
     this.theme = "blue"
   }
 
-  getPage(): void {
-    this.page = this.pageService.getPages()[0];
+  getPage(id: number): void {
+    // @todo use id
+    this.page = this.pageService.getPage(id);
   }
 
   changeTheme(): void {
