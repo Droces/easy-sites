@@ -1,20 +1,26 @@
+$breakpoint: 800px;
 section {
   position: relative;
   border-bottom: dotted 1px lightgrey;
   padding: 20px;
 }
 section > .column {
-  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.07);
   padding: 20px;
+
+  @media all and (min-width: $breakpoint) {
+    max-width: 1200px;
+  }
 }
 // .groups,
 // .groups-actions {}
 .groups {
-  display: flex;
+  @media all and (min-width: $breakpoint) {
+    display: flex;
+  }
 
   & > * {
     flex: 1 1 auto;
