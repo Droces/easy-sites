@@ -1,6 +1,6 @@
-<app-primary-nav></app-primary-nav>
 <main class="page"
-    [attr.data-theme]="theme">
+    [attr.data-theme]="settings.theme">
+  <app-primary-nav></app-primary-nav>
   <h1>{{ page.title }}</h1>
   <div class="sections">
     <app-section *ngFor="let section of page.sections"
@@ -10,7 +10,6 @@
       (removeSection)="removeSection(section)">
     </app-section>
   </div>
-  <button (click)="changeTheme()">Theme</button>
   <button (click)="addSection()" class="icon">
       <i class="material-icons">add</i></button>
   <!-- <button (click)="removeLastSection()">-</button> -->

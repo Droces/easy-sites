@@ -1,10 +1,11 @@
 <header>
-  <h1>Easy Sites</h1>
+  <p class="es-title">Easy Sites</p>
 </header>
 <div id="main-and-sidebar">
   <router-outlet></router-outlet>
   <aside>
     <h2>Pages</h2>
     <app-pages-list></app-pages-list>
+    <button (click)="changeTheme()">Theme</button>
   </aside>
 </div>

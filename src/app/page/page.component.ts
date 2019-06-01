@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { PageService } from '../page.service';
+import { SettingsService } from '../settings.service';
 
 import { Page } from '../page';
 import { Section } from '../section';
@@ -14,9 +15,9 @@ import { Section } from '../section';
 })
 export class PageComponent implements OnInit {
   page: Page;
-  theme: string;
 
   constructor(
+    public settings: SettingsService,
     public pageService: PageService,
     private route: ActivatedRoute,
     private router: Router,
@@ -37,10 +38,6 @@ export class PageComponent implements OnInit {
       // Redirect to Not Found page
       this.router.navigate(['**']);
     }
-  }
-
-  changeTheme(): void {
-    this.theme = this.theme == "green" ? "blue" : "green";
   }
 
   addSection(): void {
