@@ -1,6 +1,8 @@
 <div class="group">
   <app-block *ngFor="let block of group.blocks"
     [block]="block"
+    (moveUp)="moveBlockUp(block)"
+    (moveDown)="moveBlockDown(block)"
     (removeBlock)="removeBlock(block)">
   </app-block>
   <button (click)="addBlock()" class="icon">
@@ -8,4 +10,6 @@
   <!-- <button (click)="removeLastBlock()">-</button> -->
   <button (click)="removeSelf()" class="remove icon">
     <i class="material-icons">close</i></button>
+  <button (click)="left()" class="icon"><i class="material-icons">arrow_back</i></button>
+  <button (click)="right()" class="icon"><i class="material-icons">arrow_forward</i></button>
 </div>

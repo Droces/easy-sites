@@ -3,6 +3,8 @@
     <div class="groups">
       <app-group *ngFor="let group of section.groups"
         [group]="group"
+        (moveLeft)="moveGroupLeft(group)"
+        (moveRight)="moveGroupRight(group)"
         (removeGroup)="removeGroup(group)">
       </app-group>
     </div>

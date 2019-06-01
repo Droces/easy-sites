@@ -10,11 +10,36 @@ import { Block } from '../block';
 })
 export class GroupComponent implements OnInit {
   @Input() group: Group;
+
+  @Output() moveLeft = new EventEmitter();
+  @Output() moveRight = new EventEmitter();
   @Output() removeGroup = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  left(): void {
+    this.moveLeft.emit(this.group);
+  }
+
+  right(): void {
+    this.moveRight.emit(this.group);
+  }
+
+  moveBlockUp(block: Block) {
+    var currentPos = this.group.blocks.indexOf(block);
+    if (currentPos <= 0) {
+      return null;
+    }
+    this.group.blocks.splice(currentPos - 1, 0, this.group.blocks.splice(currentPos, 1)[0]);
+  }
+
+  moveBlockDown(block: Block) {
+    var currentPos = this.group.blocks.indexOf(block);
+    // No check needed for last section
+    this.group.blocks.splice(currentPos + 1, 0, this.group.blocks.splice(currentPos, 1)[0]);
   }
 
   addBlock(): void {

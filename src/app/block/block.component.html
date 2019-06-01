@@ -1,5 +1,7 @@
 <div class="block">
   <p contenteditable="true">{{ block.content }}<p>
+  <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
+  <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
   <button (click)="removeSelf()" class="remove icon">
     <i class="material-icons">close</i></button>
 </div>

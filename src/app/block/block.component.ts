@@ -9,11 +9,22 @@ import { Block } from '../block';
 })
 export class BlockComponent implements OnInit {
   @Input() block: Block;
+
+  @Output() moveUp = new EventEmitter();
+  @Output() moveDown = new EventEmitter();
   @Output() removeBlock = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  up(): void {
+    this.moveUp.emit(this.block);
+  }
+
+  down(): void {
+    this.moveDown.emit(this.block);
   }
 
   removeSelf(): void {

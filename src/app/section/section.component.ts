@@ -11,7 +11,6 @@ import { Group } from '../group';
 export class SectionComponent implements OnInit {
   @Input() section: Section;
 
-  // An event emitter
   @Output() moveUp = new EventEmitter();
   @Output() moveDown = new EventEmitter();
   @Output() removeSection = new EventEmitter();
@@ -48,6 +47,20 @@ export class SectionComponent implements OnInit {
 
   down(): void {
     this.moveDown.emit(this.section);
+  }
+
+  moveGroupLeft(group: Group) {
+    var currentPos = this.section.groups.indexOf(group);
+    if (currentPos <= 0) {
+      return null;
+    }
+    this.section.groups.splice(currentPos - 1, 0, this.section.groups.splice(currentPos, 1)[0]);
+  }
+
+  moveGroupRight(group: Group) {
+    var currentPos = this.section.groups.indexOf(group);
+    // No check needed for last section
+    this.section.groups.splice(currentPos + 1, 0, this.section.groups.splice(currentPos, 1)[0]);
   }
 
   // removeLastGroup(): void {
