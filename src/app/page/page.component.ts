@@ -28,7 +28,6 @@ export class PageComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = +this.route.snapshot.paramMap.get('id');
       this.getPage(id);
-      this.settings.theme = "blue";
     });
   }
 

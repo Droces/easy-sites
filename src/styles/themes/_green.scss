@@ -1,4 +1,7 @@
 // Green
+.swatch[data-colour="green"] {
+  background-color: #138275; // green
+}
 .page[data-theme="green"] {
   section {
     &[data-colourStyle=""],

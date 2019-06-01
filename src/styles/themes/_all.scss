@@ -1,3 +1,20 @@
+.swatch {
+  color: transparent;
+  font-size: 0;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: lightgrey;
+  margin-right: 2px;
+  padding: 2px;
+  border: solid 2px transparent;
+  background-clip: content-box;
+
+  &.selected {
+    border-color: grey;
+  }
+}
 section {
   &[data-colourStyle=""],
   &[data-colourStyle="default"] {

@@ -12,6 +12,7 @@ import { BlockComponent } from './block/block.component';
 import { PagesListComponent } from './pages-list/pages-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PrimaryNavComponent } from './primary-nav/primary-nav.component';
+import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PrimaryNavComponent } from './primary-nav/primary-nav.component';
     BlockComponent,
     PagesListComponent,
     PageNotFoundComponent,
-    PrimaryNavComponent
+    PrimaryNavComponent,
+    ThemeSelectorComponent
   ],
   imports: [
     BrowserModule,

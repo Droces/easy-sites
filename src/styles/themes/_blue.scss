@@ -1,4 +1,7 @@
 // Blue
+.swatch[data-colour="blue"] {
+  background-color: #1e6c93; // blue
+}
 .page[data-theme="blue"] {
   section {
     &[data-colourStyle=""],

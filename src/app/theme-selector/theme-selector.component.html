@@ -1,0 +1,8 @@
+<h2>Theme</h2>
+<h3>Colour scheme</h3>
+<span *ngFor="let colour of settings.themeColours"
+  class="swatch"
+  [class.selected]="colour.name === settings.themeActiveColour"
+  [attr.data-colour]="colour.name"
+  (click)="changeTheme(colour.name)">
+  {{ colour.name }}</span>
