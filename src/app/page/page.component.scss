@@ -4,3 +4,9 @@ app-primary-nav {
   display: block;
   background: rgba(0, 0, 0, 0.07);
 }
+h1 > input {
+  font-size: inherit;
+  font-weight: inherit;
+  display: block;
+  width: 100%;
+}

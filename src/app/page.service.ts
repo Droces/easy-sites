@@ -31,8 +31,9 @@ export class PageService {
     return null;
   }
 
-  addPage(): void {
+  addPage(): number {
     this.pageIdCounter ++;
     this.pages.push({id: this.pageIdCounter, title: 'New page', sections: []});
+    return this.pageIdCounter;
   }
 }

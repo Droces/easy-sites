@@ -45,7 +45,8 @@ export class PagesListComponent implements OnInit {
   }
 
   addPage(): void {
-    this.pageService.addPage();
+    var id: number = this.pageService.addPage();
+    this.router.navigate(['page/' + id]);
   }
 
   up(page): void {

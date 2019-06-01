@@ -1,12 +1,13 @@
 $breakpoint: 800px;
 
 nav,
-h1,
+h1, .h1,
 section > .column {
   margin-left: auto;
   margin-right: auto;
   padding-left: 7%;
   padding-right: 7%;
+  box-sizing: content-box;
 
   @media all and (min-width: $breakpoint) {
     max-width: 1200px;

@@ -38,12 +38,21 @@ button.remove {
   top: 2px;
   right: 2px;
 }
+
+input.plain {
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+}
+
 app-page {
   flex: 1 1 auto;
 }
 
 $temp-border: dotted 2px lightgrey;
-section {
+app-section {
+  display: block;
   border-bottom: $temp-border;
   &:first-of-type {
     border-top: $temp-border;
