@@ -1,0 +1,7 @@
+<nav>
+  <ul class="pages">
+    <li *ngFor="let page of pages" [class.selected]="page.id === currentPageId">
+      <a routerLink="/page/{{ page.id }}" [innerHTML]="page.title"></a>
+    </li>
+  </ul>
+</nav>
