@@ -8,21 +8,31 @@ import { PAGES } from './mock-pages';
   providedIn: 'root'
 })
 export class PageService {
+  pages: Page[];
+  pageIdCounter: number;
 
-  constructor() { }
+  constructor() {
+    this.pages = PAGES;
+    this.pageIdCounter = 4;
+  }
 
   // getPage(): Page {}
 
   getPages(): Page[] {
-    return PAGES;
+    return this.pages;
   }
 
   getPage(id: number): Page {
-    for(let page of PAGES) {
+    for (let page of this.pages) {
       if (page.id == id) {
         return page;
       }
     }
     return null;
+  }
+
+  addPage(): void {
+    this.pageIdCounter ++;
+    this.pages.push({id: this.pageIdCounter, title: 'New page', sections: []});
   }
 }

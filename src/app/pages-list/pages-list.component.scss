@@ -4,6 +4,9 @@ ul.pages {
   li {
     list-style-type: none;
 
+    &.selected {
+      font-weight: bold;
+    }
     a {
       // text-decoration: none;
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { PageService } from '../page.service';
@@ -16,20 +16,27 @@ export class PageComponent implements OnInit {
   page: Page;
   theme: string;
 
-  constructor(public pageService: PageService,
+  constructor(
+    public pageService: PageService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location) {
   }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.getPage(id);
-    this.theme = "blue"
+    this.route.params.subscribe((params) => {
+      const id = +this.route.snapshot.paramMap.get('id');
+      this.getPage(id);
+      this.theme = "blue";
+    });
   }
 
   getPage(id: number): void {
-    // @todo use id
     this.page = this.pageService.getPage(id);
+    if (this.page == null) {
+      // Redirect to Not Found page
+      this.router.navigate(['**']);
+    }
   }
 
   changeTheme(): void {
