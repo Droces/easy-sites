@@ -8,6 +8,7 @@ import { SectionComponent } from './section/section.component';
 import { GroupComponent } from './group/group.component';
 import { BlockComponent } from './block/block.component';
 import { PagesListComponent } from './pages-list/pages-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PagesListComponent } from './pages-list/pages-list.component';
     SectionComponent,
     GroupComponent,
     BlockComponent,
-    PagesListComponent
+    PagesListComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
