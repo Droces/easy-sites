@@ -4,6 +4,7 @@ import { PagesListComponent } from './pages-list/pages-list.component';
 import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
 
 import { SettingsService } from './settings.service';
+import { PageService } from './page.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,10 @@ import { SettingsService } from './settings.service';
 export class AppComponent {
   title = 'easy-sites';
 
-  constructor(
-    public settings: SettingsService) {}
+  constructor(public settings: SettingsService,
+    public pageService: PageService) {}
+
+  exportData(): void {
+    alert(JSON.stringify(this.pageService.getPages()));
+  }
 }
