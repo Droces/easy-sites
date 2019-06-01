@@ -12,7 +12,7 @@ import { Page } from '../page';
 })
 export class PagesListComponent implements OnInit {
   pages: Page[];
-  currentPageId: Page;
+  currentPageId: number;
 
   constructor(
     public pageService: PageService,
@@ -44,7 +44,21 @@ export class PagesListComponent implements OnInit {
     }
   }
 
-  addPage() {
+  addPage(): void {
     this.pageService.addPage();
+  }
+
+  up(page): void {
+    var currentPos = this.pages.indexOf(page);
+    console.log('currentPos: ', currentPos);
+    if (currentPos <= 0) {
+      return null;
+    }
+    this.pages.splice(currentPos - 1, 0, this.pages.splice(currentPos, 1)[0]);
+  }
+  down(page): void {
+    var currentPos = this.pages.indexOf(page);
+    // No check needed for last section
+    this.pages.splice(currentPos + 1, 0, this.pages.splice(currentPos, 1)[0]);
   }
 }
