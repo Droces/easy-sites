@@ -41,3 +41,25 @@ button.remove {
 app-page {
   flex: 1 1 auto;
 }
+
+$temp-border: dotted 2px lightgrey;
+section {
+  border-bottom: $temp-border;
+  &:first-of-type {
+    border-top: $temp-border;
+  }
+  // &:hover {
+  //   border-style: solid;
+  //   border-color: #4285f4; // colour: blue
+  //   border-width: 2px 0;
+  // }
+}
+.block,
+.group {
+  // background: rgba(0, 0, 0, 0.07);
+  border: $temp-border;
+
+  // &:hover {
+  //   border: solid 2px #4285f4; // colour: blue
+  // }
+}
