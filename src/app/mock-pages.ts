@@ -7,7 +7,7 @@ export const PAGES: Page[] = [
   {id: 1, title: 'Home', sections: [
     {id: 2, colourStyle: 'default', groups: [
       {id: 3, blocks: [
-        {id: 4, content: "block"}
+        {id: 4, content: ""}
       ]}
     ]}
   ]}

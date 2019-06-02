@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+
 import { Block } from '../block';
 
 @Component({
@@ -14,10 +17,21 @@ export class BlockComponent implements OnInit {
   @Output() moveDown = new EventEmitter();
   @Output() removeBlock = new EventEmitter();
 
+  public editor = InlineEditor;
+  public config = {
+    placeholder: 'Click here to type.',
+    toolbar: [
+      "heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "insertTable"]
+  };
+  public editorReady( editor ) {
+    // console.log('editor toolbar items', Array.from(editor.ui.componentFactory.names()));
+  }
+
   constructor() { }
 
   ngOnInit() {
   }
+
 
   up(): void {
     this.moveUp.emit(this.block);

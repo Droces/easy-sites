@@ -72,3 +72,12 @@ app-section {
   //   border: solid 2px #4285f4; // colour: blue
   // }
 }
+
+/* -----------------------------------------------------------------------------
+ *                                                      CKEditor WYSiWYG editor
+ */
+.ck-toolbar {
+  button {
+    box-shadow: none;
+  }
+}

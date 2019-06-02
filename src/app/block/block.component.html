@@ -1,5 +1,14 @@
 <div class="block">
-  <p contenteditable="true">{{ block.content }}<p>
+  <!-- <p contenteditable="true">{{ block.content }}<p> -->
+
+  <ckeditor
+    [editor]="editor"
+    [(ngModel)]="block.content"
+    [config]="config"
+    data="<p>Click to type</p>"
+    (ready)="editorReady($event)">
+  </ckeditor>
+
   <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
   <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
   <button (click)="removeSelf()" class="remove icon">

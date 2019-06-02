@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
@@ -13,6 +11,9 @@ import { PagesListComponent } from './pages-list/pages-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PrimaryNavComponent } from './primary-nav/primary-nav.component';
 import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
+
+import { FormsModule } from '@angular/forms'; // <-- NgModel from this
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ThemeSelectorComponent } from './theme-selector/theme-selector.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
