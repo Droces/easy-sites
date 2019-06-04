@@ -59,6 +59,13 @@ export class PageService {
     return this.pageIdCounter;
   }
 
+  removePage(page): void {
+    var index = this.pages.indexOf(page);
+    if (index > -1) {
+      this.pages.splice(index, 1);
+    }
+  }
+
   fetchPage(be_id: string) {
     var url = this.settings.backend_page_get_url;
     url = url.replace('[id]', be_id);

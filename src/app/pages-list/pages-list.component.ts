@@ -26,12 +26,12 @@ export class PagesListComponent implements OnInit {
     this.router.events.subscribe(val=> {
       /* Only react if it's the final active route */
       if (val instanceof NavigationEnd) {
-        this.getCurrentPageId(val);
+        this.currentPageId = this.getCurrentPageId(val);
       }
     });
   }
 
-  getCurrentPageId(val): void {
+  getCurrentPageId(val): number {
     // console.log('this.router.url: ', this.router.url);
     /* Holds all params, queryParams, segments and fragments from the current (active) route */
     let currentUrlTree = this.router.parseUrl(this.router.url);
@@ -40,8 +40,9 @@ export class PagesListComponent implements OnInit {
     const segments = group.segments; // returns 2 segments 'team' and '33'
     // console.log('segments: ', segments);
     if (segments.length == 2 && segments[0].path == 'page') {
-      this.currentPageId = +segments[1].path;
+      return +segments[1].path;
     }
+    // @todo Else throw exception
   }
 
   addPage(): void {
@@ -49,9 +50,15 @@ export class PagesListComponent implements OnInit {
     this.router.navigate(['page/' + id]);
   }
 
+  removePage(page): void {
+    if (page.id == this.currentPageId) {
+      this.router.navigate(['page/1']);
+    }
+    this.pageService.removePage(page);
+  }
+
   up(page): void {
     var currentPos = this.pages.indexOf(page);
-    console.log('currentPos: ', currentPos);
     if (currentPos <= 0) {
       return null;
     }

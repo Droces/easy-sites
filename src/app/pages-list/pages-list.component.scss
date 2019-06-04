@@ -10,5 +10,9 @@ ul.pages {
     a {
       // text-decoration: none;
     }
+    button.remove {
+      float: right;
+      position: relative;
+    }
   }
 }

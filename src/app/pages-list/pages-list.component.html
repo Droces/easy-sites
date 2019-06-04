@@ -3,6 +3,8 @@
     <button (click)="up(page)" class="icon"><i class="material-icons">arrow_upward</i></button>
     <button (click)="down(page)" class="icon"><i class="material-icons">arrow_downward</i></button>
     <a routerLink="/page/{{ page.id }}" [innerHTML]="page.title"></a>
+    <button (click)="removePage(page)" class="remove icon">
+      <i class="material-icons">close</i></button>
   </li>
 </ul>
 <button (click)="addPage()">Add page</button>
