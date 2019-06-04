@@ -32,8 +32,12 @@ export class PageComponent implements OnInit {
   }
 
   getPage(id: number): void {
-    this.page = this.pageService.getPage(id);
-    if (this.page == null) {
+    var fetchedPage = this.pageService.getPage(id);
+    // console.log('fetchedPage: ', fetchedPage);
+    if (fetchedPage) {
+      this.page = fetchedPage;
+    }
+    else {
       // Redirect to Not Found page
       this.router.navigate(['**']);
     }

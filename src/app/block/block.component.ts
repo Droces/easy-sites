@@ -40,7 +40,6 @@ export class BlockComponent implements OnInit {
   onChange({ editor }: ChangeEvent) {
     this.httpService.currentState = 'Unsaved';
     const data = editor.getData();
-    console.log( data );
     this.pageService.savePage();
   }
 

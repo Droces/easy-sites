@@ -55,7 +55,14 @@ export class PageService {
 
   addPage(): number {
     this.pageIdCounter ++;
-    this.pages.push({id: this.pageIdCounter, be_id: '', title: 'New page', sections: []});
+    var newPage: Page = {
+      id: this.pageIdCounter,
+      be_id: '',
+      title: 'New page',
+      sections: []};
+
+    this.pages.push(newPage);
+    this.savePage(newPage, 'post');
     return this.pageIdCounter;
   }
 
@@ -72,8 +79,12 @@ export class PageService {
     return this.http.get(url);
   }
 
-  savePage() {
+  savePage(page: Page = null, method: string = 'patch') {
     clearTimeout(this.saveTimeout);
+
+    if (! page) {
+      page = this.currentPage;
+    }
 
     if (! this.settings.backend_session_token) {
       this.httpService.fetchToken().subscribe(data => {
@@ -84,25 +95,45 @@ export class PageService {
 
     this.saveTimeout = setTimeout(() => {
       this.httpService.currentState = 'Saving';
-      this.doSavePage(this.currentPage).subscribe((data) => {
+      this.doSavePage(page, method).subscribe((data) => {
+        data = JSON.parse(data).data;
         this.httpService.currentState = 'Saved';
+        if (method == 'post') {
+          page.be_id = data.id;
+        }
+
       });
     },3000);
   }
-  doSavePage(page) {
-    var url = this.settings.backend_page_patch_url;
-    url = url.replace('[id]', page.be_id);
+
+
+  doSavePage(page: Page, method: string) {
     var payload = {
       data: {
         type: "node--page",
-        id: page.be_id,
         attributes: {
           title: page.title,
           body: JSON.stringify(page.sections)
         }
       }
     };
+
+    var url: string;
+    if (method == 'patch') {
+      payload.data['id'] = page.be_id;
+      url = this.settings.backend_page_patch_url;
+      url = url.replace('[id]', page.be_id);
+    }
+    else if (method == 'post') {
+      url = this.settings.backend_page_post_url;
+    }
+
     // console.log('this.httpOptions: ', this.httpOptions);
-    return this.http.patch(url, payload, this.httpService.httpOptions);
+    if (method == 'patch') {
+      return this.http.patch(url, payload, this.httpService.httpOptions);
+    }
+    else if (method == 'post') {
+      return this.http.post(url, payload, this.httpService.httpOptions);
+    }
   }
 }
