@@ -14,6 +14,7 @@ import { ThemeSelectorComponent } from './theme-selector/theme-selector.componen
 
 import { FormsModule } from '@angular/forms'; // <-- NgModel from this
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
