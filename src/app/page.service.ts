@@ -9,8 +9,6 @@ import { DrupalPagesResponse } from './drupalPagesResponse';
 import { SettingsService } from './settings.service';
 import { HttpService } from './http.service';
 
-import { PAGES } from './mock-pages';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,8 +23,6 @@ export class PageService {
     public settings: SettingsService,
     public httpService: HttpService,
     private http: HttpClient) {
-
-    this.pages = PAGES;
   }
 
   ngOnInit(): void {
