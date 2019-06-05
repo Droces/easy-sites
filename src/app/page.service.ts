@@ -66,6 +66,11 @@ export class PageService {
     if (index > -1) {
       this.pages.splice(index, 1);
     }
+
+    var url = this.settings.backend_page_delete_url;
+    url = url.replace('[id]', page.id);
+    var request = this.http.delete(url, this.httpService.httpOptions);
+    request.subscribe(response => {});
   }
 
   fetchPages() {
@@ -83,8 +88,8 @@ export class PageService {
           sections: bodyParsed
         });
       }
-      this.router.navigate(['page/' + firstPageId]);
       // console.log('this.pages: ', this.pages);
+      this.router.navigate(['page/' + firstPageId]);
     });
   }
 
