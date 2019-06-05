@@ -73,6 +73,25 @@ export class PageService {
     }
   }
 
+  fetchPages() {
+    var url = this.settings.backend_pages_get_url;
+    this.http.get(url).subscribe(data => {
+      // console.log('data: ', data);
+      this.pages = [];
+      for (let page of data.data) {
+        var body: string = page.attributes.body.value;
+        var bodyParsed = JSON.parse(body.replace('/', ''));
+        this.pages.push({
+          id: 1,
+          be_id: page.id,
+          title: page.attributes.title,
+          sections: bodyParsed
+        });
+      }
+      console.log('this.pages: ', this.pages);
+    });
+  }
+
   fetchPage(be_id: string) {
     var url = this.settings.backend_page_get_url;
     url = url.replace('[id]', be_id);

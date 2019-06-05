@@ -19,6 +19,10 @@ export class AppComponent {
     public httpService: HttpService,
     public pageService: PageService) {}
 
+  ngOnInit(): void {
+    this.pageService.fetchPages();
+  }
+
   exportData(): void {
     alert(JSON.stringify(this.pageService.getPages()));
   }

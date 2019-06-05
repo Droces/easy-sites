@@ -11,7 +11,6 @@ import { Page } from '../page';
   styleUrls: ['./pages-list.component.scss']
 })
 export class PagesListComponent implements OnInit {
-  pages: Page[];
   currentPageId: number;
 
   constructor(
@@ -20,8 +19,6 @@ export class PagesListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.pages = this.pageService.getPages();
-
     /* This subscription will fire when the route changes */
     this.router.events.subscribe(val=> {
       /* Only react if it's the final active route */
@@ -58,15 +55,15 @@ export class PagesListComponent implements OnInit {
   }
 
   up(page): void {
-    var currentPos = this.pages.indexOf(page);
+    var currentPos = this.pageService.pages.indexOf(page);
     if (currentPos <= 0) {
       return null;
     }
-    this.pages.splice(currentPos - 1, 0, this.pages.splice(currentPos, 1)[0]);
+    this.pageService.pages.splice(currentPos - 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }
   down(page): void {
-    var currentPos = this.pages.indexOf(page);
+    var currentPos = this.pageService.pages.indexOf(page);
     // No check needed for last section
-    this.pages.splice(currentPos + 1, 0, this.pages.splice(currentPos, 1)[0]);
+    this.pageService.pages.splice(currentPos + 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }
 }
