@@ -15,6 +15,7 @@ import { Section } from '../section';
 })
 export class PageComponent implements OnInit {
   page: Page;
+  urlParamId: string;
 
   constructor(
     public settings: SettingsService,
@@ -26,20 +27,35 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const id = this.route.snapshot.paramMap.get('id');
-      this.getPage(id);
+      this.urlParamId = this.route.snapshot.paramMap.get('id');
+      // console.log('this.urlParamId: ', this.urlParamId);
+      this.getPage(this.urlParamId);
     });
+
+    document.addEventListener('pagesFetched', (event) => {
+      var fetchedPage = this.getPage(this.urlParamId);
+      if (! fetchedPage) {
+        // Redirect to Not Found page
+        this.router.navigate(['**']);
+      }
+    }, false);
+
+    this.page = {
+      id: '',
+      title: 'Loading pages...',
+      sections: []
+    };
   }
 
-  getPage(id: string): void {
+  getPage(id: string): Page {
     var fetchedPage = this.pageService.getPage(id);
     // console.log('fetchedPage: ', fetchedPage);
     if (fetchedPage) {
       this.page = fetchedPage;
+      return fetchedPage;
     }
     else {
-      // Redirect to Not Found page
-      this.router.navigate(['**']);
+      return null;
     }
   }
 

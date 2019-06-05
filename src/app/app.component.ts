@@ -14,13 +14,15 @@ import { PageService } from './page.service';
 })
 export class AppComponent {
   title = 'easy-sites';
+  pagesFetchedEvent = new Event('pagesFetched');
 
   constructor(public settings: SettingsService,
     public httpService: HttpService,
     public pageService: PageService) {}
 
   ngOnInit(): void {
-    this.pageService.fetchPages();
+    this.httpService.fetchToken();
+    this.pageService.fetchPages(this.pagesFetchedEvent);
   }
 
   exportData(): void {

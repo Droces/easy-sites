@@ -22,10 +22,17 @@ export class HttpService {
     public settings: SettingsService,
     private http: HttpClient) { }
 
-  fetchToken() {
+  ngOnInit(): void {}
+
+  fetchToken(): Observable<Object> {
     var options = this.httpOptions;
     options['responseType'] = 'text';
-    return this.http.get(this.settings.backend_token_url, options);
+    var request = this.http.get(this.settings.backend_token_url, options);
+    request.subscribe(data => {
+      // console.log('token: ', data);
+      this.saveToken(data);
+    });
+    return request;
   }
 
   saveToken(token) {

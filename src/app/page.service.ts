@@ -26,14 +26,6 @@ export class PageService {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const id = this.route.snapshot.paramMap.get('id');
-      this.getPage(id);
-    });
-
-    // this.fetchPage(this.page.id).subscribe((data) => {
-    //   console.log('this.pageFetched: ', this.pageFetched);
-    // });
   }
 
   getPages(): Page[] {
@@ -41,12 +33,17 @@ export class PageService {
   }
 
   getPage(id: string): Page {
+    if (typeof this.pages == 'undefined' || this.pages == []) {
+      return null;
+    }
+    // console.log('this.pages: ', this.pages);
     for (let page of this.pages) {
       if (page.id == id) {
         this.currentPage = page;
         return page;
       }
     }
+    // console.log('Page not found');
     return null;
   }
 
@@ -73,10 +70,10 @@ export class PageService {
     request.subscribe(response => {});
   }
 
-  fetchPages() {
+  fetchPages(pagesFetchedEvent) {
     var url = this.settings.backend_pages_get_url;
-    this.http.get(url).subscribe((response: DrupalPagesResponse) => {
-      console.log('response: ', response);
+    var request = this.http.get(url);
+    request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
       var firstPageId: string = response.data[0].id;
       for (let page of response.data) {
@@ -88,9 +85,10 @@ export class PageService {
           sections: bodyParsed
         });
       }
-      // console.log('this.pages: ', this.pages);
-      this.router.navigate(['page/' + firstPageId]);
+      document.dispatchEvent(pagesFetchedEvent);
+      // this.router.navigate(['page/' + firstPageId]);
     });
+    return request;
   }
 
   fetchPage(id: string) {
@@ -108,15 +106,14 @@ export class PageService {
     }
 
     if (! this.settings.backend_session_token) {
-      this.httpService.fetchToken().subscribe(data => {
-        // console.log('token: ', data);
-        this.httpService.saveToken(data);
-      });
+      this.httpService.fetchToken().subscribe(data => {});
     }
 
+    request = this.doSavePage(page, method);
+    // Call save method after at least 3 seconds
     this.saveTimeout = setTimeout(() => {
       this.httpService.currentState = 'Saving';
-      request = this.doSavePage(page, method).subscribe(data => {
+      request.subscribe(data => {
         if (typeof data == 'string') {
           var dataObj = JSON.parse(data).data;
           this.httpService.currentState = 'Saved';
@@ -158,7 +155,7 @@ export class PageService {
     if (method == 'patch') {
       return this.http.patch(url, payload, this.httpService.httpOptions);
     }
-    else if (method == 'post') {
+    else { // method == 'post'
       return this.http.post(url, payload, this.httpService.httpOptions);
     }
   }
