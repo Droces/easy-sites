@@ -7,9 +7,13 @@
     <h2>Pages</h2>
     <app-pages-list></app-pages-list>
 
+    <hr>
     <app-theme-selector></app-theme-selector>
 
-    <p><button (click)="exportData()">Export data</button></p>
-    <p>{{ httpService.currentState }}</p>
+    <hr>
+    <p><button (click)="exportData()">
+      <i class="material-icons">archive</i>
+      Export data</button></p>
+    <p id="saveState" class="subtle">{{ httpService.currentState }}</p>
   </aside>
 </div>

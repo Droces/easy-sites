@@ -32,6 +32,9 @@ button.icon {
     color: inherit;
   }
 }
+.material-icons {
+  vertical-align: middle;
+}
 
 button.remove {
   position: absolute;
@@ -71,6 +74,11 @@ app-section {
   // &:hover {
   //   border: solid 2px #4285f4; // colour: blue
   // }
+}
+.subtle {
+  font-size: 0.85em;
+  color: grey;
+  font-style: italic;
 }
 
 /* -----------------------------------------------------------------------------
