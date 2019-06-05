@@ -95,13 +95,17 @@ export class PageService {
 
     this.saveTimeout = setTimeout(() => {
       this.httpService.currentState = 'Saving';
-      this.doSavePage(page, method).subscribe((data) => {
-        data = JSON.parse(data).data;
-        this.httpService.currentState = 'Saved';
-        if (method == 'post') {
-          page.be_id = data.id;
+      this.doSavePage(page, method).subscribe(data => {
+        if (typeof data == 'string') {
+          var dataObj = JSON.parse(data).data;
+          this.httpService.currentState = 'Saved';
+          if (method == 'post') {
+            page.be_id = dataObj.id;
+          }
         }
-
+      },
+      error => {
+        this.httpService.handleError(error);
       });
     },3000);
   }
