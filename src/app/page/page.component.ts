@@ -44,7 +44,7 @@ export class PageComponent implements OnInit {
   }
 
   addSection(): void {
-    this.page.sections.push({ id: Date.now(), colourStyle: 'default', groups: []});
+    this.page.sections.push({colourStyle: 'default', groups: []});
   }
 
   removeSection(section: Section): void {

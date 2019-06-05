@@ -21,7 +21,7 @@ export class SectionComponent implements OnInit {
   }
 
   addGroup(): void {
-    this.section.groups.push({id: Date.now(), blocks: []});
+    this.section.groups.push({blocks: []});
   }
 
   changeColour(): void {

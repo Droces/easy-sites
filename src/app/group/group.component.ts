@@ -43,7 +43,7 @@ export class GroupComponent implements OnInit {
   }
 
   addBlock(): void {
-    this.group.blocks.push({id: Date.now(), content: "new block"});
+    this.group.blocks.push({content: "new block"});
   }
 
   // removeLastBlock(): void {
