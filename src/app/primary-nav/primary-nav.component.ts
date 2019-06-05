@@ -11,7 +11,7 @@ import { Page } from '../page';
   styleUrls: ['./primary-nav.component.scss']
 })
 export class PrimaryNavComponent implements OnInit {
-  currentPageId: number;
+  currentPageId: string;
 
   constructor(
     public pageService: PageService,
@@ -20,7 +20,7 @@ export class PrimaryNavComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.currentPageId = +this.route.snapshot.paramMap.get('id');
+      this.currentPageId = this.route.snapshot.paramMap.get('id');
     });
   }
 

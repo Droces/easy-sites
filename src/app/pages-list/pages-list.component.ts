@@ -11,7 +11,7 @@ import { Page } from '../page';
   styleUrls: ['./pages-list.component.scss']
 })
 export class PagesListComponent implements OnInit {
-  currentPageId: number;
+  currentPageId: string;
 
   constructor(
     public pageService: PageService,
@@ -28,7 +28,7 @@ export class PagesListComponent implements OnInit {
     });
   }
 
-  getCurrentPageId(val): number {
+  getCurrentPageId(val): string {
     // console.log('this.router.url: ', this.router.url);
     /* Holds all params, queryParams, segments and fragments from the current (active) route */
     let currentUrlTree = this.router.parseUrl(this.router.url);
@@ -37,19 +37,19 @@ export class PagesListComponent implements OnInit {
     const segments = group.segments; // returns 2 segments 'team' and '33'
     // console.log('segments: ', segments);
     if (segments.length == 2 && segments[0].path == 'page') {
-      return +segments[1].path;
+      return segments[1].path;
     }
     // @todo Else throw exception
   }
 
   addPage(): void {
-    var id: number = this.pageService.addPage();
+    var id: string = this.pageService.addPage();
     this.router.navigate(['page/' + id]);
   }
 
   removePage(page): void {
     if (page.id == this.currentPageId) {
-      this.router.navigate(['page/1']);
+      this.router.navigate(['page/' + this.pageService.pages[0].id]);
     }
     this.pageService.removePage(page);
   }

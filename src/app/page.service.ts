@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { Page } from './page';
+import { DrupalPagesResponse } from './drupalPagesResponse';
 
 import { SettingsService } from './settings.service';
 import { HttpService } from './http.service';
@@ -15,26 +17,25 @@ import { PAGES } from './mock-pages';
 export class PageService {
   pages: Page[];
   currentPage: Page;
-  pageIdCounter: number;
   saveTimeout;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     public settings: SettingsService,
     public httpService: HttpService,
     private http: HttpClient) {
 
     this.pages = PAGES;
-    this.pageIdCounter = 4;
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const id = +this.route.snapshot.paramMap.get('id');
+      const id = this.route.snapshot.paramMap.get('id');
       this.getPage(id);
     });
 
-    // this.fetchPage(this.page.be_id).subscribe((data) => {
+    // this.fetchPage(this.page.id).subscribe((data) => {
     //   console.log('this.pageFetched: ', this.pageFetched);
     // });
   }
@@ -43,7 +44,7 @@ export class PageService {
     return this.pages;
   }
 
-  getPage(id: number): Page {
+  getPage(id: string): Page {
     for (let page of this.pages) {
       if (page.id == id) {
         this.currentPage = page;
@@ -53,17 +54,15 @@ export class PageService {
     return null;
   }
 
-  addPage(): number {
-    this.pageIdCounter ++;
+  addPage(): string {
     var newPage: Page = {
-      id: this.pageIdCounter,
-      be_id: '',
+      id: 'temporary-id',
       title: 'New page',
       sections: []};
 
     this.pages.push(newPage);
     this.savePage(newPage, 'post');
-    return this.pageIdCounter;
+    return newPage.id;
   }
 
   removePage(page): void {
@@ -75,31 +74,33 @@ export class PageService {
 
   fetchPages() {
     var url = this.settings.backend_pages_get_url;
-    this.http.get(url).subscribe(data => {
-      // console.log('data: ', data);
+    this.http.get(url).subscribe((response: DrupalPagesResponse) => {
+      console.log('response: ', response);
       this.pages = [];
-      for (let page of data.data) {
+      var firstPageId: string = response.data[0].id;
+      for (let page of response.data) {
         var body: string = page.attributes.body.value;
         var bodyParsed = JSON.parse(body.replace('/', ''));
         this.pages.push({
-          id: 1,
-          be_id: page.id,
+          id: page.id,
           title: page.attributes.title,
           sections: bodyParsed
         });
       }
-      console.log('this.pages: ', this.pages);
+      this.router.navigate(['page/' + firstPageId]);
+      // console.log('this.pages: ', this.pages);
     });
   }
 
-  fetchPage(be_id: string) {
+  fetchPage(id: string) {
     var url = this.settings.backend_page_get_url;
-    url = url.replace('[id]', be_id);
+    url = url.replace('[id]', id);
     return this.http.get(url);
   }
 
   savePage(page: Page = null, method: string = 'patch') {
     clearTimeout(this.saveTimeout);
+    var request;
 
     if (! page) {
       page = this.currentPage;
@@ -114,12 +115,12 @@ export class PageService {
 
     this.saveTimeout = setTimeout(() => {
       this.httpService.currentState = 'Saving';
-      this.doSavePage(page, method).subscribe(data => {
+      request = this.doSavePage(page, method).subscribe(data => {
         if (typeof data == 'string') {
           var dataObj = JSON.parse(data).data;
           this.httpService.currentState = 'Saved';
           if (method == 'post') {
-            page.be_id = dataObj.id;
+            page.id = dataObj.id;
           }
         }
       },
@@ -127,6 +128,7 @@ export class PageService {
         this.httpService.handleError(error);
       });
     },3000);
+    return request;
   }
 
 
@@ -143,9 +145,9 @@ export class PageService {
 
     var url: string;
     if (method == 'patch') {
-      payload.data['id'] = page.be_id;
+      payload.data['id'] = page.id;
       url = this.settings.backend_page_patch_url;
-      url = url.replace('[id]', page.be_id);
+      url = url.replace('[id]', page.id);
     }
     else if (method == 'post') {
       url = this.settings.backend_page_post_url;

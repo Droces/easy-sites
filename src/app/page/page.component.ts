@@ -26,12 +26,12 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const id = +this.route.snapshot.paramMap.get('id');
+      const id = this.route.snapshot.paramMap.get('id');
       this.getPage(id);
     });
   }
 
-  getPage(id: number): void {
+  getPage(id: string): void {
     var fetchedPage = this.pageService.getPage(id);
     // console.log('fetchedPage: ', fetchedPage);
     if (fetchedPage) {
