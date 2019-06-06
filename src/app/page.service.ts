@@ -48,14 +48,25 @@ export class PageService {
   }
 
   addPage(): string {
-    var newPage: Page = {
-      id: 'temporary-id',
-      title: 'New page',
-      sections: []};
-
+    var newPage: Page = this.provideNewPage();
     this.pages.push(newPage);
     this.savePage(newPage, 'post');
     return newPage.id;
+  }
+
+  provideNewPage(): Page {
+    return {
+      id: '',
+      title: 'New page...',
+      sections: [{
+        colourStyle: 'blue',
+        groups: [{
+          blocks: [{
+            content: ''
+          }]
+        }]
+      }]
+    };
   }
 
   removePage(page): void {
@@ -75,15 +86,17 @@ export class PageService {
     var request = this.http.get(url);
     request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
-      var firstPageId: string = response.data[0].id;
-      for (let page of response.data) {
-        var body: string = page.attributes.body.value;
-        var bodyParsed = JSON.parse(body.replace('/', ''));
-        this.pages.push({
-          id: page.id,
-          title: page.attributes.title,
-          sections: bodyParsed
-        });
+      if (response.data.length) {
+        var firstPageId: string = response.data[0].id;
+        for (let page of response.data) {
+          var body: string = page.attributes.body.value;
+          var bodyParsed = JSON.parse(body.replace('/', ''));
+          this.pages.push({
+            id: page.id,
+            title: page.attributes.title,
+            sections: bodyParsed
+          });
+        }
       }
       document.dispatchEvent(pagesFetchedEvent);
       // this.router.navigate(['page/' + firstPageId]);

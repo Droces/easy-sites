@@ -33,10 +33,17 @@ export class PageComponent implements OnInit {
     });
 
     document.addEventListener('pagesFetched', (event) => {
-      var fetchedPage = this.getPage(this.urlParamId);
-      if (! fetchedPage) {
-        // Redirect to Not Found page
-        this.router.navigate(['**']);
+      // If there are saved pages
+      if (this.pageService.pages.length) {
+        var fetchedPage = this.getPage(this.urlParamId);
+        if (! fetchedPage) {
+          // Redirect to Not Found page
+          this.router.navigate(['**']);
+        }
+      }
+      else {
+        // Show a blank page ready for adding text
+        this.page = this.pageService.provideNewPage();
       }
     }, false);
 
