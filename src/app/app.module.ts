@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home.component';
 import { PageComponent } from './page/page.component';
 import { SectionComponent } from './section/section.component';
 import { GroupComponent } from './group/group.component';
@@ -19,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     PageComponent,
     SectionComponent,
     GroupComponent,

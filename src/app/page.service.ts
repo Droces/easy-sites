@@ -47,16 +47,15 @@ export class PageService {
     return null;
   }
 
-  addPage(): string {
+  addPage(): Page {
     var newPage: Page = this.provideNewPage();
     this.pages.push(newPage);
-    this.savePage(newPage, 'post');
-    return newPage.id;
+    return newPage;
   }
 
   provideNewPage(): Page {
     return {
-      id: '',
+      id: 'temporary-id',
       title: 'New page...',
       sections: [{
         colourStyle: 'blue',
@@ -81,7 +80,7 @@ export class PageService {
     request.subscribe(response => {});
   }
 
-  fetchPages(pagesFetchedEvent) {
+  fetchPages(pagesFetchedEvent: Event) {
     var url = this.settings.backend_pages_get_url;
     var request = this.http.get(url);
     request.subscribe((response: DrupalPagesResponse) => {
@@ -99,7 +98,6 @@ export class PageService {
         }
       }
       document.dispatchEvent(pagesFetchedEvent);
-      // this.router.navigate(['page/' + firstPageId]);
     });
     return request;
   }
@@ -114,17 +112,21 @@ export class PageService {
     clearTimeout(this.saveTimeout);
     var request;
 
-    if (! page) {
+    if (method == 'patch' && ! page) {
       page = this.currentPage;
     }
 
     if (! this.settings.backend_session_token) {
-      this.httpService.fetchToken().subscribe(data => {});
+      document.addEventListener('tokenFetched', (event) => {
+        this.savePage(page, method);
+      });
+      return null;
     }
 
     request = this.doSavePage(page, method);
     // Call save method after at least 3 seconds
     this.saveTimeout = setTimeout(() => {
+
       this.httpService.currentState = 'Saving';
       request.subscribe(data => {
         if (typeof data == 'string') {
@@ -132,12 +134,14 @@ export class PageService {
           this.httpService.currentState = 'Saved';
           if (method == 'post') {
             page.id = dataObj.id;
+            this.router.navigate(['page/' + dataObj.id]);
           }
         }
       },
       error => {
         this.httpService.handleError(error);
       });
+
     },3000);
     return request;
   }
@@ -164,12 +168,16 @@ export class PageService {
       url = this.settings.backend_page_post_url;
     }
 
-    // console.log('this.httpOptions: ', this.httpOptions);
+    // console.log('this.httpService.httpOptions: ', this.httpService.httpOptions);
     if (method == 'patch') {
       return this.http.patch(url, payload, this.httpService.httpOptions);
     }
     else { // method == 'post'
       return this.http.post(url, payload, this.httpService.httpOptions);
     }
+  }
+
+  navigateToFirstPage() {
+    this.router.navigate(['page/' + this.pages[0].id]);
   }
 }

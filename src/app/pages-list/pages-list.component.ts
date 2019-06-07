@@ -34,6 +34,15 @@ export class PagesListComponent implements OnInit {
     let currentUrlTree = this.router.parseUrl(this.router.url);
     // console.info(currentUrlTree);
     const group = currentUrlTree.root.children["primary"];
+    // console.log('group: ', group);
+
+    if (typeof group == 'undefined') {
+      document.addEventListener('pagesFetched', (event) => {
+        this.getCurrentPageId(val);
+      });
+      return null;
+    }
+
     const segments = group.segments; // returns 2 segments 'team' and '33'
     // console.log('segments: ', segments);
     if (segments.length == 2 && segments[0].path == 'page') {
@@ -43,8 +52,9 @@ export class PagesListComponent implements OnInit {
   }
 
   addPage(): void {
-    var id: string = this.pageService.addPage();
-    this.router.navigate(['page/' + id]);
+    var page: Page = this.pageService.addPage();
+    this.router.navigate(['page/' + page.id]);
+    var request = this.pageService.savePage(page, 'post');
   }
 
   removePage(page): void {

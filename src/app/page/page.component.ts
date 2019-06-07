@@ -26,19 +26,28 @@ export class PageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // When the current route changes (page load)
     this.route.params.subscribe((params) => {
       this.urlParamId = this.route.snapshot.paramMap.get('id');
       // console.log('this.urlParamId: ', this.urlParamId);
       this.getPage(this.urlParamId);
     });
 
+    // When the pages are first fetched
     document.addEventListener('pagesFetched', (event) => {
       // If there are saved pages
       if (this.pageService.pages.length) {
+        // If the URL is for a valid page, navigate to it
         var fetchedPage = this.getPage(this.urlParamId);
         if (! fetchedPage) {
-          // Redirect to Not Found page
-          this.router.navigate(['**']);
+          // console.log('this.route.snapshot: ', this.route.snapshot);
+          if (this.route.snapshot.routeConfig.path == "") {
+            this.pageService.navigateToFirstPage();
+          }
+          else {
+            // Redirect to Not Found page
+            this.router.navigate(['**']);
+          }
         }
       }
       else {
@@ -46,12 +55,6 @@ export class PageComponent implements OnInit {
         this.page = this.pageService.provideNewPage();
       }
     }, false);
-
-    this.page = {
-      id: '',
-      title: 'Loading pages...',
-      sections: []
-    };
   }
 
   getPage(id: string): Page {

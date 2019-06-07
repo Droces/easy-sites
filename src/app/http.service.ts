@@ -24,13 +24,13 @@ export class HttpService {
 
   ngOnInit(): void {}
 
-  fetchToken(): Observable<Object> {
+  fetchToken(tokenFetchedEvent: Event): Observable<Object> {
     var options = this.httpOptions;
     options['responseType'] = 'text';
     var request = this.http.get(this.settings.backend_token_url, options);
     request.subscribe(data => {
-      // console.log('token: ', data);
       this.saveToken(data);
+      document.dispatchEvent(tokenFetchedEvent);
     });
     return request;
   }
