@@ -69,6 +69,10 @@ export class PageComponent implements OnInit {
     }
   }
 
+  savePage(): void {
+    this.pageService.savePage();
+  }
+
   addSection(): void {
     this.page.sections.push({colourStyle: 'default', groups: []});
   }
