@@ -108,7 +108,7 @@ export class PageService {
     return this.http.get(url);
   }
 
-  savePage(page: Page = null, method: string = 'patch') {
+  savePage(page: Page = null, method: string = 'patch', delay: number = 3) {
     clearTimeout(this.saveTimeout);
     var request;
 
@@ -142,7 +142,7 @@ export class PageService {
         this.httpService.handleError(error);
       });
 
-    },3000);
+    }, delay * 1000);
     return request;
   }
 

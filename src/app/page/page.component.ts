@@ -70,7 +70,7 @@ export class PageComponent implements OnInit {
   }
 
   savePage(): void {
-    this.pageService.savePage();
+    this.pageService.savePage(null, 'patch', 0);
   }
 
   addSection(): void {
