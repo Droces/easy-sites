@@ -7,8 +7,8 @@ import { Page } from './page';
 
 @Component({
   selector: 'app-home',
-  template: '<h1>Loading</h1>',
-  styleUrls: []
+  template: '<h1>Loading&hellip;</h1>',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -25,11 +25,15 @@ export class HomeComponent implements OnInit {
         this.pageService.navigateToFirstPage();
       }
       else {
-        // Show a blank page ready for adding text
-        var page: Page = this.pageService.addPage();
-        this.router.navigate(['page/' + page.id]);
-        var request = this.pageService.savePage(page, 'post');
+        this.showBlankPage();
       }
     }, false);
+  }
+
+  showBlankPage() {
+    // Show a blank page ready for adding text
+    var page: Page = this.pageService.addPage();
+    this.router.navigate(['page/' + page.id]);
+    var request = this.pageService.savePage(page, 'post');
   }
 }
