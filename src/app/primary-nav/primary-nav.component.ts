@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
+import { SettingsService } from '../settings.service';
 import { PageService } from '../page.service';
 
 import { Page } from '../page';
@@ -14,6 +15,7 @@ export class PrimaryNavComponent implements OnInit {
   currentPageId: string;
 
   constructor(
+    public settings: SettingsService,
     public pageService: PageService,
     private route: ActivatedRoute,
     private router: Router) { }

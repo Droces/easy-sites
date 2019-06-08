@@ -1,3 +1,11 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+
+  & > * {
+    flex: 0 1 auto;
+  }
+}
 nav ul {
   display: flex;
   justify-content: flex-end;
@@ -18,4 +26,8 @@ nav ul {
       color: inherit;
     }
   }
+}
+.siteName {
+  display: flex;
+  align-items: center;
 }

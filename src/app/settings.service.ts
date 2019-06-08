@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SettingsService {
+  siteName = 'Demo site';
+
   themeColours = [
     {name: 'blue', hex: '#1e6c93'},
     {name: 'green', hex: '#138275'}
