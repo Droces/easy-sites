@@ -1,7 +1,5 @@
 $header-height: 50px;
 header {
-  background: #3f51b5; // blue
-  color: white;
   height: $header-height;
 
   & > [role="presentation"] {
@@ -40,7 +38,8 @@ header {
 }
 
 aside {
-  border-left: solid 1px #dadada;
+  // border-left: solid 1px #dadada;
+  border-top: solid 3px #1f272b;
   padding-left: 20px;
   padding-right: 20px;
 
