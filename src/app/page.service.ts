@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Page } from './page';
+import { Page } from './structureComponents/page';
 import { DrupalPagesResponse } from './drupalPagesResponse';
 
 import { SettingsService } from './settings.service';

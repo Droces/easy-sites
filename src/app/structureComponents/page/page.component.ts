@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { PageService } from '../page.service';
-import { SettingsService } from '../settings.service';
+import { PageService } from '../../page.service';
+import { SettingsService } from '../../settings.service';
 
 import { Page } from '../page';
 import { Section } from '../section';

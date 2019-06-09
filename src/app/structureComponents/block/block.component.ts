@@ -3,8 +3,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
-import { PageService } from '../page.service';
-import { HttpService } from '../http.service';
+import { PageService } from '../../page.service';
+import { HttpService } from '../../http.service';
 
 import { Block } from '../block';
 

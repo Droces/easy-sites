@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { PageService } from './page.service';
 
-import { Page } from './page';
+import { Page } from './structureComponents/page';
 
 @Component({
   selector: 'app-home',

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { SettingsService } from '../settings.service';
 import { PageService } from '../page.service';
 
-import { Page } from '../page';
+import { Page } from '../structureComponents/page';
 
 @Component({
   selector: 'app-primary-nav',
