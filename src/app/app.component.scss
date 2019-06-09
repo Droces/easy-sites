@@ -1,11 +1,28 @@
-.es-title {
-  margin-top: 0;
-  margin-bottom: 0;
-}
+$header-height: 50px;
 header {
   background: #3f51b5; // blue
   color: white;
-  padding: 20px;
+  height: $header-height;
+
+  & > [role="presentation"] {
+    display: flex;
+    justify-content: space-between;
+
+    & > * {
+      flex: 0 1 auto;
+      height: $header-height;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .tabs li {
+    height: $header-height;
+    box-sizing: border-box;
+  }
+}
+.es-title {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 [id="main-and-sidebar"] {
   display: flex;

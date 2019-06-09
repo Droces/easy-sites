@@ -111,6 +111,28 @@ app-section {
   font-style: italic;
 }
 
+.tabs,
+.menu {
+  margin: 0;
+  padding-left: 0;
+
+  li {
+    list-style-type: none;
+  }
+}
+.tabs {
+  li {
+    border-width: 3px 0;
+    border-style: solid;
+    border-color: transparent;
+    padding: 0.5em 1em;
+
+    &[aria-selected="true"] {
+      border-bottom-color: rgba(white, 1);
+    }
+  }
+}
+
 /* -----------------------------------------------------------------------------
  *                                                      CKEditor WYSiWYG editor
  */
