@@ -10,6 +10,7 @@ import { Group } from '../group';
 })
 export class SectionComponent implements OnInit {
   @Input() section: Section;
+  @Input() sectionsInPage: number;
 
   @Output() moveUp = new EventEmitter();
   @Output() moveDown = new EventEmitter();

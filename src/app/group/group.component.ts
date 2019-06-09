@@ -10,6 +10,7 @@ import { Block } from '../block';
 })
 export class GroupComponent implements OnInit {
   @Input() group: Group;
+  @Input() groupsInSection: number;
 
   @Output() moveLeft = new EventEmitter();
   @Output() moveRight = new EventEmitter();

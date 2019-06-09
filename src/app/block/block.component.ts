@@ -15,6 +15,7 @@ import { Block } from '../block';
 })
 export class BlockComponent implements OnInit {
   @Input() block: Block;
+  @Input() blocksInGroup: number;
 
   @Output() moveUp = new EventEmitter();
   @Output() moveDown = new EventEmitter();

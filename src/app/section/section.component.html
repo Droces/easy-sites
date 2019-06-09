@@ -3,6 +3,7 @@
     <div class="groups">
       <app-group *ngFor="let group of section.groups"
         [group]="group"
+        [groupsInSection]="section.groups.length"
         (moveLeft)="moveGroupLeft(group)"
         (moveRight)="moveGroupRight(group)"
         (removeGroup)="removeGroup(group)">
@@ -14,8 +15,10 @@
 
   <!-- <button (click)="removeLastGroup()">-</button> -->
   <button (click)="changeColour()" class="icon"><i class="material-icons">palette</i></button>
-  <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
-  <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
+  <div *ngIf="sectionsInPage > 1">
+    <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
+    <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
+  </div>
   <button (click)="removeSelf()" class="remove icon">
     <i class="material-icons">close</i></button>
 </section>
