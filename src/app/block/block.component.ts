@@ -21,21 +21,28 @@ export class BlockComponent implements OnInit {
   @Output() moveDown = new EventEmitter();
   @Output() removeBlock = new EventEmitter();
 
+  isActive: boolean = false;
+
   public editor = InlineEditor;
   public config = {
     placeholder: 'Click here to type.',
     toolbar: [
       "heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "insertTable"]
   };
-  public editorReady( editor ) {
-    // console.log('editor toolbar items', Array.from(editor.ui.componentFactory.names()));
-  }
 
   constructor(
     public httpService: HttpService,
     public pageService: PageService) { }
 
   ngOnInit() {
+  }
+
+  toggleActive(isActive: boolean): void {
+    this.isActive = isActive;
+  }
+
+  public editorReady( editor ) {
+    // console.log('editor toolbar items', Array.from(editor.ui.componentFactory.names()));
   }
 
   onChange({ editor }: ChangeEvent) {

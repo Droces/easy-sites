@@ -16,9 +16,15 @@ export class SectionComponent implements OnInit {
   @Output() moveDown = new EventEmitter();
   @Output() removeSection = new EventEmitter();
 
+  isActive: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleActive(isActive: boolean): void {
+    this.isActive = isActive;
   }
 
   addGroup(): void {

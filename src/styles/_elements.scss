@@ -36,10 +36,32 @@ button.icon {
   vertical-align: middle;
 }
 
+button.colour {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+}
 button.remove {
   position: absolute;
   top: 2px;
   right: 2px;
+}
+button.add {
+  padding: 1em;
+  display: block;
+  border: solid 0 #d1d1d1;
+  box-sizing: border-box;
+  height: auto;
+  width: auto;
+
+  &.horizontal {
+    width: 100%;
+    text-align: center;
+    border-top-width: 1px;
+  }
+  &.vertical {
+    border-left-width: 1px;
+  }
 }
 
 input.plain {
@@ -53,7 +75,15 @@ app-page {
   flex: 1 1 auto;
 }
 
-$temp-border: dotted 2px lightgrey;
+.section,
+.group,
+.block {
+  &.active {
+    border: solid 2px #c32121; // colour: red
+  }
+}
+
+$temp-border: none; // dotted 2px lightgrey;
 app-section {
   display: block;
   border-bottom: $temp-border;

@@ -16,9 +16,15 @@ export class GroupComponent implements OnInit {
   @Output() moveRight = new EventEmitter();
   @Output() removeGroup = new EventEmitter();
 
+  isActive: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleActive(isActive: boolean): void {
+    this.isActive = isActive;
   }
 
   left(): void {

@@ -1,4 +1,6 @@
-<section id="{{ section.id }}" [attr.data-colourStyle]="section.colourStyle">
+<section id="{{ section.id }}" class="section"
+  [ngClass]="{'active': isActive}"
+  [attr.data-colourStyle]="section.colourStyle">
   <div class="column">
     <div class="groups">
       <app-group *ngFor="let group of section.groups"
@@ -8,17 +10,20 @@
         (moveRight)="moveGroupRight(group)"
         (removeGroup)="removeGroup(group)">
       </app-group>
-      <button id="add_group" (click)="addGroup()" class="icon">
+      <button id="add_group" (click)="addGroup()" class="icon add vertical">
         <i class="material-icons">add</i></button>
     </div>
   </div>
 
   <!-- <button (click)="removeLastGroup()">-</button> -->
-  <button (click)="changeColour()" class="icon"><i class="material-icons">palette</i></button>
+  <button (click)="changeColour()" class="icon colour"><i class="material-icons">palette</i></button>
   <div *ngIf="sectionsInPage > 1">
     <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
     <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
   </div>
-  <button (click)="removeSelf()" class="remove icon">
+  <button class="remove icon"
+    (click)="removeSelf()"
+    (mouseenter)="toggleActive(true)"
+    (mouseleave)="toggleActive(false)">
     <i class="material-icons">close</i></button>
 </section>

@@ -1,4 +1,5 @@
-<div class="group">
+<div class="group"
+  [ngClass]="{'active': isActive}">
   <app-block *ngFor="let block of group.blocks"
     [block]="block"
     [blocksInGroup]="group.blocks.length"
@@ -6,10 +7,13 @@
     (moveDown)="moveBlockDown(block)"
     (removeBlock)="removeBlock(block)">
   </app-block>
-  <button (click)="addBlock()" class="icon">
+  <button (click)="addBlock()" class="icon add horizontal">
     <i class="material-icons">add</i></button>
   <!-- <button (click)="removeLastBlock()">-</button> -->
-  <button (click)="removeSelf()" class="remove icon">
+  <button class="remove icon"
+    (click)="removeSelf()"
+    (mouseenter)="toggleActive(true)"
+    (mouseleave)="toggleActive(false)">
     <i class="material-icons">close</i></button>
 
   <div *ngIf="groupsInSection > 1">
