@@ -5,7 +5,7 @@
     [blocksInGroup]="group.blocks.length"
     (moveUp)="moveBlockUp(block)"
     (moveDown)="moveBlockDown(block)"
-    (removeBlock)="removeBlock(block)">
+    (remove)="removeBlock(block)">
   </app-block>
   <button (click)="addBlock()" class="icon add horizontal">
     <i class="material-icons">add</i></button>
@@ -17,7 +17,7 @@
     <i class="material-icons">close</i></button>
 
   <div *ngIf="groupsInSection > 1">
-    <button (click)="left()" class="icon"><i class="material-icons">arrow_back</i></button>
-    <button (click)="right()" class="icon"><i class="material-icons">arrow_forward</i></button>
+    <button (click)="up()" class="icon"><i class="material-icons">arrow_back</i></button>
+    <button (click)="down()" class="icon"><i class="material-icons">arrow_forward</i></button>
   </div>
 </div>

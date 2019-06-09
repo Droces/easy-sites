@@ -7,13 +7,14 @@ import { SettingsService } from '../../settings.service';
 
 import { Page } from '../page';
 import { Section } from '../section';
+import { StructureComponentBase } from '../structureComponentBase.component';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent implements OnInit {
+export class PageComponent extends StructureComponentBase implements OnInit {
   page: Page;
   urlParamId: string;
 
@@ -23,6 +24,7 @@ export class PageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location) {
+    super();
   }
 
   ngOnInit(): void {
@@ -81,10 +83,6 @@ export class PageComponent implements OnInit {
     var currentPos = this.page.sections.indexOf(section);
     this.page.sections.splice(currentPos, 1);
   }
-
-  // removeLastSection(): void {
-  //   this.page.sections.pop();
-  // }
 
   moveSectionUp(section: Section) {
     var currentPos = this.page.sections.indexOf(section);

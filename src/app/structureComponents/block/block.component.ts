@@ -7,39 +7,33 @@ import { PageService } from '../../page.service';
 import { HttpService } from '../../http.service';
 
 import { Block } from '../block';
+import { StructureComponentBase } from '../structureComponentBase.component';
 
 @Component({
   selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit {
+export class BlockComponent extends StructureComponentBase implements OnInit {
   @Input() block: Block;
   @Input() blocksInGroup: number;
-
-  @Output() moveUp = new EventEmitter();
-  @Output() moveDown = new EventEmitter();
-  @Output() removeBlock = new EventEmitter();
-
-  isActive: boolean = false;
 
   public editor = InlineEditor;
   public config = {
     placeholder: 'Click here to type.',
     toolbar: [
-      "heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "insertTable"]
+      "heading", "|", "bold", "italic", "link", "bulletedList", "numberedList",
+      "insertTable"
+    ]
   };
 
   constructor(
     public httpService: HttpService,
-    public pageService: PageService) { }
-
-  ngOnInit() {
+    public pageService: PageService) {
+    super();
   }
 
-  toggleActive(isActive: boolean): void {
-    this.isActive = isActive;
-  }
+  ngOnInit() { }
 
   public editorReady( editor ) {
     // console.log('editor toolbar items', Array.from(editor.ui.componentFactory.names()));
@@ -49,17 +43,5 @@ export class BlockComponent implements OnInit {
     this.httpService.currentState = 'Unsaved';
     const data = editor.getData();
     this.pageService.savePage();
-  }
-
-  up(): void {
-    this.moveUp.emit(this.block);
-  }
-
-  down(): void {
-    this.moveDown.emit(this.block);
-  }
-
-  removeSelf(): void {
-    this.removeBlock.emit(this.block);
   }
 }

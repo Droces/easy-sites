@@ -6,9 +6,9 @@
       <app-group *ngFor="let group of section.groups"
         [group]="group"
         [groupsInSection]="section.groups.length"
-        (moveLeft)="moveGroupLeft(group)"
-        (moveRight)="moveGroupRight(group)"
-        (removeGroup)="removeGroup(group)">
+        (moveUp)="moveGroupLeft(group)"
+        (moveDown)="moveGroupRight(group)"
+        (remove)="removeGroup(group)">
       </app-group>
       <button id="add_group" (click)="addGroup()" class="icon add vertical">
         <i class="material-icons">add</i></button>

@@ -2,38 +2,22 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Group } from '../group';
 import { Block } from '../block';
+import { StructureComponentBase } from '../structureComponentBase.component';
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent extends StructureComponentBase implements OnInit {
   @Input() group: Group;
   @Input() groupsInSection: number;
 
-  @Output() moveLeft = new EventEmitter();
-  @Output() moveRight = new EventEmitter();
-  @Output() removeGroup = new EventEmitter();
-
-  isActive: boolean = false;
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    super();
   }
 
-  toggleActive(isActive: boolean): void {
-    this.isActive = isActive;
-  }
-
-  left(): void {
-    this.moveLeft.emit(this.group);
-  }
-
-  right(): void {
-    this.moveRight.emit(this.group);
-  }
+  ngOnInit() { }
 
   moveBlockUp(block: Block) {
     var currentPos = this.group.blocks.indexOf(block);
@@ -51,14 +35,6 @@ export class GroupComponent implements OnInit {
 
   addBlock(): void {
     this.group.blocks.push({content: "new block"});
-  }
-
-  // removeLastBlock(): void {
-  //   this.group.blocks.pop();
-  // }
-
-  removeSelf(): void {
-    this.removeGroup.emit(this.group);
   }
 
   removeBlock(block: Block): void {
