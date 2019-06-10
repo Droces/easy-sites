@@ -37,6 +37,12 @@ header {
   }
 }
 
+#main-and-sidebar {
+  height: calc(100vh - #{$header-height});
+  flex-grow: 1;
+  overflow: auto;
+}
+
 aside {
   // border-left: solid 1px #dadada;
   border-top: solid 3px #1f272b;

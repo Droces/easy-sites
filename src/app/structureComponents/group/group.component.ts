@@ -34,7 +34,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   }
 
   addBlock(): void {
-    this.group.blocks.push({content: "new block"});
+    this.group.blocks.push({content: ""});
   }
 
   removeBlock(block: Block): void {

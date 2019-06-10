@@ -1,14 +1,23 @@
 // Green
+$green: #138275;
 .swatch[data-colour="green"] {
-  background-color: #138275; // green
+  background-color: $green;
 }
 .page[data-theme="green"] {
+  app-primary-nav {
+    background-color: $green;
+    color: white;
+
+    a {
+      color: inherit;
+    }
+  }
   section {
     &[data-colourStyle=""],
     &[data-colourStyle="default"],
     &[data-colourStyle="emphasis1"] {
       h1, h2 {
-        color: #138275; // green
+        color: $green;
       }
     }
     &[data-colourStyle=""],
@@ -18,7 +27,7 @@
       background: #f2f2f2; // pale grey
     }
     &[data-colourStyle="emphasis2"] {
-      background: #138275; // green
+      background: $green;
     }
   }
 }

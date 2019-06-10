@@ -14,6 +14,33 @@ section > .column {
     max-width: 1200px;
   }
 }
+html, body {
+  height: 100%;
+}
+app-root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+aside {
+  h2, h3, h4 {
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1em;
+  }
+}
+
+app-page {
+  display: block;
+  height: 100%;
+  overflow: auto;
+}
+
 
 @mixin dark-blue {
   background-color: #252e33;
@@ -41,16 +68,4 @@ section > .column {
 header,
 aside {
   @include dark-blue;
-}
-
-aside {
-  h2, h3, h4 {
-    text-transform: uppercase;
-  }
-  h2 {
-    font-size: 1.2em;
-  }
-  h3 {
-    font-size: 1em;
-  }
 }

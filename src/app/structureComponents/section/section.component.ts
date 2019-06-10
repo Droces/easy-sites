@@ -21,10 +21,16 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
   }
 
   addGroup(): void {
-    this.section.groups.push({blocks: []});
+    var newGroup = {
+      blocks: [{
+        content: ''
+      }]
+    };
+    this.section.groups.push(newGroup);
   }
 
   changeColour(): void {
+    console.log(this.section.colourStyle);
     switch (this.section.colourStyle) {
       case 'default': {
         this.section.colourStyle = "emphasis1";
@@ -35,6 +41,10 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
         break;
       }
       case 'emphasis2': {
+        this.section.colourStyle = "default";
+        break;
+      }
+      default: {
         this.section.colourStyle = "default";
         break;
       }

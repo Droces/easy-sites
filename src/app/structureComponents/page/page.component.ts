@@ -76,7 +76,15 @@ export class PageComponent extends StructureComponentBase implements OnInit {
   }
 
   addSection(): void {
-    this.page.sections.push({colourStyle: 'default', groups: []});
+    var newSection = {
+      colourStyle: 'default',
+      groups: [{
+        blocks: [{
+          content: ''
+        }]
+      }]
+    };
+    this.page.sections.push(newSection);
   }
 
   removeSection(section: Section): void {

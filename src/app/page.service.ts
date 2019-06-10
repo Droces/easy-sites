@@ -58,7 +58,7 @@ export class PageService {
       id: 'temporary-id',
       title: 'New page...',
       sections: [{
-        colourStyle: 'blue',
+        colourStyle: 'default',
         groups: [{
           blocks: [{
             content: ''
