@@ -24,6 +24,8 @@ export class AppComponent {
   ngOnInit(): void {
     this.httpService.fetchToken(this.tokenFetchedEvent);
     this.pageService.fetchPages(this.pagesFetchedEvent);
+
+    this.httpService.fetchCurrentUserId();
   }
 
   exportData(): void {

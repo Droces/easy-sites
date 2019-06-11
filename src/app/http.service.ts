@@ -25,8 +25,10 @@ export class HttpService {
   ngOnInit(): void {}
 
   fetchToken(tokenFetchedEvent: Event): Observable<Object> {
-    var options = this.httpOptions;
-    options['responseType'] = 'text';
+    var options = {
+      withCredentials: true,
+      responseType: 'text'
+    };
     var request = this.http.get(this.settings.backend_token_url, options);
     request.subscribe(data => {
       this.saveToken(data);
@@ -55,5 +57,32 @@ export class HttpService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
+  };
+
+  fetchCurrentUserId() {
+    var request = this.http.get(this.settings.backend_base_url + '/jsonapi/', this.httpOptions);
+    request.subscribe(data => {
+      var userId = data.meta.links.me.meta.id;
+      console.log('userId: ', userId);
+      // @todo check that this is a valid id
+      this.settings.currentUserId = userId;
+
+
+      this.fetchCurrentUser();
+    });
+    return request;
+  };
+
+  fetchCurrentUser() {
+    var url = this.settings.backend_base_url + '/jsonapi/user/user/' + this.settings.currentUserId;
+    var request = this.http.get(url, this.httpOptions);
+    request.subscribe(data => {
+      console.log('data: ', data);
+      // this.settings.currentUserId = userId;
+      var name = data.data.attributes.name;
+      console.log('name: ', name);
+      this.settings.currentUserName = name;
+    });
+    return request;
   };
 }
