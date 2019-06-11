@@ -1,5 +1,6 @@
-<main class="page"
-    [attr.data-theme]="settings.themeActiveColour">
+<main *ngIf="page;else loading"
+  class="page"
+  [attr.data-theme]="settings.themeActiveColour">
   <app-primary-nav></app-primary-nav>
   <!-- <h1 contenteditable [innerHTML]="page.title"></h1> -->
   <h1><input
@@ -20,3 +21,6 @@
       <i class="material-icons">add</i></button>
   <!-- <button (click)="removeLastSection()">-</button> -->
 </main>
+<ng-template #loading>
+  <h1 class="subtle">Loading&hellip;</h1>
+</ng-template>

@@ -1,4 +1,5 @@
-<div class="group"
+<div *ngIf="group"
+  class="group"
   [ngClass]="{'active': isActive}">
   <app-block *ngFor="let block of group.blocks"
     [block]="block"

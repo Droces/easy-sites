@@ -1,4 +1,6 @@
-<section id="{{ section.id }}" class="section"
+<section *ngIf="section"
+  id="{{ section.id }}"
+  class="section"
   [ngClass]="{'active': isActive}"
   [attr.data-colourStyle]="section.colourStyle">
   <div class="column">
