@@ -24,12 +24,12 @@ export class HttpService {
 
   ngOnInit(): void {}
 
-  fetchToken(tokenFetchedEvent: Event): Observable<Object> {
-    var options = {
-      withCredentials: true,
-      responseType: 'text'
+  fetchToken(tokenFetchedEvent: Event): Observable<string> {
+    const options: Object = {
+      responseType: "text",
+      withCredentials: true
     };
-    var request = this.http.get(this.settings.backend_token_url, options);
+    var request: Observable<string> = this.http.get<string>(this.settings.backend_token_url, options);
     request.subscribe(data => {
       this.saveToken(data);
       document.dispatchEvent(tokenFetchedEvent);
@@ -37,12 +37,12 @@ export class HttpService {
     return request;
   }
 
-  saveToken(token) {
+  saveToken(token): void {
     this.settings.backend_session_token = token;
     this.httpOptions.headers = this.httpOptions.headers.set('x-csrf-token', token);
   }
 
-  handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -59,30 +59,36 @@ export class HttpService {
       'Something bad happened; please try again later.');
   };
 
-  fetchCurrentUserId() {
-    var request = this.http.get(this.settings.backend_base_url + '/jsonapi/', this.httpOptions);
+  fetchCurrentUserId(): Observable<Object> {
+    var url: string = this.settings.backend_base_url + '/jsonapi/';
+    var request: Observable<any> = this.http.get(url, this.httpOptions);
     request.subscribe(data => {
+      if (! data.hasOwnProperty('meta')) {
+        // alert('You are not logged in');
+        return null;
+      }
       var userId = data.meta.links.me.meta.id;
-      console.log('userId: ', userId);
+      // console.log('userId: ', userId);
       // @todo check that this is a valid id
       this.settings.currentUserId = userId;
-
 
       this.fetchCurrentUser();
     });
     return request;
   };
 
-  fetchCurrentUser() {
-    var url = this.settings.backend_base_url + '/jsonapi/user/user/' + this.settings.currentUserId;
-    var request = this.http.get(url, this.httpOptions);
+  fetchCurrentUser(): Observable<Object> {
+    var url: string = this.settings.backend_base_url + '/jsonapi/user/user/' + this.settings.currentUserId;
+    var request: Observable<any> = this.http.get(url, this.httpOptions);
     request.subscribe(data => {
-      console.log('data: ', data);
-      // this.settings.currentUserId = userId;
-      var name = data.data.attributes.name;
-      console.log('name: ', name);
-      this.settings.currentUserName = name;
+      this.saveUserDrupal(data.data);
     });
     return request;
   };
+
+  saveUserDrupal(data): void {
+    // console.log('data: ', data);
+    var name: string = data.attributes.name;
+    this.settings.currentUserName = name;
+  }
 }

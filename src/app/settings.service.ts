@@ -23,6 +23,7 @@ export class SettingsService {
   backend_page_get_url =    this.backend_base_url + "/jsonapi/node/page/[id]";
   backend_page_patch_url =  this.backend_base_url + "/jsonapi/node/page/[id]";
   backend_page_delete_url = this.backend_base_url + "/jsonapi/node/page/[id]";
+  backend_login_page_url =  this.backend_base_url + "/user/login";
 
   constructor() { }
 }

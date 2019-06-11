@@ -80,9 +80,9 @@ export class PageService {
     request.subscribe(response => {});
   }
 
-  fetchPages(pagesFetchedEvent: Event) {
-    var url = this.settings.backend_pages_get_url;
-    var request = this.http.get(url);
+  fetchPages(pagesFetchedEvent: Event): Observable<Object> {
+    var url: string = this.settings.backend_pages_get_url;
+    var request: Observable<Object> = this.http.get(url);
     request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
       if (response.data.length) {
@@ -102,13 +102,13 @@ export class PageService {
     return request;
   }
 
-  fetchPage(id: string) {
-    var url = this.settings.backend_page_get_url;
+  fetchPage(id: string): Observable<Object> {
+    var url: string = this.settings.backend_page_get_url;
     url = url.replace('[id]', id);
     return this.http.get(url);
   }
 
-  savePage(page: Page = null, method: string = 'patch', delay: number = 3) {
+  savePage(page: Page = null, method: string = 'patch', delay: number = 3): Observable<Object> {
     clearTimeout(this.saveTimeout);
     var request;
 
@@ -147,7 +147,7 @@ export class PageService {
   }
 
 
-  doSavePage(page: Page, method: string) {
+  doSavePage(page: Page, method: string): Observable<Object> {
     var payload = {
       data: {
         type: "node--page",
@@ -177,7 +177,7 @@ export class PageService {
     }
   }
 
-  navigateToFirstPage() {
+  navigateToFirstPage(): void {
     this.router.navigate(['page/' + this.pages[0].id]);
   }
 }
