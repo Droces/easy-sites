@@ -22,8 +22,7 @@ export class PageComponent extends StructureComponentBase implements OnInit {
     public settings: SettingsService,
     public pageService: PageService,
     private route: ActivatedRoute,
-    private router: Router,
-    private location: Location) {
+    private router: Router) {
     super();
   }
 

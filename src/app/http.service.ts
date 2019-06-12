@@ -37,7 +37,7 @@ export class HttpService {
     return request;
   }
 
-  saveToken(token): void {
+  saveToken(token: string): void {
     this.settings.backend_session_token = token;
     this.httpOptions.headers = this.httpOptions.headers.set('x-csrf-token', token);
   }

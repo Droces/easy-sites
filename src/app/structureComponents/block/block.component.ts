@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
@@ -35,13 +35,13 @@ export class BlockComponent extends StructureComponentBase implements OnInit {
 
   ngOnInit() { }
 
-  public editorReady( editor ) {
+  public editorReady(editor) {
     // console.log('editor toolbar items', Array.from(editor.ui.componentFactory.names()));
   }
 
   onChange({ editor }: ChangeEvent) {
     this.httpService.currentState = 'Unsaved';
-    const data = editor.getData();
+    // const data = editor.getData();
     this.pageService.savePage();
   }
 }

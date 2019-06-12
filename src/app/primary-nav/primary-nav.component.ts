@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SettingsService } from '../settings.service';
 import { PageService } from '../page.service';
-
-import { Page } from '../structureComponents/page';
 
 @Component({
   selector: 'app-primary-nav',
@@ -17,8 +15,7 @@ export class PrimaryNavComponent implements OnInit {
   constructor(
     public settings: SettingsService,
     public pageService: PageService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

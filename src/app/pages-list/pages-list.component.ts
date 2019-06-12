@@ -15,7 +15,6 @@ export class PagesListComponent implements OnInit {
 
   constructor(
     public pageService: PageService,
-    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
@@ -28,7 +27,7 @@ export class PagesListComponent implements OnInit {
     });
   }
 
-  getCurrentPageId(val): string {
+  getCurrentPageId(val: NavigationEnd): string {
     // console.log('this.router.url: ', this.router.url);
     /* Holds all params, queryParams, segments and fragments from the current (active) route */
     let currentUrlTree = this.router.parseUrl(this.router.url);
@@ -54,24 +53,24 @@ export class PagesListComponent implements OnInit {
   addPage(): void {
     var page: Page = this.pageService.addPage();
     this.router.navigate(['page/' + page.id]);
-    var request = this.pageService.savePage(page, 'post');
+    this.pageService.savePage(page, 'post');
   }
 
-  removePage(page): void {
+  removePage(page: Page): void {
     if (page.id == this.currentPageId) {
       this.router.navigate(['page/' + this.pageService.pages[0].id]);
     }
     this.pageService.removePage(page);
   }
 
-  up(page): void {
+  up(page: Page): void {
     var currentPos = this.pageService.pages.indexOf(page);
     if (currentPos <= 0) {
       return null;
     }
     this.pageService.pages.splice(currentPos - 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }
-  down(page): void {
+  down(page: Page): void {
     var currentPos = this.pageService.pages.indexOf(page);
     // No check needed for last section
     this.pageService.pages.splice(currentPos + 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
