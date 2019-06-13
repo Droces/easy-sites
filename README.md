@@ -2,6 +2,8 @@
 
 Building websites for internal (team) use should be easy and fast. EasySites makes this possible through a slick front-end built using [Angular](https://angular.io/).
 
+![Screenshot](./screenshot.png)
+
 EasySites was inspired by [Google Sites](https://gsuite.google.com/intl/en/products/sites/), and designed to be used for internal websites, rather than client- / customer-facing websites.
 
 EasySites can be used, for instance, to create a knowledge base for a business that describes the systems that team members should use on a daily basis.
