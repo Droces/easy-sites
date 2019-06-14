@@ -30,7 +30,6 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
   }
 
   changeColour(): void {
-    console.log(this.section.colourStyle);
     switch (this.section.colourStyle) {
       case 'default': {
         this.section.colourStyle = "emphasis1";

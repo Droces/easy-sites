@@ -4,11 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageComponent } from './structureComponents/page/page.component';
 import { HomeComponent } from './home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/page/1', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'page/:id', component: PageComponent },
+  { path: 'settings', component: SettingsPageComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SettingsService {
-  siteName: string = 'Demo site';
+  siteName: string = '';
 
   currentUserId: string = '';
   currentUserName: string = '';
+  currentUserRoles: [];
 
   themeColours = [
     {name: 'blue', hex: '#1e6c93'},
@@ -15,15 +16,21 @@ export class SettingsService {
   ];
   themeActiveColour: string = 'blue';
 
-  backend_session_token =   null;
-  backend_base_url =        "http://esd.docker.localhost";
-  backend_token_url =       this.backend_base_url + "/session/token";
-  backend_pages_get_url =   this.backend_base_url + "/jsonapi/node/page";
-  backend_page_post_url =   this.backend_base_url + "/jsonapi/node/page";
-  backend_page_get_url =    this.backend_base_url + "/jsonapi/node/page/[id]";
-  backend_page_patch_url =  this.backend_base_url + "/jsonapi/node/page/[id]";
-  backend_page_delete_url = this.backend_base_url + "/jsonapi/node/page/[id]";
-  backend_login_page_url =  this.backend_base_url + "/user/login";
+  backendSessionToken: string =   null;
+  backendBaseUrl: string =        null;
+  backendCms: string =            null;
+  backendTokenPath: string =      "/session/token";
+  backendPagesGetPath: string =   "/jsonapi/node/page";
+  backendPagePostPath: string =   "/jsonapi/node/page";
+  backendPageGetPath: string =    "/jsonapi/node/page/[id]";
+  backendPagePatchPath: string =  "/jsonapi/node/page/[id]";
+  backendPageDeletePath: string = "/jsonapi/node/page/[id]";
+  backendLoginPagePath: string =  "/user/login";
 
   constructor() { }
+
+  retrieveSettings(): void {
+    this.backendBaseUrl = localStorage.getItem('backendBaseUrl');
+    this.siteName = localStorage.getItem('siteName');
+  }
 }

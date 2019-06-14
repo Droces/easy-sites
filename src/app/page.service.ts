@@ -17,6 +17,8 @@ export class PageService {
   currentPage: Page;
   saveTimeout;
 
+  pagesFetchedEvent = new Event('pagesFetched');
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -74,14 +76,14 @@ export class PageService {
       this.pages.splice(index, 1);
     }
 
-    var url = this.settings.backend_page_delete_url;
+    var url: string = this.settings.backendBaseUrl + this.settings.backendPageDeletePath;
     url = url.replace('[id]', page.id);
     var request = this.http.delete(url, this.httpService.httpOptions);
     request.subscribe(response => {});
   }
 
-  fetchPages(pagesFetchedEvent: Event): Observable<Object> {
-    var url: string = this.settings.backend_pages_get_url;
+  fetchPages(): Observable<Object> {
+    var url: string = this.settings.backendBaseUrl + this.settings.backendPagesGetPath;
     var request: Observable<Object> = this.http.get(url);
     request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
@@ -97,13 +99,13 @@ export class PageService {
           });
         }
       }
-      document.dispatchEvent(pagesFetchedEvent);
+      document.dispatchEvent(this.pagesFetchedEvent);
     });
     return request;
   }
 
   fetchPage(id: string): Observable<Object> {
-    var url: string = this.settings.backend_page_get_url;
+    var url: string = this.settings.backendBaseUrl + this.settings.backendPageGetPath;
     url = url.replace('[id]', id);
     return this.http.get(url);
   }
@@ -116,7 +118,7 @@ export class PageService {
       page = this.currentPage;
     }
 
-    if (! this.settings.backend_session_token) {
+    if (! this.settings.backendSessionToken) {
       document.addEventListener('tokenFetched', (event) => {
         this.savePage(page, method);
       });
@@ -161,11 +163,11 @@ export class PageService {
     var url: string;
     if (method == 'patch') {
       payload.data['id'] = page.id;
-      url = this.settings.backend_page_patch_url;
+      url = this.settings.backendBaseUrl + this.settings.backendPagePatchPath;
       url = url.replace('[id]', page.id);
     }
     else if (method == 'post') {
-      url = this.settings.backend_page_post_url;
+      url = this.settings.backendBaseUrl + this.settings.backendPagePostPath;
     }
 
     // console.log('this.httpService.httpOptions: ', this.httpService.httpOptions);

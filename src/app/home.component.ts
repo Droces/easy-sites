@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   showBlankPage() {
     // Show a blank page ready for adding text
     var page: Page = this.pageService.addPage();
-    this.router.navigate(['page/' + page.id]);
+    this.router.navigate(['page/' + page.id]); // Redirect
     var request = this.pageService.savePage(page, 'post');
   }
 }

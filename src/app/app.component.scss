@@ -22,20 +22,6 @@ header {
   margin-top: 0;
   margin-bottom: 0;
 }
-[id="main-and-sidebar"] {
-  display: flex;
-
-  & > * {
-    flex: 1 1 auto;
-  }
-  router-outlet {
-    display: none;
-  }
-  aside {
-    width: 200px;
-    flex-grow: 0;
-  }
-}
 
 #main-and-sidebar {
   height: calc(100vh - #{$header-height});

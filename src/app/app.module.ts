@@ -19,6 +19,7 @@ import { ThemeSelectorComponent } from './theme-selector/theme-selector.componen
 import { FormsModule } from '@angular/forms'; // <-- NgModel from this
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     PagesListComponent,
     PageNotFoundComponent,
     PrimaryNavComponent,
-    ThemeSelectorComponent
+    ThemeSelectorComponent,
+    SettingsPageComponent
   ],
   imports: [
     BrowserModule,

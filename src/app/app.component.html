@@ -2,15 +2,18 @@
   <div role="presentation">
     <p class="es-title">Easy Sites</p>
     <ul class="appMode tabs">
-      <li aria-selected="true"><i class="material-icons">edit</i></li>
-      <li><i class="material-icons">play_arrow</i></li>
-      <li><i class="material-icons">settings</i></li>
+      <li aria-selected="true"><a>
+        <i class="material-icons">edit</i></a></li>
+      <li><a>
+        <i class="material-icons">play_arrow</i></a></li>
+      <li><a href="settings">
+        <i class="material-icons">settings</i></a></li>
     </ul>
     <div class="user">
       <div *ngIf="settings.currentUserName; else anon">{{ settings.currentUserName }}</div>
       <ng-template #anon>
         <a target="_blank"
-          href="{{ settings.backend_base_url }}{{ settings.backend_login_page_path }}">
+          href="{{ settings.backendBaseUrl }}{{ settings.backendLoginPagePath }}">
           Not logged in</a>
       </ng-template>
     </div>

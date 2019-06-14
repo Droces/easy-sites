@@ -3,7 +3,8 @@ $breakpoint: 800px;
 header > [role="presentation"],
 nav,
 h1, .h1,
-section > .column {
+section > .column,
+.page-max-width {
   margin-left: auto;
   margin-right: auto;
   padding-left: 7%;
@@ -21,6 +22,21 @@ app-root {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+[id="main-and-sidebar"] {
+  display: flex;
+
+  & > * {
+    flex: 1 1 auto;
+  }
+  router-outlet {
+    display: none;
+  }
+  aside {
+    width: 200px;
+    flex-grow: 0;
+  }
 }
 
 aside {

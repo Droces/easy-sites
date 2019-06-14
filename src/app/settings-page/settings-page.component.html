@@ -1,0 +1,49 @@
+<div class="page-max-width">
+  <h1>Settings</h1>
+
+  <form action="">
+    <div>
+      <label for="siteName">Site name</label>
+      <input id="siteName" type="text" name="siteName" size="40"
+        #siteNameInput
+        [(ngModel)]="settings.siteName"
+        (change)="storeSetting('siteName', siteNameInput.value)">
+    </div>
+
+    <div>
+      <label for="backendBaseUrl">Backend base URL</label>
+      <input id="backendBaseUrl" type="text" name="backendBaseUrl" size="40"
+        #backendBaseUrlInput
+        [(ngModel)]="settings.backendBaseUrl"
+        (change)="storeSetting('backendBaseUrl', backendBaseUrlInput.value)">
+    </div>
+
+    <div>
+      <label for="backendCms">Backend CMS</label>
+      <select id="backendCms" name="backendCms"
+        (change)="changeCMS()">
+        <option value="">- select -</option>
+        <option value="drupal">Drupal</option>
+        <option value="wordpress">WordPress</option>
+      </select>
+    </div>
+
+    <details>
+      <summary>URLs</summary>
+
+      <div>
+        <label for="backendTokenPath">Backend token URL</label>
+        <span class="prefix">{{ settings.backendBaseUrl }}</span>
+        <input id="backendTokenPath" type="text" name="backendTokenPath" size="40"
+          [(ngModel)]="settings.backendTokenPath">
+      </div>
+    </details>
+
+    <div *ngIf="settings.backendBaseUrl">
+    </div>
+    <button name="fetchPages" class="large primary"
+    (click)="fetchPages()"
+    [attr.disabled]="(settings.backendBaseUrl) ? null : ''">
+    Fetch pages</button>
+  </form>
+</div>

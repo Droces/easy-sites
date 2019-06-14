@@ -126,12 +126,56 @@ app-section {
     border-width: 3px 0;
     border-style: solid;
     border-color: transparent;
-    padding: 0.5em 1em;
 
     &[aria-selected="true"] {
       border-bottom-color: rgba(white, 1);
     }
+    & > * {
+      display: block;
+      padding: 0.5em 1em;
+    }
   }
+}
+
+/* -----------------------------------------------------------------------------
+ *                                                      Forms
+ */
+label:first-child {
+  display: inline-block;
+  min-width: 150px;
+
+  &::after {
+    content: ": ";
+  }
+}
+textarea,
+input[type="text"],
+input[type="password"] {
+  padding: 0.4em 0.6em;
+  margin: 0.4em 0.6em 0.4em 0;
+  background: none;
+  border: solid 1px #cbcbcb;
+  background: whitesmoke;
+  border-radius: 4px;
+}
+select {
+  margin: 0.4em 0.6em 0.4em 0;
+}
+details {
+  border: solid 1px #cbcbcb;
+  border-radius: 6px;
+  padding: 1.5em;
+  margin: 20px auto;
+
+  summary {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0.6em;
+  }
+}
+.prefix {
+  margin-right: 0.2em;
 }
 
 /* -----------------------------------------------------------------------------
