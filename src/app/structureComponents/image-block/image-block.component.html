@@ -1,0 +1,21 @@
+<div *ngIf="block"
+  class="block"
+  [ngClass]="{'active': isActive}">
+
+  <div class="form-group">
+    <label for="file">Choose File</label>
+    <input type="file"
+      id="file"
+      (change)="handleFileInput($event.target.files)">
+  </div>
+
+  <div *ngIf="blocksInGroup > 1">
+    <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
+    <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
+  </div>
+  <button class="remove icon"
+    (click)="removeSelf()"
+    (mouseenter)="toggleActive(true)"
+    (mouseleave)="toggleActive(false)">
+    <i class="material-icons">close</i></button>
+</div>
