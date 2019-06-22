@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { StructureComponentBase } from '../../structureComponentBase.component';
+
 import { PageService } from '../../../page.service';
 import { FileUploadService } from '../../../file-upload.service';
 
@@ -8,12 +10,14 @@ import { FileUploadService } from '../../../file-upload.service';
   templateUrl: './image-block.component.html',
   styleUrls: ['./image-block.component.scss']
 })
-export class ImageBlockComponent implements OnInit {
+export class ImageBlockComponent extends StructureComponentBase implements OnInit {
   fileToUpload: File = null;
 
   constructor(
     public pageService: PageService,
-    public fileUploadService: FileUploadService) { }
+    public fileUploadService: FileUploadService) {
+    super();
+  }
 
   ngOnInit() {
   }
