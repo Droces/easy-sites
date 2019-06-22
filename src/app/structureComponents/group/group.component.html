@@ -1,16 +1,49 @@
 <div *ngIf="group"
   class="group"
   [ngClass]="{'active': isActive}">
-  <app-block *ngFor="let block of group.blocks"
-    [block]="block"
-    [blocksInGroup]="group.blocks.length"
-    (moveUp)="moveBlockUp(block)"
-    (moveDown)="moveBlockDown(block)"
-    (remove)="removeBlock(block)">
-  </app-block>
-  <button (click)="addBlock()" class="icon add horizontal">
+  <div *ngFor="let block of group.blocks">
+    <div *ngIf="block.type === 'text'">
+      <text-block
+        [block]="block"
+        [blocksInGroup]="group.blocks.length"
+        (moveUp)="moveBlockUp(block)"
+        (moveDown)="moveBlockDown(block)"
+        (remove)="removeBlock(block)">
+      </text-block>
+    </div>
+    <div *ngIf="block.type === 'image'">
+      <image-block
+        [blocksInGroup]="group.blocks.length"
+        (moveUp)="moveBlockUp(block)"
+        (moveDown)="moveBlockDown(block)"
+        (remove)="removeBlock(block)">
+      </image-block>
+    </div>
+    <div *ngIf="block.type === 'line'">
+      <line-block
+        [blocksInGroup]="group.blocks.length"
+        (moveUp)="moveBlockUp(block)"
+        (moveDown)="moveBlockDown(block)"
+        (remove)="removeBlock(block)">
+      </line-block>
+    </div>
+  </div>
+
+  <button (click)="showBlockSelection()" class="icon add horizontal">
     <i class="material-icons">add</i></button>
-  <!-- <button (click)="removeLastBlock()">-</button> -->
+  <div class="block-type-selection"
+    *ngIf="blockSelectionVisible">
+    <button (click)="addBlock('text')">
+      <i class="material-icons">text_fields</i>
+    </button>
+    <button (click)="addBlock('image')">
+      <i class="material-icons">image</i>
+    </button>
+    <button (click)="addBlock('line')">
+      <i class="material-icons">remove</i>
+    </button>
+  </div>
+
   <button class="remove icon"
     (click)="removeSelf()"
     (mouseenter)="toggleActive(true)"

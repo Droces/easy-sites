@@ -10,7 +10,7 @@ import { Block } from '../../block';
 import { StructureComponentBase } from '../../structureComponentBase.component';
 
 @Component({
-  selector: 'app-block',
+  selector: 'text-block',
   templateUrl: './text-block.component.html',
   styleUrls: ['./text-block.component.scss']
 })

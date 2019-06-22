@@ -13,6 +13,8 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   @Input() group: Group;
   @Input() groupsInSection: number;
 
+  blockSelectionVisible = false;
+
   constructor() {
     super();
   }
@@ -33,8 +35,29 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
     this.group.blocks.splice(currentPos + 1, 0, this.group.blocks.splice(currentPos, 1)[0]);
   }
 
-  addBlock(): void {
-    this.group.blocks.push({content: ""});
+  showBlockSelection(): void {
+    this.blockSelectionVisible = this.blockSelectionVisible ? false : true;
+  }
+
+  addBlock(type: string): void {
+    switch (type) {
+      case 'text': {
+        this.group.blocks.push({type: 'text', content: ""});
+        break;
+      }
+      case 'image': {
+        this.group.blocks.push({type: 'image', content: ""});
+        break;
+      }
+      case 'line': {
+        this.group.blocks.push({type: 'line', content: ""});
+        break;
+      }
+      default: {
+        // @todo throw error
+        break;
+      }
+    }
   }
 
   removeBlock(block: Block): void {
