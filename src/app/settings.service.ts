@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class SettingsService {
   siteName: string = '';
 
+  mode: string = 'edit'; // 'edit' | 'view'
+
   currentUserId: string = '';
   currentUserName: string = '';
   currentUserRoles: [];

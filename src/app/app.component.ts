@@ -33,4 +33,8 @@ export class AppComponent {
   exportData(): void {
     alert(JSON.stringify(this.pageService.getPages()));
   }
+
+  changeMode(mode: string): void {
+    this.settings.mode = mode;
+  }
 }

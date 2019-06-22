@@ -64,6 +64,12 @@ button.add {
     border-left-width: 1px;
   }
 }
+[data-mode="view"] {
+  button.add,
+  button.remove {
+    display: none;
+  }
+}
 
 input.plain {
   border: none;
@@ -127,6 +133,10 @@ app-section {
     border-style: solid;
     border-color: transparent;
 
+    &:hover,
+    &:focus {
+      border-bottom-color: rgba(white, 0.4);
+    }
     &[aria-selected="true"] {
       border-bottom-color: rgba(white, 1);
     }
