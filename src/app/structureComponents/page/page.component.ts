@@ -79,6 +79,7 @@ export class PageComponent extends StructureComponentBase implements OnInit {
       colourStyle: 'default',
       groups: [{
         blocks: [{
+          type: 'text',
           content: ''
         }]
       }]

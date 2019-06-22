@@ -58,7 +58,7 @@ button.add {
   &.horizontal {
     width: 100%;
     text-align: center;
-    border-top-width: 1px;
+    // border-top-width: 1px;
   }
   &.vertical {
     border-left-width: 1px;
@@ -85,9 +85,14 @@ app-page {
 .section,
 .group,
 .block {
+  position: relative;
+
   &.active {
     border: solid 2px #c32121; // colour: red
   }
+}
+.section {
+  border-bottom: dotted 1px grey;
 }
 
 $temp-border: none; // dotted 2px lightgrey;
@@ -111,6 +116,16 @@ app-section {
   // &:hover {
   //   border: solid 2px #4285f4; // colour: blue
   // }
+}
+.block {
+  border-bottom: dotted 1px gray;
+
+  &.image {
+    padding-top: 10px;
+  }
+  &.line {
+    padding-top: 20px;
+  }
 }
 .subtle {
   font-size: 0.85em;

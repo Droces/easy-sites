@@ -23,6 +23,7 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
   addGroup(): void {
     var newGroup = {
       blocks: [{
+        type: 'text',
         content: ''
       }]
     };
