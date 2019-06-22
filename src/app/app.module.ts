@@ -1,27 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
+import { AppRoutingModule } from './app-routing.module';
 
-import { PageComponent } from './structureComponents/page/page.component';
-import { SectionComponent } from './structureComponents/section/section.component';
-import { GroupComponent } from './structureComponents/group/group.component';
+import { PageComponent }        from './structureComponents/page/page.component';
+import { SectionComponent }     from './structureComponents/section/section.component';
+import { GroupComponent }       from './structureComponents/group/group.component';
 
-import { TextBlockComponent } from './structureComponents/blocks/text-block/text-block.component';
-import { ImageBlockComponent } from './structureComponents/blocks/image-block/image-block.component';
+import { TextBlockComponent }   from './structureComponents/blocks/text-block/text-block.component';
+import { ImageBlockComponent }  from './structureComponents/blocks/image-block/image-block.component';
+import { LineBlockComponent }   from './structureComponents/blocks/line-block/line-block.component';
 
-import { PagesListComponent } from './pages-list/pages-list.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PrimaryNavComponent } from './primary-nav/primary-nav.component';
+import { HomeComponent }          from './home.component';
+import { PagesListComponent }     from './pages-list/pages-list.component';
+import { PageNotFoundComponent }  from './page-not-found/page-not-found.component';
+import { PrimaryNavComponent }    from './primary-nav/primary-nav.component';
 import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
-
-import { FormsModule } from '@angular/forms'; // <-- NgModel from this
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { HttpClientModule } from '@angular/common/http';
-import { SettingsPageComponent } from './settings-page/settings-page.component';
+import { SettingsPageComponent }  from './settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
     PrimaryNavComponent,
     ThemeSelectorComponent,
     SettingsPageComponent,
-    ImageBlockComponent
+    ImageBlockComponent,
+    LineBlockComponent
   ],
   imports: [
     BrowserModule,
