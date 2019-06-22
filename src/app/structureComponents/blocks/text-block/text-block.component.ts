@@ -3,18 +3,18 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
-import { PageService } from '../../page.service';
-import { HttpService } from '../../http.service';
+import { PageService } from '../../../page.service';
+import { HttpService } from '../../../http.service';
 
-import { Block } from '../block';
-import { StructureComponentBase } from '../structureComponentBase.component';
+import { Block } from '../../block';
+import { StructureComponentBase } from '../../structureComponentBase.component';
 
 @Component({
   selector: 'app-block',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.scss']
+  templateUrl: './text-block.component.html',
+  styleUrls: ['./text-block.component.scss']
 })
-export class BlockComponent extends StructureComponentBase implements OnInit {
+export class TextBlockComponent extends StructureComponentBase implements OnInit {
   @Input() block: Block;
   @Input() blocksInGroup: number;
 

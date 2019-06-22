@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PageService } from '../../page.service';
-import { FileUploadService } from '../../file-upload.service';
+import { PageService } from '../../../page.service';
+import { FileUploadService } from '../../../file-upload.service';
 
 @Component({
   selector: 'app-image-block',

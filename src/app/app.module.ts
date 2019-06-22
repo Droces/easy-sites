@@ -9,8 +9,9 @@ import { HomeComponent } from './home.component';
 import { PageComponent } from './structureComponents/page/page.component';
 import { SectionComponent } from './structureComponents/section/section.component';
 import { GroupComponent } from './structureComponents/group/group.component';
-import { BlockComponent } from './structureComponents/block/block.component';
-import { ImageBlockComponent } from './structureComponents/image-block/image-block.component';
+
+import { TextBlockComponent } from './structureComponents/blocks/text-block/text-block.component';
+import { ImageBlockComponent } from './structureComponents/blocks/image-block/image-block.component';
 
 import { PagesListComponent } from './pages-list/pages-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -29,7 +30,7 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
     PageComponent,
     SectionComponent,
     GroupComponent,
-    BlockComponent,
+    TextBlockComponent,
     PagesListComponent,
     PageNotFoundComponent,
     PrimaryNavComponent,
