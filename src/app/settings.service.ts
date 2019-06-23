@@ -21,13 +21,6 @@ export class SettingsService {
   backendSessionToken: string =   null;
   backendBaseUrl: string =        null;
   backendCms: string =            null;
-  backendTokenPath: string =      "/session/token";
-  backendPagesGetPath: string =   "/jsonapi/node/page";
-  backendPagePostPath: string =   "/jsonapi/node/page";
-  backendPageGetPath: string =    "/jsonapi/node/page/[id]";
-  backendPagePatchPath: string =  "/jsonapi/node/page/[id]";
-  backendPageDeletePath: string = "/jsonapi/node/page/[id]";
-  backendLoginPagePath: string =  "/user/login";
 
   constructor() { }
 

@@ -21,14 +21,19 @@ export class SettingsPageComponent implements OnInit {
 
   storeSetting(field: string, value: string) {
     // console.log('value: ', value);
+    var fields = ['siteName', 'backendBaseUrl', 'backendCms'];
+    if (! fields.includes(field))
+      return null;
     localStorage.setItem(field, value);
   }
 
-  changeCMS() {}
+  changeCMS(backend: string) {
+    localStorage.setItem('backendCms', backend);
+  }
 
   fetchPages() {
-      this.httpService.fetchToken();
+      // this.httpService.authenticate();
+      // this.httpService.fetchCurrentUserId();
       this.pageService.fetchPages();
-      this.httpService.fetchCurrentUserId();
   }
 }

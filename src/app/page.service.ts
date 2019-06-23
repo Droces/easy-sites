@@ -77,14 +77,13 @@ export class PageService {
       this.pages.splice(index, 1);
     }
 
-    var url: string = this.settings.backendBaseUrl + this.settings.backendPageDeletePath;
+    var url: string = this.settings.backendBaseUrl + this.httpService.backendService.backendPageDeletePath;
     url = url.replace('[id]', page.id);
-    var request = this.http.delete(url, this.httpService.httpOptions);
-    request.subscribe(response => {});
+    var request = this.httpService.backendService.deletePage(url);
   }
 
   fetchPages(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.settings.backendPagesGetPath;
+    var url: string = this.settings.backendBaseUrl + this.httpService.backendService.backendPagesGetPath;
     var request: Observable<Object> = this.http.get(url);
     request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
@@ -106,7 +105,7 @@ export class PageService {
   }
 
   fetchPage(id: string): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.settings.backendPageGetPath;
+    var url: string = this.settings.backendBaseUrl + this.httpService.backendService.backendPageGetPath;
     url = url.replace('[id]', id);
     return this.http.get(url);
   }
@@ -140,9 +139,6 @@ export class PageService {
             this.router.navigate(['page/' + dataObj.id]);
           }
         }
-      },
-      error => {
-        this.httpService.handleError(error);
       });
 
     }, delay * 1000);
@@ -164,19 +160,18 @@ export class PageService {
     var url: string;
     if (method == 'patch') {
       payload.data['id'] = page.id;
-      url = this.settings.backendBaseUrl + this.settings.backendPagePatchPath;
+      url = this.settings.backendBaseUrl + this.httpService.backendService.backendPagePatchPath;
       url = url.replace('[id]', page.id);
     }
     else if (method == 'post') {
-      url = this.settings.backendBaseUrl + this.settings.backendPagePostPath;
+      url = this.settings.backendBaseUrl + this.httpService.backendService.backendPagePostPath;
     }
 
-    // console.log('this.httpService.httpOptions: ', this.httpService.httpOptions);
     if (method == 'patch') {
-      return this.http.patch(url, payload, this.httpService.httpOptions);
+      return this.httpService.backendService.updatePage(url, payload);
     }
     else { // method == 'post'
-      return this.http.post(url, payload, this.httpService.httpOptions);
+      return this.httpService.backendService.createPage(url, payload);
     }
   }
 

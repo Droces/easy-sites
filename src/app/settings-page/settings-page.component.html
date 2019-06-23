@@ -21,7 +21,7 @@
     <div>
       <label for="backendCms">Backend CMS</label>
       <select id="backendCms" name="backendCms"
-        (change)="changeCMS()">
+        (change)="changeCMS($event.target.value)">
         <option value="">- select -</option>
         <option value="drupal">Drupal</option>
         <option value="wordpress">WordPress</option>
@@ -35,7 +35,7 @@
         <label for="backendTokenPath">Backend token URL</label>
         <span class="prefix">{{ settings.backendBaseUrl }}</span>
         <input id="backendTokenPath" type="text" name="backendTokenPath" size="40"
-          [(ngModel)]="settings.backendTokenPath">
+          [(ngModel)]="httpService.backendService.backendTokenPath">
       </div>
     </details>
 
