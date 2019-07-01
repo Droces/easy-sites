@@ -33,4 +33,6 @@ export interface BackendService {
 
   fetchCurrentUserId(): Observable<Object>;
   fetchCurrentUser(): Observable<Object>;
+
+  postFile(fileToUpload: File): Observable<Object>;
 }

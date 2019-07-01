@@ -78,4 +78,26 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     });
     return request;
   };
+
+  postFile(fileToUpload: File): Observable<Object> {
+    const endpoint = this.settings.backendBaseUrl + '/jsonapi/node/article/field_image';
+    const formData: FormData = new FormData();
+    formData.append('fileKey', fileToUpload, fileToUpload.name);
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':   'application/octet-stream',
+        'Accept':         'application/vnd.api+json',
+        'Content-Disposition': 'file; filename="filename.jpg"'
+      }),
+      withCredentials: true
+    };
+
+    httpOptions.headers = httpOptions.headers.set('x-csrf-token', this.settings.backendSessionToken);
+    // console.log('httpOptions: ', httpOptions);
+
+    return this.http.post(endpoint, formData, httpOptions);
+      // .map(() => { return true; })
+      // .catch((e) => this.handleError(e));
+  }
 }

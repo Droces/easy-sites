@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { StructureComponentBase } from '../../structureComponentBase.component';
 
 import { PageService } from '../../../page.service';
-import { FileUploadService } from '../../../file-upload.service';
+import { HttpService } from '../../../http.service';
 
 @Component({
   selector: 'image-block',
@@ -16,24 +17,22 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
   fileToUpload: File = null;
 
   constructor(
-    public pageService: PageService,
-    public fileUploadService: FileUploadService) {
+    public httpService: HttpService,
+    public pageService: PageService) {
     super();
   }
 
   ngOnInit() {
   }
 
-  handleFileInput(files: FileList) {
+  handleFileInput(files: FileList): void {
     console.log('files: ', files);
     // To handle multifile selection, iterate through this files array.
     this.fileToUpload = files.item(0);
-    this.uploadFileToActivity();
-  }
-
-  uploadFileToActivity() {
-    this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
-      // do something, if upload success
+    var request = this.httpService.instance.postFile(this.fileToUpload);
+    request.subscribe(data => {
+        // Upload success
+        console.log('data: ', data);
       },
       error => {
         console.log(error);
