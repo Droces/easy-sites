@@ -28,12 +28,22 @@ export class SettingsPageComponent implements OnInit {
   }
 
   changeCMS(backend: string) {
+    if (! ['drupal', 'wordpress'].includes(backend))
+      return null;
     localStorage.setItem('backendCms', backend);
+  }
+
+  changePlugin(plugin: string) {
+    if (! this.httpService.backendServices.includes(plugin))
+      return null;
+    console.log('plugin: ', plugin);
+    localStorage.setItem('backendPlugin', plugin);
+    this.httpService.switchBackendService(plugin);
   }
 
   fetchPages() {
       // this.httpService.authenticate();
       // this.httpService.fetchCurrentUserId();
-      this.pageService.fetchPages();
+      this.httpService.instance.fetchPages();
   }
 }

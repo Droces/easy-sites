@@ -9,6 +9,9 @@ export interface BackendService {
     withCredentials?: boolean
   }
 
+  cmsName: string;
+  pluginName: string;
+
   backendTokenPath: string;
   backendPagesGetPath: string;
   backendPagePostPath: string;
@@ -23,6 +26,8 @@ export interface BackendService {
   saveToken?(token: string): void;
 
   createPage(url: string, payload): Observable<Object>;
+  fetchPage(id: string): Observable<Object>;
+  fetchPages(): Observable<Object>;
   updatePage(url: string, payload): Observable<Object>;
   deletePage(url: string): Observable<Object>;
 

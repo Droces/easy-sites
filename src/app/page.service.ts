@@ -77,14 +77,14 @@ export class PageService {
       this.pages.splice(index, 1);
     }
 
-    var url: string = this.settings.backendBaseUrl + this.httpService.backendService.backendPageDeletePath;
+    var url: string = this.settings.backendBaseUrl + this.httpService.instance.backendPageDeletePath;
     url = url.replace('[id]', page.id);
-    var request = this.httpService.backendService.deletePage(url);
+    var request = this.httpService.instance.deletePage(url);
   }
 
   fetchPages(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.httpService.backendService.backendPagesGetPath;
-    var request: Observable<Object> = this.http.get(url);
+    var request = this.httpService.instance.fetchPages();
+
     request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
       if (response.data.length) {
@@ -101,13 +101,8 @@ export class PageService {
       }
       document.dispatchEvent(this.pagesFetchedEvent);
     });
-    return request;
-  }
 
-  fetchPage(id: string): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.httpService.backendService.backendPageGetPath;
-    url = url.replace('[id]', id);
-    return this.http.get(url);
+    return request;
   }
 
   savePage(page: Page = null, method: string = 'patch', delay: number = 3): Observable<Object> {
@@ -160,18 +155,18 @@ export class PageService {
     var url: string;
     if (method == 'patch') {
       payload.data['id'] = page.id;
-      url = this.settings.backendBaseUrl + this.httpService.backendService.backendPagePatchPath;
+      url = this.settings.backendBaseUrl + this.httpService.instance.backendPagePatchPath;
       url = url.replace('[id]', page.id);
     }
     else if (method == 'post') {
-      url = this.settings.backendBaseUrl + this.httpService.backendService.backendPagePostPath;
+      url = this.settings.backendBaseUrl + this.httpService.instance.backendPagePostPath;
     }
 
     if (method == 'patch') {
-      return this.httpService.backendService.updatePage(url, payload);
+      return this.httpService.instance.updatePage(url, payload);
     }
     else { // method == 'post'
-      return this.httpService.backendService.createPage(url, payload);
+      return this.httpService.instance.createPage(url, payload);
     }
   }
 

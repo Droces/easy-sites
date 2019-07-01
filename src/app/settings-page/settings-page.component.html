@@ -28,6 +28,16 @@
       </select>
     </div>
 
+    <div>
+      <label for="backendPlugin">Backend plugin</label>
+      <select id="backendPlugin" name="backendPlugin"
+        (change)="changePlugin($event.target.value)">
+        <option value="">- select -</option>
+        <option value="DrupalJsonApiBackendService">JSON:API</option>
+        <option value="DrupalRestBackendService">RESTful Web Services</option>
+      </select>
+    </div>
+
     <details>
       <summary>URLs</summary>
 
@@ -35,7 +45,7 @@
         <label for="backendTokenPath">Backend token URL</label>
         <span class="prefix">{{ settings.backendBaseUrl }}</span>
         <input id="backendTokenPath" type="text" name="backendTokenPath" size="40"
-          [(ngModel)]="httpService.backendService.backendTokenPath">
+          [(ngModel)]="httpService.instance.backendTokenPath">
       </div>
     </details>
 

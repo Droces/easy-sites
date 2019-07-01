@@ -15,7 +15,7 @@
       <div *ngIf="settings.currentUserName; else anon">{{ settings.currentUserName }}</div>
       <ng-template #anon>
         <a target="_blank"
-          href="{{ settings.backendBaseUrl }}{{ httpService.backendService.backendLoginPagePath }}">
+          href="{{ settings.backendBaseUrl }}{{ httpService.instance.backendLoginPagePath }}">
           Not logged in</a>
       </ng-template>
     </div>

@@ -12,7 +12,7 @@ import { BackendService } from './backend-service';
 @Injectable({
   providedIn: 'root'
 })
-export class DrupalJsonApiBackendService extends BackendBaseService implements BackendService {
+export class DrupalRestBackendService extends BackendBaseService implements BackendService {
 
   tokenFetchedEvent = new Event('tokenFetched');
   authenticatedEvent = new Event('authenticated');
@@ -26,16 +26,16 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   };
 
   cmsName: string = 'Drupal';
-  pluginName: string = 'JSON:API';
+  pluginName: string = 'RestfulWebServices';
 
-  backendTokenPath: string =      "/session/token";
-  backendPagesGetPath: string =   "/jsonapi/node/page";
-  backendPagePostPath: string =   "/jsonapi/node/page";
-  backendPageGetPath: string =    "/jsonapi/node/page/[id]";
-  backendPagePatchPath: string =  "/jsonapi/node/page/[id]";
-  backendPageDeletePath: string = "/jsonapi/node/page/[id]";
-  backendUserGetPath: string =    "/jsonapi/user/user/[id]";
-  backendUserIdGetPath: string =  "/jsonapi/";
+  backendTokenPath: string =      "/rest/session/token";
+  backendPagesGetPath: string =   "/node/all?_format=json"; // Provided by a created view
+  backendPagePostPath: string =   "/node?_format=json";
+  backendPageGetPath: string =    "/node/[id]?_format=json";
+  backendPagePatchPath: string =  "/node/[id]?_format=json";
+  backendPageDeletePath: string = "/node/[id]?_format=json";
+  backendUserGetPath: string =    "user/current?_format=json"; // Provided by a created view
+  backendUserIdGetPath: string =  "user/current?_format=json"; // Provided by a created view
   backendLoginPagePath: string =  "/user/login";
 
   constructor(
@@ -46,21 +46,7 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   }
 
   fetchCurrentUserId(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendUserIdGetPath;
-    var request: Observable<any> = this.http.get(url, this.httpOptions);
-    request.subscribe(data => {
-      if (! data.hasOwnProperty('meta')) {
-        // alert('You are not logged in');
-        return null;
-      }
-      var userId = data.meta.links.me.meta.id;
-      // console.log('userId: ', userId);
-      // @todo check that this is a valid id
-      this.settings.currentUserId = userId;
-
-      this.fetchCurrentUser();
-    });
-    return request;
+    return this.fetchCurrentUser();
   };
 
   fetchCurrentUser(): Observable<Object> {
@@ -69,12 +55,14 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     var request: Observable<any> = this.http.get(url, this.httpOptions);
     request.subscribe(data => {
       // console.log('user data: ', data);
-      if (! (data.hasOwnProperty('data') && data.data.hasOwnProperty('attributes'))) {
-        // alert('You are not logged in');
-        return null;
-      }
-      this.settings.currentUserName = data.data.attributes.name;
-      this.settings.currentUserRoles = data.data.relationships.roles.data;
+      // if (! data.hasOwnProperty('')) {
+      //   // alert('You are not logged in');
+      //   return null;
+      // }
+      // @todo check that this is a valid id
+      this.settings.currentUserId = data[0].uid[0].value;
+      this.settings.currentUserName = data[0].name[0].value;
+      this.settings.currentUserRoles = data[0].roles; // [0].target_id;
     });
     return request;
   };
