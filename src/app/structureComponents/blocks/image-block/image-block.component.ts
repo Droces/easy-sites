@@ -30,13 +30,26 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
   }
 
   handleFileInput(files: FileList): void {
-    console.log('files: ', files);
-    // To handle multifile selection, iterate through this files array.
-    this.fileToUpload = files.item(0);
-    var request = this.httpService.instance.postFile(this.fileToUpload);
+    // console.log('files: ', files);
+    var file = files.item(0);
+
+    var reader = new FileReader();
+    reader.onload = () => {
+      this.postFile(reader.result, file.name);
+    }
+    reader.readAsArrayBuffer(file);
+  }
+
+  postFile(fileData: string | ArrayBuffer, fileName: string) {
+    var request = this.httpService.instance.postFile(fileData, fileName);
     request.subscribe(data => {
         // Upload success
-        console.log('data: ', data);
+        // console.log('data: ', data);
+        this.block.fileId = data['data']['id'];
+        this.block.path = data['data']['attributes']['uri']['url'];
+        var attachRequest = this.httpService.instance
+          .attachFile(this.block.fileId, this.pageService.currentPage.id);
+        return attachRequest;
       },
       error => {
         console.log(error);

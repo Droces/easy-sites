@@ -2,10 +2,14 @@
   [ngClass]="{'active': isActive}">
 
   <div class="form-group">
-    <label for="file">Choose File</label>
-    <input type="file"
-      id="file"
-      (change)="handleFileInput($event.target.files)">
+    <img *ngIf="block.path; else file" src="{{ settings.backendBaseUrl }}{{ block.path }}">
+    <ng-template #file>
+      <label for="file">Choose File</label>
+      <input
+        id="file"
+        type="file"
+        (change)="handleFileInput($event.target.files)">
+    </ng-template>
   </div>
 
   <div *ngIf="blocksInGroup > 1">

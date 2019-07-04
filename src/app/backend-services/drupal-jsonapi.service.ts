@@ -79,25 +79,39 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     return request;
   };
 
-  postFile(fileToUpload: File): Observable<Object> {
+  postFile(fileData: string | ArrayBuffer, fileName: string): Observable<Object> {
     const endpoint = this.settings.backendBaseUrl + '/jsonapi/node/article/field_image';
-    const formData: FormData = new FormData();
-    formData.append('fileKey', fileToUpload, fileToUpload.name);
 
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':   'application/octet-stream',
         'Accept':         'application/vnd.api+json',
-        'Content-Disposition': 'file; filename="filename.jpg"'
+        'Content-Disposition': 'file; filename="' + fileName + '"'
       }),
       withCredentials: true
     };
 
-    httpOptions.headers = httpOptions.headers.set('x-csrf-token', this.settings.backendSessionToken);
-    // console.log('httpOptions: ', httpOptions);
+    httpOptions.headers = httpOptions.headers.set('x-csrf-token',
+      this.settings.backendSessionToken);
 
-    return this.http.post(endpoint, formData, httpOptions);
-      // .map(() => { return true; })
-      // .catch((e) => this.handleError(e));
+    return this.http.post(endpoint, fileData, httpOptions);
+  }
+
+  attachFile(fileId: string, pageId: string): Observable<Object> {
+    var url: string = this.settings.backendBaseUrl
+      + '/jsonapi/node/article/[id]/relationships/field_image';
+    url = url.replace('[id]', pageId);
+    console.log('url: ', url);
+
+    var data = {
+      "data": {
+        "type": "file--file",
+        "id": fileId
+        // "meta": {"description": ""}
+      }
+    };
+    console.log('data: ', data);
+
+    return this.http.post(url, data, this.httpOptions);
   }
 }
