@@ -20,8 +20,12 @@
   <!-- <button (click)="removeLastGroup()">-</button> -->
   <button (click)="changeColour()" class="icon colour"><i class="material-icons">palette</i></button>
   <div *ngIf="sectionsInPage > 1">
-    <button (click)="up()" class="icon"><i class="material-icons">arrow_upward</i></button>
-    <button (click)="down()" class="icon"><i class="material-icons">arrow_downward</i></button>
+    <button (click)="up()" class="icon"
+      (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
+      <i class="material-icons">arrow_upward</i></button>
+    <button (click)="down()" class="icon"
+      (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
+      <i class="material-icons">arrow_downward</i></button>
   </div>
   <button class="remove icon"
     (click)="removeSelf()"
