@@ -63,8 +63,7 @@ export class PageService {
         colourStyle: 'default',
         groups: [{
           blocks: [{
-            type: 'text',
-            content: ''
+            type: 'text'
           }]
         }]
       }]

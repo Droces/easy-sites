@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Page } from './page';
 import { Section } from './section';
 import { Group } from './group';
-import { Block } from './block';
+import { BlockInterface } from './block-interface';
 
 @Component({
   selector: 'app-structure-component-base'

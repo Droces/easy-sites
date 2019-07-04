@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Group } from '../group';
-import { Block } from '../block';
 import { StructureComponentBase } from '../structureComponentBase.component';
+
+import { BlockInterface } from '../block-interface';
+import { TextBlock } from '../blocks/text-block';
+import { ImageBlock } from '../blocks/image-block';
+import { LineBlock } from '../blocks/line-block';
 
 @Component({
   selector: 'app-group',
@@ -21,7 +25,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
 
   ngOnInit() { }
 
-  moveBlockUp(block: Block) {
+  moveBlockUp(block: BlockInterface) {
     var currentPos = this.group.blocks.indexOf(block);
     if (currentPos <= 0) {
       return null;
@@ -29,7 +33,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
     this.group.blocks.splice(currentPos - 1, 0, this.group.blocks.splice(currentPos, 1)[0]);
   }
 
-  moveBlockDown(block: Block) {
+  moveBlockDown(block: BlockInterface) {
     var currentPos = this.group.blocks.indexOf(block);
     // No check needed for last section
     this.group.blocks.splice(currentPos + 1, 0, this.group.blocks.splice(currentPos, 1)[0]);
@@ -42,15 +46,18 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   addBlock(type: string): void {
     switch (type) {
       case 'text': {
-        this.group.blocks.push({type: 'text', content: ""});
+        var textBlock: TextBlock = {type: 'text', content: ''};
+        this.group.blocks.push(textBlock);
         break;
       }
       case 'image': {
-        this.group.blocks.push({type: 'image', content: ""});
+        var imageBlock: ImageBlock = {type: 'image', fileId: ''};
+        this.group.blocks.push(imageBlock);
         break;
       }
       case 'line': {
-        this.group.blocks.push({type: 'line', content: ""});
+        var lineBlock: LineBlock = {type: 'line'};
+        this.group.blocks.push(lineBlock);
         break;
       }
       default: {
@@ -60,7 +67,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
     }
   }
 
-  removeBlock(block: Block): void {
+  removeBlock(block: BlockInterface): void {
     var currentPos = this.group.blocks.indexOf(block);
     this.group.blocks.splice(currentPos, 1);
   }

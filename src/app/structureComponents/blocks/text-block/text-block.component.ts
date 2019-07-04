@@ -6,8 +6,10 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { PageService } from '../../../page.service';
 import { HttpService } from '../../../http.service';
 
-import { Block } from '../../block';
 import { StructureComponentBase } from '../../structureComponentBase.component';
+
+// import { BlockInterface } from '../../block-interface';
+import { TextBlock } from '../text-block';
 
 @Component({
   selector: 'text-block',
@@ -15,7 +17,7 @@ import { StructureComponentBase } from '../../structureComponentBase.component';
   styleUrls: ['./text-block.component.scss']
 })
 export class TextBlockComponent extends StructureComponentBase implements OnInit {
-  @Input() block: Block;
+  @Input() block: TextBlock;
   @Input() blocksInGroup: number;
 
   public editor = InlineEditor;

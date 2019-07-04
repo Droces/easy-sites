@@ -1,10 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { StructureComponentBase } from '../../structureComponentBase.component';
-
+import { SettingsService } from '../../../settings.service';
 import { PageService } from '../../../page.service';
 import { HttpService } from '../../../http.service';
+
+import { StructureComponentBase } from '../../structureComponentBase.component';
+
+// import { BlockInterface } from '../../block-interface';
+import { ImageBlock } from '../image-block';
 
 @Component({
   selector: 'image-block',
@@ -12,11 +16,11 @@ import { HttpService } from '../../../http.service';
   styleUrls: ['./image-block.component.scss']
 })
 export class ImageBlockComponent extends StructureComponentBase implements OnInit {
+  @Input() block: ImageBlock;
   @Input() blocksInGroup: number;
 
-  fileToUpload: File = null;
-
   constructor(
+    public settings: SettingsService,
     public httpService: HttpService,
     public pageService: PageService) {
     super();

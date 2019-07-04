@@ -1,5 +1,5 @@
-import { Block } from './block';
+import { BlockInterface } from './block-interface';
 
 export class Group {
-  blocks: Block[];
+  blocks: BlockInterface[];
 }
