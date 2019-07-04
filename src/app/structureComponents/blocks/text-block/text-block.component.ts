@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
+import { SettingsService } from '../../../settings.service';
 import { PageService } from '../../../page.service';
 import { HttpService } from '../../../http.service';
 
@@ -30,6 +31,7 @@ export class TextBlockComponent extends StructureComponentBase implements OnInit
   };
 
   constructor(
+    public settings: SettingsService,
     public httpService: HttpService,
     public pageService: PageService) {
     super();

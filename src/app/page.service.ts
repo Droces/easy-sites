@@ -87,15 +87,18 @@ export class PageService {
     request.subscribe((response: DrupalPagesResponse) => {
       this.pages = [];
       if (response.data.length) {
+        // console.log('response.data: ', response.data);
         var firstPageId: string = response.data[0].id;
         for (let page of response.data) {
           var body: string = page.attributes.body.value;
-          var bodyParsed = JSON.parse(body.replace('/', ''));
+          // console.log('body: ', body);
+          var bodyParsed = JSON.parse(body); // .replace('/', '')
           this.pages.push({
             id: page.id,
             title: page.attributes.title,
             sections: bodyParsed
           });
+          // console.log('this.pages: ', this.pages);
         }
       }
       document.dispatchEvent(this.pagesFetchedEvent);
@@ -122,16 +125,13 @@ export class PageService {
     request = this.doSavePage(page, method);
     // Call save method after at least 3 seconds
     this.saveTimeout = setTimeout(() => {
-
       this.httpService.currentState = 'Saving';
       request.subscribe(data => {
-        if (typeof data == 'string') {
-          var dataObj = JSON.parse(data).data;
-          this.httpService.currentState = 'Saved';
-          if (method == 'post') {
-            page.id = dataObj.id;
-            this.router.navigate(['page/' + dataObj.id]);
-          }
+        // console.log('data: ', data);
+        this.httpService.currentState = 'Saved';
+        if (method == 'post') {
+          page.id = data.id;
+          this.router.navigate(['page/' + data.id]);
         }
       });
 

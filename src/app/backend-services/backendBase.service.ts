@@ -89,7 +89,7 @@ export abstract class BackendBaseService {
         retry(1), // retry a failed request up to 1 times
         tap(
           data => {
-            // console.log('data: ', data);
+            // console.log('pages data: ', data);
           }
         ),
         catchError(this.errorHandler.handleError)

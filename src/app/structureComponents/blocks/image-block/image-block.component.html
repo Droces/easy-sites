@@ -1,22 +1,22 @@
 <div class="block image"
   [ngClass]="{'active': isActive}">
 
-  <div class="form-group">
-    <img *ngIf="block.path; else file" src="{{ settings.backendBaseUrl }}{{ block.path }}">
-    <ng-template #file>
+  <img *ngIf="block.path; else formGroup" src="{{ settings.backendBaseUrl }}/{{ block.path }}">
+  <ng-template #formGroup>
+    <div *ngIf="this.settings.mode == 'edit'" class="form-group">
       <label for="file">Choose File</label>
       <input
         id="file"
         type="file"
         (change)="handleFileInput($event.target.files)">
-    </ng-template>
-  </div>
+    </div>
+  </ng-template>
 
   <div *ngIf="blocksInGroup > 1">
-    <button (click)="up()" class="icon"
+    <button (click)="up()" class="icon move up"
       (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
       <i class="material-icons">arrow_upward</i></button>
-    <button (click)="down()" class="icon"
+    <button (click)="down()" class="icon move down"
       (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
       <i class="material-icons">arrow_downward</i></button>
   </div>

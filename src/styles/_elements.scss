@@ -66,7 +66,9 @@ button.add {
 }
 [data-mode="view"] {
   button.add,
-  button.remove {
+  button.remove,
+  button.move,
+  button.colour {
     display: none;
   }
 }
@@ -82,47 +84,54 @@ app-page {
   flex: 1 1 auto;
 }
 
+h1, h2, h3 {
+  input[type="text"] {
+    border: none;
+    background: none;
+    padding: 0;
+  }
+}
+
+hr {
+  border: solid 1px #dadada; // pale grey
+  border-width: 0 0 1px;
+}
+
 .section,
 .group,
 .block {
   position: relative;
+  [data-mode="edit"] & {
+    border: solid 2px transparent;
 
-  &.active {
-    border: solid 2px #c32121; // colour: red
+    &.active {
+      border: solid 2px #c32121; // colour: red
+    }
   }
 }
 .section {
-  border-bottom: dotted 1px grey;
+  [data-mode="edit"] & {
+    border-bottom: dotted 1px grey;
+  }
 }
 
-$temp-border: none; // dotted 2px lightgrey;
 app-section {
   display: block;
-  border-bottom: $temp-border;
-  &:first-of-type {
-    border-top: $temp-border;
-  }
-  // &:hover {
-  //   border-style: solid;
-  //   border-color: #4285f4; // colour: blue
-  //   border-width: 2px 0;
-  // }
 }
 .block,
 .group {
-  // background: rgba(0, 0, 0, 0.07);
-  border: $temp-border;
-
-  // &:hover {
-  //   border: solid 2px #4285f4; // colour: blue
-  // }
+}
+.group {
+  [data-mode="edit"] & {
+    padding-top: 20px;
+  }
 }
 .block {
-  border-bottom: dotted 1px gray;
-
-  &.image {
-    padding-top: 10px;
+  [data-mode="edit"] & {
+    border-bottom: dotted 1px gray;
   }
+
+  &.image {}
   &.line {
     padding-top: 20px;
   }

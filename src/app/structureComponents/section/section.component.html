@@ -20,10 +20,10 @@
   <!-- <button (click)="removeLastGroup()">-</button> -->
   <button (click)="changeColour()" class="icon colour"><i class="material-icons">palette</i></button>
   <div *ngIf="sectionsInPage > 1">
-    <button (click)="up()" class="icon"
+    <button (click)="up()" class="icon move up"
       (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
       <i class="material-icons">arrow_upward</i></button>
-    <button (click)="down()" class="icon"
+    <button (click)="down()" class="icon move down"
       (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
       <i class="material-icons">arrow_downward</i></button>
   </div>

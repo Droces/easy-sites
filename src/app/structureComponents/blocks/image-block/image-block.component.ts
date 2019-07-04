@@ -27,6 +27,7 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
   }
 
   ngOnInit() {
+    // console.log('image block: ', this.block);
   }
 
   handleFileInput(files: FileList): void {
@@ -49,6 +50,11 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
         this.block.path = data['data']['attributes']['uri']['url'];
         var attachRequest = this.httpService.instance
           .attachFile(this.block.fileId, this.pageService.currentPage.id);
+
+        this.httpService.currentState = 'Unsaved';
+        // const data = editor.getData();
+        this.pageService.savePage();
+
         return attachRequest;
       },
       error => {

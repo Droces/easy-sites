@@ -53,10 +53,10 @@
     <i class="material-icons">close</i></button>
 
   <div *ngIf="groupsInSection > 1">
-    <button (click)="up()" class="icon"
+    <button (click)="up()" class="icon move up"
       (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
       <i class="material-icons">arrow_back</i></button>
-    <button (click)="down()" class="icon"
+    <button (click)="down()" class="icon move down"
       (mouseenter)="toggleActive(true)" (mouseleave)="toggleActive(false)">
       <i class="material-icons">arrow_forward</i></button>
   </div>
