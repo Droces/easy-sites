@@ -4,6 +4,7 @@
   <app-primary-nav></app-primary-nav>
   <!-- <h1 contenteditable [innerHTML]="page.title"></h1> -->
   <h1><input
+    [disabled]="settings.mode == 'view'"
     type="text"
     class="plain"
     [(ngModel)]="page.title"

@@ -3,7 +3,7 @@
   [ngClass]="{'active': isActive}">
 
   <ckeditor
-    *ngIf="block.content || this.settings.mode == 'edit'"
+    [ngClass]="{'hidden': !(block.content || this.settings.mode == 'edit')}"
     [editor]="editor"
     [(ngModel)]="block.content"
     [config]="config"

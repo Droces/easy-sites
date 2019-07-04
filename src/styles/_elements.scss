@@ -101,6 +101,7 @@ hr {
 .group,
 .block {
   position: relative;
+
   [data-mode="edit"] & {
     border: solid 2px transparent;
 
@@ -169,6 +170,9 @@ app-section {
       padding: 0.5em 1em;
     }
   }
+}
+.hidden {
+  display: none;
 }
 
 /* -----------------------------------------------------------------------------

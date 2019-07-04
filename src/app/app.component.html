@@ -23,17 +23,19 @@
 </header>
 <div id="main-and-sidebar" [attr.data-mode]="settings.mode">
   <router-outlet></router-outlet>
-  <aside>
-    <h2>Pages</h2>
-    <app-pages-list></app-pages-list>
+  <div class="aside-container">
+    <aside>
+      <h2>Pages</h2>
+      <app-pages-list></app-pages-list>
 
-    <hr>
-    <app-theme-selector></app-theme-selector>
+      <hr>
+      <app-theme-selector></app-theme-selector>
 
-    <hr>
-    <p><button (click)="exportData()">
-      <i class="material-icons">archive</i>
-      Export data</button></p>
-    <p id="saveState" class="subtle">{{ httpService.currentState }}</p>
-  </aside>
+      <hr>
+      <p><button (click)="exportData()">
+        <i class="material-icons">archive</i>
+        Export data</button></p>
+      <p id="saveState" class="subtle">{{ httpService.currentState }}</p>
+    </aside>
+  </div>
 </div>

@@ -37,9 +37,21 @@ export class TextBlockComponent extends StructureComponentBase implements OnInit
     super();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+      // When the pages are first fetched
+      document.addEventListener('modeChanged', (event) => {
+        console.log('this.settings.mode: ', this.settings.mode);
+        if (this.settings.mode == 'edit') {
+          this.editor.isReadOnly = false;
+        }
+        else {
+          this.editor.isReadOnly = true;
+        }
+      }, false);
+  }
 
-  public editorReady(editor) {
+  public editorReady(editor: object) {
+    this.editor = editor;
     // console.log('editor toolbar items', Array.from(editor.ui.componentFactory.names()));
   }
 

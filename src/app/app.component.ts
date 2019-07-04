@@ -13,6 +13,8 @@ import { PageService } from './page.service';
 export class AppComponent {
   title = 'easy-sites';
 
+  modeChangedEvent = new Event('modeChanged');
+
   constructor(public settings: SettingsService,
     public httpService: HttpService,
     public pageService: PageService,
@@ -37,5 +39,6 @@ export class AppComponent {
 
   changeMode(mode: string): void {
     this.settings.mode = mode;
+    document.dispatchEvent(this.modeChangedEvent);
   }
 }
