@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Page } from '../structureComponents/page';
 
 export interface BackendService {
   tokenFetchedEvent?: Event;
@@ -26,10 +27,11 @@ export interface BackendService {
   saveToken?(token: string): void;
 
   createPage(url: string, payload): Observable<Object>;
-  fetchPage(id: string): Observable<Object>;
+  fetchPage(id: string): Observable<Page>;
   fetchPages(): Observable<Object>;
   updatePage(url: string, payload): Observable<Object>;
   deletePage(url: string): Observable<Object>;
+  fetchPages(): Observable<Page>;
 
   fetchCurrentUserId(): Observable<Object>;
   fetchCurrentUser(): Observable<Object>;

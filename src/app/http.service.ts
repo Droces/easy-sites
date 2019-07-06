@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { BackendService } from './backend-services/backend-service';
 import { DrupalJsonApiBackendService } from './backend-services/drupal-jsonapi.service';
-import { DrupalRestBackendService } from './backend-services/drupal-rest.service';
+// import { DrupalRestBackendService } from './backend-services/drupal-rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,15 @@ export class HttpService {
 
   backendServices = [
     'DrupalJsonApiBackendService',
-    'DrupalRestBackendService',
+    // 'DrupalRestBackendService',
   ];
 
   backendServiceName: string;
 
   constructor(
     public DrupalJsonApiBackendService: DrupalJsonApiBackendService,
-    public DrupalRestBackendService: DrupalRestBackendService) {
+    // public DrupalRestBackendService: DrupalRestBackendService
+  ) {
       this.backendServiceName = 'DrupalJsonApiBackendService';
     }
 

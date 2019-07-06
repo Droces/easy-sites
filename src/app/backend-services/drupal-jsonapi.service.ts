@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError, tap } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { retry, catchError, tap, map, switchMap } from 'rxjs/operators';
 
+import { DrupalPagesResponse } from './drupalPagesResponse';
 import { ErrorHandlerService } from './error-handler.service';
 import { SettingsService } from '../settings.service';
 
 import { BackendBaseService } from './backendBase.service';
 import { BackendService } from './backend-service';
+
+import { Page } from '../structureComponents/page';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +46,48 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     public errorHandler: ErrorHandlerService,
     public http: HttpClient) {
     super(settings, errorHandler, http);
+  }
+
+  transformDataToPage(data: any): Page {
+    // Convert Drupal's response format to a Page
+    return {
+      id: data.id,
+      title: data.attributes.title,
+      sections: JSON.parse(data.attributes.body.value)
+    };
+  }
+
+  fetchPage(id: string): Observable<Page> {
+    var url: string = this.settings.backendBaseUrl + this.backendPageGetPath;
+    url = url.replace('[id]', id);
+    var request: Observable<Page> = this.http.get<DrupalPagesResponse>(url)
+      .pipe(
+        retry(1), // retry a failed request up to 1 times
+        map(data => this.transformDataToPage(data.data)),
+        catchError(this.errorHandler.handleError)
+      );
+    return request;
+  }
+
+  updatePage(url: string, payload): Observable<Object> {
+    var request = this.http.patch(url, payload, this.httpOptions);
+    // request.subscribe(response => {});
+    return request;
+  }
+
+  fetchPages(): Observable<Page> {
+    var url: string = this.settings.backendBaseUrl + this.backendPagesGetPath;
+    var request: Observable<Page> = this.http.get<DrupalPagesResponse>(url)
+      .pipe(
+        retry(1), // retry a failed request up to 1 times
+        switchMap((data: any) => {
+          // For each page in the array, emit a distinct page value through the observable
+          return of.apply(this, data.data);
+        }),
+        map(page => this.transformDataToPage(page)),
+        catchError(this.errorHandler.handleError)
+      );
+    return request;
   }
 
   fetchCurrentUserId(): Observable<Object> {

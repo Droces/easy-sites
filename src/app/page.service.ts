@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Page } from './structureComponents/page';
-import { DrupalPagesResponse } from './drupalPagesResponse';
 
 import { SettingsService } from './settings.service';
 import { HttpService } from './http.service';
@@ -20,11 +18,9 @@ export class PageService {
   pagesFetchedEvent = new Event('pagesFetched');
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     public settings: SettingsService,
-    public httpService: HttpService,
-    private http: HttpClient) {
+    public httpService: HttpService) {
   }
 
   ngOnInit(): void {
@@ -70,7 +66,7 @@ export class PageService {
     };
   }
 
-  removePage(page): void {
+  removePage(page: Page): void {
     var index = this.pages.indexOf(page);
     if (index > -1) {
       this.pages.splice(index, 1);
@@ -78,45 +74,38 @@ export class PageService {
 
     var url: string = this.settings.backendBaseUrl + this.httpService.instance.backendPageDeletePath;
     url = url.replace('[id]', page.id);
-    var request = this.httpService.instance.deletePage(url);
+    this.httpService.instance.deletePage(url);
   }
 
   fetchPages(): Observable<Object> {
-    var request = this.httpService.instance.fetchPages();
+    this.pages = [];
 
-    request.subscribe((response: DrupalPagesResponse) => {
-      this.pages = [];
-      if (response.data.length) {
-        // console.log('response.data: ', response.data);
-        var firstPageId: string = response.data[0].id;
-        for (let page of response.data) {
-          var body: string = page.attributes.body.value;
-          // console.log('body: ', body);
-          var bodyParsed = JSON.parse(body); // .replace('/', '')
-          this.pages.push({
-            id: page.id,
-            title: page.attributes.title,
-            sections: bodyParsed
-          });
-          // console.log('this.pages: ', this.pages);
-        }
+    var request = this.httpService.instance.fetchPages();
+    // Store returned pages
+    // Parameters are functions: next(), error(), finished().
+    request.subscribe(
+      (page: any) => {
+        this.pages.push(page);
+      },
+      () => {},
+      () => {
+        document.dispatchEvent(this.pagesFetchedEvent);
       }
-      document.dispatchEvent(this.pagesFetchedEvent);
-    });
+    );
 
     return request;
   }
 
   savePage(page: Page = null, method: string = 'patch', delay: number = 3): Observable<Object> {
     clearTimeout(this.saveTimeout);
-    var request;
+    var request: Observable<Object>;
 
     if (method == 'patch' && ! page) {
       page = this.currentPage;
     }
 
     if (! this.settings.backendSessionToken) {
-      document.addEventListener('tokenFetched', (event) => {
+      document.addEventListener('tokenFetched', () => {
         this.savePage(page, method);
       });
       return null;

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError, tap } from 'rxjs/operators';
+import { retry, catchError, tap, map, switchMap } from 'rxjs/operators';
 
-import { DrupalPagesResponse } from '../drupalPagesResponse';
 import { ErrorHandlerService } from './error-handler.service';
 import { SettingsService } from '../settings.service';
 
@@ -70,34 +69,6 @@ export abstract class BackendBaseService {
   }
 
   createPage(url: string, payload): Observable<Object> {
-    var request = this.http.patch(url, payload, this.httpOptions);
-    // request.subscribe(response => {});
-    return request;
-  }
-
-  fetchPage(id: string): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendPageGetPath;
-    url = url.replace('[id]', id);
-    var request = this.http.get(url);
-    return request;
-  }
-
-  fetchPages(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendPagesGetPath;
-    var request: Observable<Object> = this.http.get(url)
-      .pipe(
-        retry(1), // retry a failed request up to 1 times
-        tap(
-          data => {
-            // console.log('pages data: ', data);
-          }
-        ),
-        catchError(this.errorHandler.handleError)
-      );
-    return request;
-  }
-
-  updatePage(url: string, payload): Observable<Object> {
     var request = this.http.patch(url, payload, this.httpOptions);
     // request.subscribe(response => {});
     return request;
