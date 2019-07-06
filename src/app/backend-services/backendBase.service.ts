@@ -67,16 +67,4 @@ export abstract class BackendBaseService {
     this.settings.backendSessionToken = token;
     this.httpOptions.headers = this.httpOptions.headers.set('x-csrf-token', token);
   }
-
-  createPage(url: string, payload): Observable<Object> {
-    var request = this.http.patch(url, payload, this.httpOptions);
-    // request.subscribe(response => {});
-    return request;
-  }
-
-  deletePage(url: string): Observable<Object> {
-    var request = this.http.delete(url, this.httpOptions);
-    request.subscribe(response => {});
-    return request;
-  }
 }

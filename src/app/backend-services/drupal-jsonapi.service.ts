@@ -48,6 +48,18 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     super(settings, errorHandler, http);
   }
 
+  transformPageToPayload(page: Page) {
+    return {
+      data: {
+        type: "node--page",
+        attributes: {
+          title: page.title,
+          body: JSON.stringify(page.sections)
+        }
+      }
+    };
+  }
+
   transformDataToPage(data: any): Page {
     // Convert Drupal's response format to a Page
     return {
@@ -55,6 +67,19 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
       title: data.attributes.title,
       sections: JSON.parse(data.attributes.body.value)
     };
+  }
+
+  createPage(page: Page): Observable<Page> {
+    var payload = this.transformPageToPayload(page);
+    var url: string = this.settings.backendBaseUrl + this.backendPagePostPath;
+
+    var request = this.http.post<DrupalPagesResponse>(url, payload, this.httpOptions)
+      .pipe(
+        retry(1), // retry a failed request up to 1 times
+        map(data => this.transformDataToPage(data.data)),
+        catchError(this.errorHandler.handleError)
+      );
+    return request;
   }
 
   fetchPage(id: string): Observable<Page> {
@@ -69,9 +94,27 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     return request;
   }
 
-  updatePage(url: string, payload): Observable<Object> {
-    var request = this.http.patch(url, payload, this.httpOptions);
-    // request.subscribe(response => {});
+  updatePage(page: Page): Observable<Page> {
+    var payload = this.transformPageToPayload(page);
+    payload.data['id'] = page.id;
+    var url: string = this.settings.backendBaseUrl + this.backendPagePatchPath;
+    url = url.replace('[id]', page.id);
+
+    var request = this.http.patch(url, payload, this.httpOptions)
+      .pipe(
+        retry(1), // retry a failed request up to 1 times
+        map((data: any) => this.transformDataToPage(data.data)),
+        catchError(this.errorHandler.handleError)
+      );
+    return request;
+  }
+
+  deletePage(page: Page): Observable<Object> {
+    var url: string = this.settings.backendBaseUrl + this.backendPageDeletePath;
+    url = url.replace('[id]', page.id);
+
+    var request = this.http.delete(url, this.httpOptions);
+    request.subscribe(() => {});
     return request;
   }
 

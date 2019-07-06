@@ -26,11 +26,10 @@ export interface BackendService {
   fetchToken?(): Observable<string>;
   saveToken?(token: string): void;
 
-  createPage(url: string, payload): Observable<Object>;
+  createPage(urpage: Page): Observable<Page>;
   fetchPage(id: string): Observable<Page>;
-  fetchPages(): Observable<Object>;
-  updatePage(url: string, payload): Observable<Object>;
-  deletePage(url: string): Observable<Object>;
+  updatePage(page: Page): Observable<Page>;
+  deletePage(page: Page): Observable<Object>;
   fetchPages(): Observable<Page>;
 
   fetchCurrentUserId(): Observable<Object>;

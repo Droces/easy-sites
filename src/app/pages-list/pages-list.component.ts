@@ -51,9 +51,7 @@ export class PagesListComponent implements OnInit {
   }
 
   addPage(): void {
-    var page: Page = this.pageService.addPage();
-    this.router.navigate(['page/' + page.id]);
-    this.pageService.savePage(page, 'post');
+    this.pageService.addPage();
   }
 
   removePage(page: Page): void {

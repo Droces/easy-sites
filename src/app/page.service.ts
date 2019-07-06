@@ -45,12 +45,6 @@ export class PageService {
     return null;
   }
 
-  addPage(): Page {
-    var newPage: Page = this.provideNewPage();
-    this.pages.push(newPage);
-    return newPage;
-  }
-
   provideNewPage(): Page {
     return {
       id: 'temporary-id',
@@ -71,23 +65,20 @@ export class PageService {
     if (index > -1) {
       this.pages.splice(index, 1);
     }
-
-    var url: string = this.settings.backendBaseUrl + this.httpService.instance.backendPageDeletePath;
-    url = url.replace('[id]', page.id);
-    this.httpService.instance.deletePage(url);
+    this.httpService.instance.deletePage(page);
   }
 
   fetchPages(): Observable<Object> {
     this.pages = [];
 
     var request = this.httpService.instance.fetchPages();
-    // Store returned pages
     // Parameters are functions: next(), error(), finished().
     request.subscribe(
       (page: any) => {
+        // Store returned pages
         this.pages.push(page);
       },
-      () => {},
+      () => {}, // @todo handle error
       () => {
         document.dispatchEvent(this.pagesFetchedEvent);
       }
@@ -96,10 +87,19 @@ export class PageService {
     return request;
   }
 
-  savePage(page: Page = null, method: string = 'patch', delay: number = 3): Observable<Object> {
-    clearTimeout(this.saveTimeout);
-    var request: Observable<Object>;
+  addPage(): Page {
+    var page: Page = this.provideNewPage();
+    this.pages.push(page);
+    this.savePage(page, 'post');
+    this.router.navigate(['page/' + page.id]);
+    return page;
+  }
 
+  savePage(page: Page = null, method: string = 'patch', delay: number = 3): Observable<Page> {
+    clearTimeout(this.saveTimeout);
+    var request: Observable<Page>;
+
+    // If a page hasn't been provided, use the current page
     if (method == 'patch' && ! page) {
       page = this.currentPage;
     }
@@ -111,51 +111,37 @@ export class PageService {
       return null;
     }
 
-    request = this.doSavePage(page, method);
-    // Call save method after at least 3 seconds
-    this.saveTimeout = setTimeout(() => {
-      this.httpService.currentState = 'Saving';
-      request.subscribe(data => {
-        // console.log('data: ', data);
-        this.httpService.currentState = 'Saved';
-        if (method == 'post') {
-          page.id = data.id;
-          this.router.navigate(['page/' + data.id]);
-        }
-      });
+    if (method == 'patch') {
+      request = this.httpService.instance.updatePage(page);
+      // Call save method after at least 3 seconds
+      this.saveTimeout = setTimeout(() => {
+        this.performSavePage(request, method, page);
+      }, delay * 1000);
+    }
+    else { // method == 'post'
+      request = this.httpService.instance.createPage(page);
+      this.performSavePage(request, method, page);
+    }
 
-    }, delay * 1000);
     return request;
   }
 
-
-  doSavePage(page: Page, method: string): Observable<Object> {
-    var payload = {
-      data: {
-        type: "node--page",
-        attributes: {
-          title: page.title,
-          body: JSON.stringify(page.sections)
+  performSavePage(request: Observable<Page>, method: string, page: Page) {
+    this.httpService.currentState = 'Saving';
+    // Parameters are functions: next(), error(), finished().
+    request.subscribe(
+      (pageReturned: any) => {
+        if (method == 'post') {
+          // Store returned page
+          page.id = pageReturned.id;
+          this.router.navigate(['page/' + pageReturned.id]);
         }
+      },
+      () => {},
+      () => {
+        this.httpService.currentState = 'Saved';
       }
-    };
-
-    var url: string;
-    if (method == 'patch') {
-      payload.data['id'] = page.id;
-      url = this.settings.backendBaseUrl + this.httpService.instance.backendPagePatchPath;
-      url = url.replace('[id]', page.id);
-    }
-    else if (method == 'post') {
-      url = this.settings.backendBaseUrl + this.httpService.instance.backendPagePostPath;
-    }
-
-    if (method == 'patch') {
-      return this.httpService.instance.updatePage(url, payload);
-    }
-    else { // method == 'post'
-      return this.httpService.instance.createPage(url, payload);
-    }
+    );
   }
 
   navigateToFirstPage(): void {
