@@ -1,0 +1,96 @@
+.hidden {
+  display: none;
+}
+.subtle {
+  font-size: 0.85em;
+  color: grey;
+  font-style: italic;
+}
+
+
+/* -----------------------------------------------------------------------------
+ *                                                      Menus & tabs
+ */
+.tabs,
+ .menu {
+   margin: 0;
+   padding-left: 0;
+
+   li {
+     list-style-type: none;
+   }
+ }
+ .tabs {
+   li {
+     border-width: 3px 0;
+     border-style: solid;
+     border-color: transparent;
+
+     &:hover,
+     &:focus {
+       border-bottom-color: rgba(white, 0.4);
+     }
+     &[aria-selected="true"] {
+       border-bottom-color: rgba(white, 1);
+     }
+     & > * {
+       display: block;
+       padding: 0.5em 1em;
+     }
+   }
+ }
+
+
+/* -----------------------------------------------------------------------------
+ *                                                      Structure components
+ */
+.section,
+.group,
+.block {
+  position: relative;
+
+  [data-mode="edit"] & {
+    border: solid 2px transparent;
+
+    &.active {
+      border: solid 2px #c32121; // colour: red
+    }
+  }
+}
+.section {
+  [data-mode="edit"] & {
+    border-bottom: dotted 1px grey;
+  }
+}
+
+app-section {
+  display: block;
+}
+.block,
+.group {
+}
+.group {
+  [data-mode="edit"] & {
+    padding-top: 20px;
+  }
+}
+.block {
+  [data-mode="edit"] & {
+    border-bottom: dotted 1px gray;
+  }
+
+  &.image {}
+  &.line {
+    padding-top: 20px;
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+ *                                                      CKEditor WYSiWYG editor
+ */
+.ck-toolbar {
+  button {
+    box-shadow: none;
+  }
+}

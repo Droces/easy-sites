@@ -3,6 +3,34 @@ body {
   margin: 0;
 }
 
+input.plain {
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+app-page {
+  flex: 1 1 auto;
+}
+
+h1, h2, h3 {
+  input[type="text"] {
+    border: none;
+    background: none;
+    padding: 0;
+  }
+}
+
+hr {
+  border: solid 1px #dadada; // pale grey
+  border-width: 0 0 1px;
+}
+
+
+/* -----------------------------------------------------------------------------
+ *                                                      Buttons
+ */
 button {
   border: none;
   box-shadow: none;
@@ -73,107 +101,6 @@ button.add {
   }
 }
 
-input.plain {
-  border: none;
-  background: none;
-  color: inherit;
-  font-family: inherit;
-}
-
-app-page {
-  flex: 1 1 auto;
-}
-
-h1, h2, h3 {
-  input[type="text"] {
-    border: none;
-    background: none;
-    padding: 0;
-  }
-}
-
-hr {
-  border: solid 1px #dadada; // pale grey
-  border-width: 0 0 1px;
-}
-
-.section,
-.group,
-.block {
-  position: relative;
-
-  [data-mode="edit"] & {
-    border: solid 2px transparent;
-
-    &.active {
-      border: solid 2px #c32121; // colour: red
-    }
-  }
-}
-.section {
-  [data-mode="edit"] & {
-    border-bottom: dotted 1px grey;
-  }
-}
-
-app-section {
-  display: block;
-}
-.block,
-.group {
-}
-.group {
-  [data-mode="edit"] & {
-    padding-top: 20px;
-  }
-}
-.block {
-  [data-mode="edit"] & {
-    border-bottom: dotted 1px gray;
-  }
-
-  &.image {}
-  &.line {
-    padding-top: 20px;
-  }
-}
-.subtle {
-  font-size: 0.85em;
-  color: grey;
-  font-style: italic;
-}
-
-.tabs,
-.menu {
-  margin: 0;
-  padding-left: 0;
-
-  li {
-    list-style-type: none;
-  }
-}
-.tabs {
-  li {
-    border-width: 3px 0;
-    border-style: solid;
-    border-color: transparent;
-
-    &:hover,
-    &:focus {
-      border-bottom-color: rgba(white, 0.4);
-    }
-    &[aria-selected="true"] {
-      border-bottom-color: rgba(white, 1);
-    }
-    & > * {
-      display: block;
-      padding: 0.5em 1em;
-    }
-  }
-}
-.hidden {
-  display: none;
-}
 
 /* -----------------------------------------------------------------------------
  *                                                      Forms
@@ -212,15 +139,7 @@ details {
     margin-bottom: 0.6em;
   }
 }
+// Field prefix (eg. $)
 .prefix {
   margin-right: 0.2em;
-}
-
-/* -----------------------------------------------------------------------------
- *                                                      CKEditor WYSiWYG editor
- */
-.ck-toolbar {
-  button {
-    box-shadow: none;
-  }
 }
