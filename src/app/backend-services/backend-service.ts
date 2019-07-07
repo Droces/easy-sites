@@ -37,4 +37,5 @@ export interface BackendService {
 
   postFile(fileData, fileName: string): Observable<Object>;
   attachFile?(fileId: string, pageId: string): Observable<Object>;
+  updateFile(fileId: string): Observable<Object>;
 }

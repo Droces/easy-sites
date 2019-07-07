@@ -167,8 +167,14 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     return request;
   };
 
+  /**
+   * See [Allow creation of file entities from binary data | Drupal.org](https://www.drupal.org/node/3024331)
+   * @param  fileData [description]
+   * @param  fileName [description]
+   * @return          [description]
+   */
   postFile(fileData: string | ArrayBuffer, fileName: string): Observable<Object> {
-    const endpoint = this.settings.backendBaseUrl + '/jsonapi/node/article/field_image';
+    const endpoint = this.settings.backendBaseUrl + '/jsonapi/node/page/field_image';
 
     var httpOptions = {
       headers: new HttpHeaders({
@@ -182,24 +188,65 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     httpOptions.headers = httpOptions.headers.set('x-csrf-token',
       this.settings.backendSessionToken);
 
-    return this.http.post(endpoint, fileData, httpOptions);
+    return this.http.post(endpoint, fileData, httpOptions)
+      .pipe(
+        retry(1), // retry a failed request up to 1 times
+        map(data => {
+          return {
+            id: data['data']['id'],
+            url: data['data']['attributes']['uri']['url']
+          };
+        }),
+        catchError(this.errorHandler.handleError)
+      );
   }
 
-  attachFile(fileId: string, pageId: string): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl
-      + '/jsonapi/node/article/[id]/relationships/field_image';
-    url = url.replace('[id]', pageId);
-    console.log('url: ', url);
-
-    var data = {
-      "data": {
+  createFilesPayload(fileId: string): Object {
+    return {
+      "data": [{
         "type": "file--file",
-        "id": fileId
-        // "meta": {"description": ""}
-      }
+        "id": fileId,
+        attributes: {
+          status: true
+        }
+      }]
     };
-    console.log('data: ', data);
+  }
+
+  /**
+   * Page content type needs a "field_files" multi-value field
+   * @param string fileId [description]
+   * @param string pageId [description]
+   * @return Observable<Object> [description]
+   */
+  attachFile(fileId: string, pageId: string): Observable<Object> {
+    // console.log('attachFile()');
+    var url: string = this.settings.backendBaseUrl
+      + '/jsonapi/node/page/[id]/relationships/field_files';
+    url = url.replace('[id]', pageId);
+
+    var data = this.createFilesPayload(fileId);
 
     return this.http.post(url, data, this.httpOptions);
+  }
+
+  updateFile(fileId: string, makePermanent = true) {
+    console.log('updateFile()');
+    var url = this.settings.backendBaseUrl + '/jsonapi/file/file/[id]';
+    url = url.replace('[id]', fileId);
+
+    var data = {
+      data: {
+        type: "file--file",
+        id: fileId,
+        attributes: {
+          status: true
+        }
+      }
+    };
+    if (! makePermanent)
+      data['attributes']['status'] = false;
+
+    return this.http.patch(url, data, this.httpOptions);
   }
 }

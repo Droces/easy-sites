@@ -95,13 +95,16 @@ export class PageService {
     return page;
   }
 
-  savePage(page: Page = null, method: string = 'patch', delay: number = 3): Observable<Page> {
+  savePage(page: Page = null, method: string = 'patch', delay: number = 0): Observable<Page> {
     clearTimeout(this.saveTimeout);
     var request: Observable<Page>;
 
     // If a page hasn't been provided, use the current page
     if (method == 'patch' && ! page) {
       page = this.currentPage;
+    }
+    else if (! page) {
+      return null;
     }
 
     if (! this.settings.backendSessionToken) {

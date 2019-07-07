@@ -43,18 +43,21 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
 
   postFile(fileData: string | ArrayBuffer, fileName: string) {
     var request = this.httpService.instance.postFile(fileData, fileName);
-    request.subscribe(data => {
+    request.subscribe(file => {
         // Upload success
-        // console.log('data: ', data);
-        this.block.fileId = data['data']['id'];
-        this.block.path = data['data']['attributes']['uri']['url'];
+        // console.log('file: ', file);
+        this.block.fileId = file['id'];
+        this.block.path = file['url'];
+
+        // Make it permanent by attaching it to the page
+        // Page content type needs a "field_files" multi-value field
         var attachRequest = this.httpService.instance
           .attachFile(this.block.fileId, this.pageService.currentPage.id);
-
+        attachRequest.subscribe(() => {});
+        
         this.httpService.currentState = 'Unsaved';
         // const data = editor.getData();
         this.pageService.savePage();
-
         return attachRequest;
       },
       error => {

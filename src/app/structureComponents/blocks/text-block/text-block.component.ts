@@ -58,6 +58,6 @@ export class TextBlockComponent extends StructureComponentBase implements OnInit
   onChange({ editor }: ChangeEvent) {
     this.httpService.currentState = 'Unsaved';
     // const data = editor.getData();
-    this.pageService.savePage();
+    this.pageService.savePage(null, 'patch', 3);
   }
 }
