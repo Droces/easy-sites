@@ -1,3 +1,9 @@
+/**
+ * Similar to the state service. Manages configuration that isn't changed often,
+ * and needs to be changed using the Settings page.
+ */
+
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,19 +12,12 @@ import { Injectable } from '@angular/core';
 export class SettingsService {
   siteName: string = '';
 
-  mode: string = 'edit'; // 'edit' | 'view'
-
-  currentUserId: string = '';
-  currentUserName: string = '';
-  currentUserRoles: [];
-
   themeColours = [
     {name: 'blue', hex: '#1e6c93'},
     {name: 'green', hex: '#138275'}
   ];
   themeActiveColour: string = 'blue';
 
-  backendSessionToken: string =   null;
   backendBaseUrl: string =        null;
   backendCms: string =            null;
 

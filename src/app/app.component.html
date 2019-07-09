@@ -2,17 +2,17 @@
   <div role="presentation">
     <p class="es-title">Easy Sites</p>
     <ul class="appMode tabs">
-      <li [attr.aria-selected]="settings.mode === 'edit'">
+      <li [attr.aria-selected]="state.mode === 'edit'">
         <button (click)="changeMode('edit')">
           <i class="material-icons">edit</i></button></li>
-      <li [attr.aria-selected]="settings.mode === 'view'">
+      <li [attr.aria-selected]="state.mode === 'view'">
         <button (click)="changeMode('view')">
           <i class="material-icons">play_arrow</i></button></li>
       <li><a href="settings">
         <i class="material-icons">settings</i></a></li>
     </ul>
     <div class="user">
-      <div *ngIf="settings.currentUserName; else anon">{{ settings.currentUserName }}</div>
+      <div *ngIf="state.userName; else anon">{{ state.userName }}</div>
       <ng-template #anon>
         <a target="_blank"
           href="{{ settings.backendBaseUrl }}{{ httpService.instance.backendLoginPagePath }}">
@@ -21,7 +21,7 @@
     </div>
   </div>
 </header>
-<div id="main-and-sidebar" [attr.data-mode]="settings.mode">
+<div id="main-and-sidebar" [attr.data-mode]="state.mode">
   <router-outlet></router-outlet>
   <div class="aside-container">
     <aside>

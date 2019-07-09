@@ -6,6 +6,7 @@ import { retry, catchError, tap, map, switchMap } from 'rxjs/operators';
 import { DrupalPagesResponse } from './drupalPagesResponse';
 import { ErrorHandlerService } from './error-handler.service';
 import { SettingsService } from '../settings.service';
+import { StateService } from '../state.service';
 
 import { BackendBaseService } from './backendBase.service';
 import { BackendService } from './backend-service';
@@ -43,9 +44,10 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
 
   constructor(
     public settings: SettingsService,
+    public state: StateService,
     public errorHandler: ErrorHandlerService,
     public http: HttpClient) {
-    super(settings, errorHandler, http);
+    super(settings, state, errorHandler, http);
   }
 
   transformPageToPayload(page: Page) {
@@ -144,7 +146,7 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
       var userId = data.meta.links.me.meta.id;
       // console.log('userId: ', userId);
       // @todo check that this is a valid id
-      this.settings.currentUserId = userId;
+      this.state.userId = userId;
 
       this.fetchCurrentUser();
     });
@@ -153,7 +155,7 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
 
   fetchCurrentUser(): Observable<Object> {
     var url: string = this.settings.backendBaseUrl + this.backendUserGetPath;
-    url = url.replace('[id]', this.settings.currentUserId);
+    url = url.replace('[id]', this.state.userId);
     var request: Observable<any> = this.http.get(url, this.httpOptions);
     request.subscribe(data => {
       // console.log('user data: ', data);
@@ -161,8 +163,8 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
         // alert('You are not logged in');
         return null;
       }
-      this.settings.currentUserName = data.data.attributes.name;
-      this.settings.currentUserRoles = data.data.relationships.roles.data;
+      this.state.userName = data.data.attributes.name;
+      this.state.userRoles = data.data.relationships.roles.data;
     });
     return request;
   };
@@ -186,7 +188,7 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     };
 
     httpOptions.headers = httpOptions.headers.set('x-csrf-token',
-      this.settings.backendSessionToken);
+      this.state.backendSessionToken);
 
     return this.http.post(endpoint, fileData, httpOptions)
       .pipe(

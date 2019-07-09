@@ -5,6 +5,7 @@ import { retry, catchError, tap, map, switchMap } from 'rxjs/operators';
 
 import { ErrorHandlerService } from './error-handler.service';
 import { SettingsService } from '../settings.service';
+import { StateService } from '../state.service';
 
 export abstract class BackendBaseService {
 
@@ -34,6 +35,7 @@ export abstract class BackendBaseService {
 
   constructor(
     public settings: SettingsService,
+    public state: StateService,
     public errorHandler: ErrorHandlerService,
     public http: HttpClient) {}
 
@@ -64,7 +66,7 @@ export abstract class BackendBaseService {
   }
 
   saveToken(token: string): void {
-    this.settings.backendSessionToken = token;
+    this.state.backendSessionToken = token;
     this.httpOptions.headers = this.httpOptions.headers.set('x-csrf-token', token);
   }
 }

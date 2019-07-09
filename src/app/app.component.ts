@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SettingsService } from './settings.service';
+import { StateService } from './state.service';
 import { HttpService } from './http.service';
 import { PageService } from './page.service';
 
@@ -15,7 +16,9 @@ export class AppComponent {
 
   modeChangedEvent = new Event('modeChanged');
 
-  constructor(public settings: SettingsService,
+  constructor(
+    public settings: SettingsService,
+    public state: StateService,
     public httpService: HttpService,
     public pageService: PageService,
     private router: Router) {}
@@ -38,7 +41,7 @@ export class AppComponent {
   }
 
   changeMode(mode: string): void {
-    this.settings.mode = mode;
+    this.state.mode = mode;
     document.dispatchEvent(this.modeChangedEvent);
   }
 }

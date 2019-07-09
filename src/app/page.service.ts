@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Page } from './structureComponents/page';
 
 import { SettingsService } from './settings.service';
+import { StateService } from './state.service';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -20,6 +21,7 @@ export class PageService {
   constructor(
     private router: Router,
     public settings: SettingsService,
+    public state: StateService,
     public httpService: HttpService) {
   }
 
@@ -107,7 +109,7 @@ export class PageService {
       return null;
     }
 
-    if (! this.settings.backendSessionToken) {
+    if (! this.state.backendSessionToken) {
       document.addEventListener('tokenFetched', () => {
         this.savePage(page, method);
       });

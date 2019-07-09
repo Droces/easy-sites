@@ -51,7 +51,7 @@
 //
 //   fetchCurrentUser(): Observable<Object> {
 //     var url: string = this.settings.backendBaseUrl + this.backendUserGetPath;
-//     url = url.replace('[id]', this.settings.currentUserId);
+//     url = url.replace('[id]', this.state.userId);
 //     var request: Observable<any> = this.http.get(url, this.httpOptions);
 //     request.subscribe(data => {
 //       // console.log('user data: ', data);
@@ -60,9 +60,9 @@
 //       //   return null;
 //       // }
 //       // @todo check that this is a valid id
-//       this.settings.currentUserId = data[0].uid[0].value;
-//       this.settings.currentUserName = data[0].name[0].value;
-//       this.settings.currentUserRoles = data[0].roles; // [0].target_id;
+//       this.state.userId = data[0].uid[0].value;
+//       this.state.userName = data[0].name[0].value;
+//       this.state.userRoles = data[0].roles; // [0].target_id;
 //     });
 //     return request;
 //   };
@@ -81,7 +81,7 @@
 //       withCredentials: true
 //     };
 //
-//     // httpOptions.headers = httpOptions.headers.set('x-csrf-token', this.settings.backendSessionToken);
+//     // httpOptions.headers = httpOptions.headers.set('x-csrf-token', this.state.backendSessionToken);
 //
 //     return this.http.post(endpoint, formData, httpOptions);
 //   }

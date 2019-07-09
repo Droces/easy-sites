@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SettingsService } from '../../../settings.service';
+import { StateService } from '../../../state.service';
 import { PageService } from '../../../page.service';
 import { HttpService } from '../../../http.service';
 
@@ -21,6 +22,7 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
 
   constructor(
     public settings: SettingsService,
+    public state: StateService,
     public httpService: HttpService,
     public pageService: PageService) {
     super();
@@ -54,7 +56,7 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
         var attachRequest = this.httpService.instance
           .attachFile(this.block.fileId, this.pageService.currentPage.id);
         attachRequest.subscribe(() => {});
-        
+
         this.httpService.currentState = 'Unsaved';
         // const data = editor.getData();
         this.pageService.savePage();

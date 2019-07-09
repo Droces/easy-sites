@@ -3,7 +3,7 @@
 
   <img *ngIf="block.path; else formGroup" src="{{ settings.backendBaseUrl }}/{{ block.path }}">
   <ng-template #formGroup>
-    <div *ngIf="this.settings.mode == 'edit'" class="form-group">
+    <div *ngIf="this.state.mode == 'edit'" class="form-group">
       <label for="file">Choose File</label>
       <input
         id="file"

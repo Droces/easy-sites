@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { PageService } from '../../page.service';
 import { SettingsService } from '../../settings.service';
+import { StateService } from '../../state.service';
 
 import { Page } from '../page';
 import { Section } from '../section';
@@ -20,6 +21,7 @@ export class PageComponent extends StructureComponentBase implements OnInit {
 
   constructor(
     public settings: SettingsService,
+    public state: StateService,
     public pageService: PageService,
     private route: ActivatedRoute,
     private router: Router) {
