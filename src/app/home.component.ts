@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { PageService } from './page.service';
+import { StateService } from './state.service';
 
 import { Page } from './structureComponents/page';
 
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public pageService: PageService,
+    public state: StateService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -28,12 +30,19 @@ export class HomeComponent implements OnInit {
         this.showBlankPage();
       }
     }, false);
+
+    if (this.state.inDemoMode) {
+      this.showBlankPage();
+    }
   }
 
   showBlankPage() {
     // Show a blank page ready for adding text
     var page: Page = this.pageService.addPage();
     this.router.navigate(['page/' + page.id]); // Redirect
-    var request = this.pageService.savePage(page, 'post');
+
+    if (! this.state.inDemoMode) {
+      var request = this.pageService.savePage(page, 'post');
+    }
   }
 }

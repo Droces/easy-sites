@@ -73,7 +73,9 @@ export class PageComponent extends StructureComponentBase implements OnInit {
   }
 
   savePage(): void {
-    this.pageService.savePage(null, 'patch', 0);
+    if (! this.state.inDemoMode) {
+      this.pageService.savePage(null, 'patch', 0);
+    }
   }
 
   addSection(): void {

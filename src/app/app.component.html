@@ -1,6 +1,12 @@
 <header>
   <div role="presentation">
     <p class="es-title">Easy Sites</p>
+
+    <div *ngIf="state.inDemoMode" class="demo-badge">
+      <strong>Demo</strong>
+      <a target="_blank" href="https://github.com/Droces/easy-sites">Learn<br>more</a>
+    </div>
+
     <ul class="appMode tabs">
       <li [attr.aria-selected]="state.mode === 'edit'">
         <button (click)="changeMode('edit')">

@@ -59,7 +59,9 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
 
         this.httpService.currentState = 'Unsaved';
         // const data = editor.getData();
-        this.pageService.savePage();
+        if (! this.state.inDemoMode) {
+          this.pageService.savePage();
+        }
         return attachRequest;
       },
       error => {

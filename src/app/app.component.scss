@@ -22,6 +22,46 @@ header {
   margin-top: 0;
   margin-bottom: 0;
 }
+.demo-badge {
+  background: #b9054b; // purple-red
+  padding: 0px 50px;
+  box-sizing: border-box;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: transparent #b9054b; // purple-red
+  }
+  &::before {
+    border-width: $header-height 10px 0 0;
+    right: 100%;
+  }
+  &::after {
+    border-width: 0 0 $header-height 10px;
+    left: 100%;
+  }
+  strong {
+    margin-right: 2em;
+    font-weight: 200;
+    font-size: 1.3em;
+  }
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.5em 1em;
+    box-sizing: border-box;
+    font-size: 0.8em;
+
+    &:hover,
+    &:focus {
+      background: rgba(black, 0.1);
+    }
+  }
+}
 
 #main-and-sidebar {
   height: calc(100vh - #{$header-height});

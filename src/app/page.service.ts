@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Page } from './structureComponents/page';
+import { TextBlock } from './structureComponents/blocks/text-block';
 
 import { SettingsService } from './settings.service';
 import { StateService } from './state.service';
@@ -54,8 +55,9 @@ export class PageService {
       sections: [{
         colourStyle: 'default',
         groups: [{
-          blocks: [{
-            type: 'text'
+          blocks: [<TextBlock>{
+            type: 'text',
+            content: ''
           }]
         }]
       }]
@@ -90,9 +92,17 @@ export class PageService {
   }
 
   addPage(): Page {
+    if (typeof this.pages == 'undefined') {
+      this.pages = [];
+    }
+
     var page: Page = this.provideNewPage();
     this.pages.push(page);
-    this.savePage(page, 'post');
+
+    if (! this.state.inDemoMode) {
+      this.savePage(page, 'post');
+    }
+
     this.router.navigate(['page/' + page.id]);
     return page;
   }

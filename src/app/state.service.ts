@@ -19,5 +19,7 @@ export class StateService {
 
   backendSessionToken: string = null;
 
+  inDemoMode: boolean = true;
+
   constructor() { }
 }

@@ -25,15 +25,18 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.settings.retrieveSettings();
-    if (! this.settings.backendBaseUrl) {
+
+    if (! this.settings.backendBaseUrl && ! this.state.inDemoMode) {
       this.router.navigate(['settings']); // Redirect
       return;
     }
-    this.httpService.authenticate()
-      .subscribe(data => {
-        this.pageService.fetchPages();
-        this.httpService.fetchCurrentUserId();
-      });
+    if (! this.state.inDemoMode) {
+      this.httpService.authenticate()
+        .subscribe(data => {
+          this.pageService.fetchPages();
+          this.httpService.fetchCurrentUserId();
+        });
+    }
   }
 
   exportData(): void {
