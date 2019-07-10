@@ -33,6 +33,10 @@ export class PageComponent extends StructureComponentBase implements OnInit {
     this.route.params.subscribe((params) => {
       this.urlParamId = this.route.snapshot.paramMap.get('id');
       // console.log('this.urlParamId: ', this.urlParamId);
+
+      if (this.urlParamId == 'temporary-id' && ! this.pageService.pages) {
+        this.pageService.addPage();
+      }
       this.getPage(this.urlParamId);
     });
 

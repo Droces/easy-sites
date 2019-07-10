@@ -8,14 +8,19 @@
     </div>
 
     <ul class="appMode tabs">
-      <li [attr.aria-selected]="state.mode === 'edit'">
-        <button (click)="changeMode('edit')">
-          <i class="material-icons">edit</i></button></li>
-      <li [attr.aria-selected]="state.mode === 'view'">
-        <button (click)="changeMode('view')">
-          <i class="material-icons">play_arrow</i></button></li>
+      <li><a (click)="changeMode('edit')"
+        href="{{ this.router.url.split('#')[0] }}#"
+        [attr.aria-selected]="state.mode === 'edit'">
+        <i class="material-icons">edit</i></a>
+      </li>
+      <li><a (click)="changeMode('view')"
+        href="{{ this.router.url.split('#')[0] }}#"
+        [attr.aria-selected]="state.mode === 'view'">
+        <i class="material-icons">play_arrow</i></a>
+      </li>
       <li><a href="settings">
-        <i class="material-icons">settings</i></a></li>
+        <i class="material-icons">settings</i></a>
+      </li>
     </ul>
     <div class="user">
       <div *ngIf="state.userName; else anon">{{ state.userName }}</div>
