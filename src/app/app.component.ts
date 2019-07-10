@@ -13,6 +13,7 @@ import { PageService } from './page.service';
 })
 export class AppComponent {
   title = 'easy-sites';
+  tabSelected = 'pages';
 
   modeChangedEvent = new Event('modeChanged');
 
@@ -46,5 +47,9 @@ export class AppComponent {
   changeMode(mode: string): void {
     this.state.mode = mode;
     document.dispatchEvent(this.modeChangedEvent);
+  }
+
+  openTab(tab: string): void {
+    this.tabSelected = tab;
   }
 }

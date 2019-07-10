@@ -29,19 +29,41 @@
 </header>
 <div id="main-and-sidebar" [attr.data-mode]="state.mode">
   <router-outlet></router-outlet>
+
   <div class="aside-container">
     <aside>
-      <h2>Pages</h2>
-      <app-pages-list></app-pages-list>
+      <ul role="tablist">
+        <li role="presentation">
+          <a role="tab" id="tab1"
+            [attr.aria-selected]="tabSelected === 'pages'"
+            href="{{ this.router.url.split('#')[0] }}#pages"
+            (click)="openTab('pages')">
+            Pages</a>
+        </li>
+        <li role="presentation">
+          <a role="tab" id="tab2"
+            [attr.aria-selected]="tabSelected === 'style'"
+            href="{{ this.router.url.split('#')[0] }}#style"
+            (click)="openTab('style')">
+            Style</a>
+        </li>
+      </ul>
 
-      <hr>
-      <app-theme-selector></app-theme-selector>
+      <section role="tabpanel" id="pages" aria-labelledby="tab1"
+        [attr.aria-selected]="tabSelected === 'pages'">
+        <app-pages-list></app-pages-list>
+      </section>
 
-      <hr>
-      <p><button (click)="exportData()">
-        <i class="material-icons">archive</i>
-        Export data</button></p>
-      <p id="saveState" class="subtle">{{ httpService.currentState }}</p>
+      <section role="tabpanel" id="style" aria-labelledby="tab2"
+        [attr.aria-selected]="tabSelected === 'style'">
+        <app-theme-selector></app-theme-selector>
+
+        <hr>
+        <p><button (click)="exportData()">
+          <i class="material-icons">archive</i>
+          Export data</button></p>
+          <p id="saveState" class="subtle">{{ httpService.currentState }}</p>
+      </section>
     </aside>
   </div>
 </div>

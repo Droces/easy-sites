@@ -12,33 +12,45 @@
  *                                                      Menus & tabs
  */
 .tabs,
- .menu {
-   margin: 0;
-   padding-left: 0;
+[role="tablist"],
+.menu {
+  margin: 0;
+  padding-left: 0;
 
-   li {
-     list-style-type: none;
-   }
- }
- .tabs {
-   li {
-     border-width: 3px 0;
-     border-style: solid;
-     border-color: transparent;
+  li {
+    list-style-type: none;
+    display: inline-block;
 
-     &:hover,
-     &:focus {
-       border-bottom-color: rgba(white, 0.4);
-     }
-     &[aria-selected="true"] {
-       border-bottom-color: rgba(white, 1);
-     }
-     & > * {
-       display: block;
-       padding: 0.5em 1em;
-     }
-   }
- }
+    a {
+      text-decoration: none;
+    }
+  }
+}
+.tabs,
+[role="tablist"] {
+  li a,
+  li button {
+    border-width: 3px 0;
+    border-style: solid;
+    border-color: transparent;
+    padding: 0.5em 1em;
+    display: block;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: rgba(white, 0.4);
+    }
+    &[aria-selected="true"] {
+      border-bottom-color: rgba(white, 1);
+    }
+    & > * {
+      display: block;
+    }
+  }
+}
+section[role="tabpanel"]:not([aria-selected="true"]) {
+  display: none;
+}
 
 
 /* -----------------------------------------------------------------------------
