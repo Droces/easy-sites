@@ -38,6 +38,9 @@ export class AppComponent {
           this.httpService.fetchCurrentUserId();
         });
     }
+    else {
+      this.settings.siteName = 'Demo site';
+    }
   }
 
   exportData(): void {

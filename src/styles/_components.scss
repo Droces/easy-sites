@@ -35,6 +35,8 @@
     border-color: transparent;
     padding: 0.5em 1em;
     display: block;
+    height: 100%;
+    box-sizing: border-box;
 
     &:hover,
     &:focus {
