@@ -16,6 +16,7 @@ export class AppComponent {
   tabSelected = 'pages';
 
   modeChangedEvent = new Event('modeChanged');
+  userMenuOpen = false;
 
   constructor(
     public settings: SettingsService,
@@ -54,5 +55,18 @@ export class AppComponent {
 
   openTab(tab: string): void {
     this.tabSelected = tab;
+  }
+
+  toggleUserMenu(): void {
+    this.userMenuOpen = this.userMenuOpen ? false : true;
+  }
+
+  logout(): void {
+    var logoutRequest = this.httpService.logout();
+    logoutRequest.subscribe(() => {
+      this.state.userName = '';
+      this.state.userId = '';
+      this.state.userRoles = [];
+    });
   }
 }

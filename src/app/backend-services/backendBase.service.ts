@@ -31,7 +31,9 @@ export abstract class BackendBaseService {
   backendPageDeletePath: string = "";
   backendUserGetPath: string =    "";
   backendUserIdGetPath: string =  "";
+  backendUsersGetPath: string =   "";
   backendLoginPagePath: string =  "";
+  backendLogoutPagePath: string = "";
 
   constructor(
     public settings: SettingsService,

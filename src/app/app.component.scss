@@ -17,7 +17,43 @@ header {
     height: $header-height;
     box-sizing: border-box;
   }
+  .menu {
+    position: absolute;
+    top: 100%;
+    list-style: none;
+    padding: 0.3em 0;
+    margin: 0;
+    background: black;
+    display: none;
+
+    &[aria-hidden="false"] {
+      display: block;
+    }
+    li {
+      display: block;
+      margin: 0;
+
+      a {
+        display: block;
+        padding: 0.3em 0.6em;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          background: #2d2d2d;
+        }
+      }
+    }
+  }
+  button {
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
 }
+
+
+
 .es-title {
   margin-top: 0;
   margin-bottom: 0;
@@ -67,4 +103,14 @@ header {
   height: calc(100vh - #{$header-height});
   flex-grow: 1;
   overflow: auto;
+}
+
+.user {
+  position: relative;
+
+  .name,
+  .anonymous {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
 }

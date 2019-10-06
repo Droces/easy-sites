@@ -40,7 +40,9 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   backendPageDeletePath: string = "/jsonapi/node/page/[id]";
   backendUserGetPath: string =    "/jsonapi/user/user/[id]";
   backendUserIdGetPath: string =  "/jsonapi/";
+  backendUsersGetPath: string =   "/jsonapi/user/user";
   backendLoginPagePath: string =  "/user/login";
+  backendLogoutPagePath: string = "/user/logout";
 
   constructor(
     public settings: SettingsService,
@@ -250,5 +252,20 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
       data['attributes']['status'] = false;
 
     return this.http.patch(url, data, this.httpOptions);
+  }
+
+  logout(): Observable<Object> {
+    var url = this.settings.backendBaseUrl + this.backendLogoutPagePath;
+    var data = [];
+    // Http.post expects JSON response, so provide new headers to change that.
+    // var httpOptions = {
+    //   // headers: new HttpHeaders({
+    //   //   'Accept':         'application/vnd.api+json',
+    //   //   'Content-Type':   'application/vnd.api+json'
+    //   // }),
+    //   responseType: "text",
+    //   withCredentials: true
+    // };
+    return this.http.post(url, data, {responseType: "text", withCredentials: true});
   }
 }

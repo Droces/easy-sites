@@ -43,6 +43,10 @@ export class HttpService {
     this.backendServiceName = backendServiceName;
   }
 
+  logout(): Observable<Object> {
+    return this.instance.logout();
+  }
+
   public get instance(): BackendService {
     return this[this.backendServiceName];
   }
