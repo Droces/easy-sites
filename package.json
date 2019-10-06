@@ -21,6 +21,7 @@
     "@angular/router": "~7.2.0",
     "@ckeditor/ckeditor5-angular": "^1.1.0",
     "@ckeditor/ckeditor5-build-inline": "^12.1.0",
+    "ckeditor5-build-inline-alignment": "^0.2.7",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

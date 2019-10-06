@@ -108,3 +108,12 @@ app-section {
     box-shadow: none;
   }
 }
+.ck {
+  .ck-balloon-panel {
+  // Somehow this is overridden when using this custom build
+    position: absolute !important;
+  }
+  button {
+    text-transform: inherit;
+  }
+}

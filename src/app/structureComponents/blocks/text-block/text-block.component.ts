@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
+// import * as InlineEditor from '@ckeditor/ckeditor5-build-inline';
+import * as InlineEditor from 'ckeditor5-build-inline-alignment';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 import { SettingsService } from '../../../settings.service';
@@ -26,9 +27,20 @@ export class TextBlockComponent extends StructureComponentBase implements OnInit
   public config = {
     placeholder: 'Click here to type.',
     toolbar: [
-      "heading", "|", "bold", "italic", "link", "bulletedList", "numberedList",
-      "insertTable"
-    ]
+      "heading", "|", "alignment", "bold", "italic", "link", "bulletedList", 
+      "numberedList", "insertTable"
+    ],
+    alignment: {
+      options: ['left', 'center']
+    },
+    heading: {
+      options: [
+        { model: 'heading1', view: 'h1', title: 'Heading large', class: 'ck-heading_heading1' },
+        { model: 'heading2', view: 'h2', title: 'Heading medium', class: 'ck-heading_heading2' },
+        { model: 'heading3', view: 'h3', title: 'Heading small', class: 'ck-heading_heading3' },
+        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' }
+      ]
+    }
   };
 
   constructor(
@@ -40,6 +52,7 @@ export class TextBlockComponent extends StructureComponentBase implements OnInit
   }
 
   ngOnInit() {
+      // console.log('this.editor', this.editor);
       // When the pages are first fetched
       document.addEventListener('modeChanged', (event) => {
         // console.log('this.state.mode: ', this.state.mode);
