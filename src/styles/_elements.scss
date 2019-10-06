@@ -1,5 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
+  color: #3e3e3e;
   margin: 0;
 }
 
@@ -14,14 +15,6 @@ app-page {
   flex: 1 1 auto;
 }
 
-h1, h2, h3 {
-  input[type="text"] {
-    border: none;
-    background: none;
-    padding: 0;
-  }
-}
-
 hr {
   border: solid 1px #dadada; // pale grey
   border-width: 0 0 1px;
@@ -31,6 +24,31 @@ a {
   &[disabled] {
     opacity: 0.5;
     cursor: default;
+  }
+}
+li {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+
+/* -----------------------------------------------------------------------------
+ *                                                      Headings
+ */
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.4em;
+}
+h3 {
+  font-size: 1.2em;
+}
+h1, h2, h3 {
+  input[type="text"] {
+    border: none;
+    background: none;
+    padding: 0;
   }
 }
 
