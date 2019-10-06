@@ -254,18 +254,25 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     return this.http.patch(url, data, this.httpOptions);
   }
 
+  fetchUsers(): Observable<Object> {
+    var url: string = this.settings.backendBaseUrl + this.backendUsersGetPath;
+    var request: Observable<Object> = this.http.get(url)
+      .pipe(
+        retry(1), // retry a failed request up to 1 times
+        switchMap((data: any) => {
+          // For each user in the array, emit a distinct user value through the observable
+          return of.apply(this, data.data);
+        }),
+        // map(page => this.transformDataToPage(page)),
+        catchError(this.errorHandler.handleError)
+      );
+    return request;
+  }
+
   logout(): Observable<Object> {
     var url = this.settings.backendBaseUrl + this.backendLogoutPagePath;
     var data = [];
     // Http.post expects JSON response, so provide new headers to change that.
-    // var httpOptions = {
-    //   // headers: new HttpHeaders({
-    //   //   'Accept':         'application/vnd.api+json',
-    //   //   'Content-Type':   'application/vnd.api+json'
-    //   // }),
-    //   responseType: "text",
-    //   withCredentials: true
-    // };
     return this.http.post(url, data, {responseType: "text", withCredentials: true});
   }
 }

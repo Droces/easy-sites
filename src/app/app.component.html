@@ -37,7 +37,7 @@
       <button (click)="toggleUserMenu()">
         <i class="material-icons">keyboard_arrow_down</i></button>
       <ul id="user-menu" class="menu" [attr.aria-hidden]="! userMenuOpen">
-        <li><a>Users</a></li>
+        <li><a routerLink="/users">Users</a></li>
         <li><a id="logout" (click)="logout()">Log out</a></li>
       </ul>
     </div>

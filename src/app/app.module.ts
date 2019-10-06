@@ -22,6 +22,7 @@ import { PageNotFoundComponent }  from './page-not-found/page-not-found.componen
 import { PrimaryNavComponent }    from './primary-nav/primary-nav.component';
 import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
 import { SettingsPageComponent }  from './settings-page/settings-page.component';
+import { UsersPageComponent } from './users-page/users-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SettingsPageComponent }  from './settings-page/settings-page.component'
     ThemeSelectorComponent,
     SettingsPageComponent,
     ImageBlockComponent,
-    LineBlockComponent
+    LineBlockComponent,
+    UsersPageComponent
   ],
   imports: [
     BrowserModule,

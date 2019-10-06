@@ -19,6 +19,7 @@ export interface BackendService {
   backendPageGetPath: string;
   backendPagePatchPath: string;
   backendPageDeletePath: string;
+  backendUsersGetPath: string;
   backendLoginPagePath: string;
   backendLogoutPagePath: string;
 
@@ -40,5 +41,6 @@ export interface BackendService {
   attachFile?(fileId: string, pageId: string): Observable<Object>;
   updateFile(fileId: string): Observable<Object>;
   
+  fetchUsers(): Observable<Object>;
   logout(): Observable<Object>;
 }
