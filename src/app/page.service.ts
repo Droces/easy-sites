@@ -37,14 +37,13 @@ export class PageService {
     if (typeof this.pages == 'undefined' || this.pages == []) {
       return null;
     }
-    // console.log('this.pages: ', this.pages);
     for (let page of this.pages) {
       if (page.id == id) {
         this.currentPage = page;
         return page;
       }
     }
-    // console.log('Page not found');
+    console.error('Page not found');
     return null;
   }
 
@@ -65,7 +64,7 @@ export class PageService {
   }
 
   removePage(page: Page): void {
-    var index = this.pages.indexOf(page);
+    let index: number = this.pages.indexOf(page);
     if (index > -1) {
       this.pages.splice(index, 1);
     }
@@ -75,7 +74,7 @@ export class PageService {
   fetchPages(): Observable<Object> {
     this.pages = [];
 
-    var request = this.httpService.instance.fetchPages();
+    const request: Observable<Object> = this.httpService.instance.fetchPages();
     // Parameters are functions: next(), error(), finished().
     request.subscribe(
       (page: any) => {
@@ -96,7 +95,7 @@ export class PageService {
       this.pages = [];
     }
 
-    var page: Page = this.provideNewPage();
+    const page: Page = this.provideNewPage();
     this.pages.push(page);
 
     if (! this.state.inDemoMode) {
@@ -109,7 +108,7 @@ export class PageService {
 
   savePage(page: Page = null, method: string = 'patch', delay: number = 0): Observable<Page> {
     clearTimeout(this.saveTimeout);
-    var request: Observable<Page>;
+    let request: Observable<Page>;
 
     // If a page hasn't been provided, use the current page
     if (method == 'patch' && ! page) {

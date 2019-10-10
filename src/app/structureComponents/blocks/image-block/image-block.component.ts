@@ -34,9 +34,9 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
 
   handleFileInput(files: FileList): void {
     // console.log('files: ', files);
-    var file = files.item(0);
+    let file = files.item(0);
 
-    var reader = new FileReader();
+    const reader: FileReader = new FileReader();
     reader.onload = () => {
       this.postFile(reader.result, file.name);
     }
@@ -44,29 +44,28 @@ export class ImageBlockComponent extends StructureComponentBase implements OnIni
   }
 
   postFile(fileData: string | ArrayBuffer, fileName: string) {
-    var request = this.httpService.instance.postFile(fileData, fileName);
+    const request = this.httpService.instance.postFile(fileData, fileName);
     request.subscribe(file => {
-        // Upload success
-        // console.log('file: ', file);
-        this.block.fileId = file['id'];
-        this.block.path = file['url'];
+      // Upload success
+      // console.log('file: ', file);
+      this.block.fileId = file['id'];
+      this.block.path = file['url'];
 
-        // Make it permanent by attaching it to the page
-        // Page content type needs a "field_files" multi-value field
-        var attachRequest = this.httpService.instance
-          .attachFile(this.block.fileId, this.pageService.currentPage.id);
-        attachRequest.subscribe(() => {});
+      // Make it permanent by attaching it to the page
+      // Page content type needs a "field_files" multi-value field
+      const attachRequest = this.httpService.instance
+        .attachFile(this.block.fileId, this.pageService.currentPage.id);
+      attachRequest.subscribe(() => {});
 
-        this.httpService.currentState = 'Unsaved';
-        // const data = editor.getData();
-        if (! this.state.inDemoMode) {
-          this.pageService.savePage();
-        }
-        return attachRequest;
-      },
-      error => {
-        console.log(error);
+      this.httpService.currentState = 'Unsaved';
+      // const data = editor.getData();
+      if (! this.state.inDemoMode) {
+        this.pageService.savePage();
       }
-    );
+      return attachRequest;
+    },
+    error => {
+      console.error(error);
+    });
   }
 }

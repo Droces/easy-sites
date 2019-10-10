@@ -74,57 +74,54 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   }
 
   createPage(page: Page): Observable<Page> {
-    var payload = this.transformPageToPayload(page);
-    var url: string = this.settings.backendBaseUrl + this.backendPagePostPath;
+    const payload = this.transformPageToPayload(page);
+    let url: string = this.settings.backendBaseUrl + this.backendPagePostPath;
 
-    var request = this.http.post<DrupalPagesResponse>(url, payload, this.httpOptions)
+    return this.http.post<DrupalPagesResponse>(url, payload, this.httpOptions)
       .pipe(
         retry(1), // retry a failed request up to 1 times
         map(data => this.transformDataToPage(data.data)),
         catchError(this.errorHandler.handleError)
       );
-    return request;
   }
 
   fetchPage(id: string): Observable<Page> {
-    var url: string = this.settings.backendBaseUrl + this.backendPageGetPath;
+    let url: string = this.settings.backendBaseUrl + this.backendPageGetPath;
     url = url.replace('[id]', id);
-    var request: Observable<Page> = this.http.get<DrupalPagesResponse>(url)
+    return this.http.get<DrupalPagesResponse>(url)
       .pipe(
         retry(1), // retry a failed request up to 1 times
         map(data => this.transformDataToPage(data.data)),
         catchError(this.errorHandler.handleError)
       );
-    return request;
   }
 
   updatePage(page: Page): Observable<Page> {
-    var payload = this.transformPageToPayload(page);
+    const payload = this.transformPageToPayload(page);
     payload.data['id'] = page.id;
-    var url: string = this.settings.backendBaseUrl + this.backendPagePatchPath;
+    let url: string = this.settings.backendBaseUrl + this.backendPagePatchPath;
     url = url.replace('[id]', page.id);
 
-    var request = this.http.patch(url, payload, this.httpOptions)
+    return this.http.patch(url, payload, this.httpOptions)
       .pipe(
         retry(1), // retry a failed request up to 1 times
         map((data: any) => this.transformDataToPage(data.data)),
         catchError(this.errorHandler.handleError)
       );
-    return request;
   }
 
   deletePage(page: Page): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendPageDeletePath;
+    let url: string = this.settings.backendBaseUrl + this.backendPageDeletePath;
     url = url.replace('[id]', page.id);
 
-    var request = this.http.delete(url, this.httpOptions);
+    const request = this.http.delete(url, this.httpOptions);
     request.subscribe(() => {});
     return request;
   }
 
   fetchPages(): Observable<Page> {
-    var url: string = this.settings.backendBaseUrl + this.backendPagesGetPath;
-    var request: Observable<Page> = this.http.get<DrupalPagesResponse>(url)
+    let url: string = this.settings.backendBaseUrl + this.backendPagesGetPath;
+    return this.http.get<DrupalPagesResponse>(url)
       .pipe(
         retry(1), // retry a failed request up to 1 times
         switchMap((data: any) => {
@@ -134,18 +131,17 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
         map(page => this.transformDataToPage(page)),
         catchError(this.errorHandler.handleError)
       );
-    return request;
   }
 
   fetchCurrentUserId(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendUserIdGetPath;
-    var request: Observable<any> = this.http.get(url, this.httpOptions);
+    let url: string = this.settings.backendBaseUrl + this.backendUserIdGetPath;
+    const request: Observable<any> = this.http.get(url, this.httpOptions);
     request.subscribe(data => {
       if (! data.hasOwnProperty('meta')) {
         // alert('You are not logged in');
         return null;
       }
-      var userId = data.meta.links.me.meta.id;
+      let userId = data.meta.links.me.meta.id;
       // console.log('userId: ', userId);
       // @todo check that this is a valid id
       this.state.userId = userId;
@@ -156,9 +152,9 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   };
 
   fetchCurrentUser(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendUserGetPath;
+    let url: string = this.settings.backendBaseUrl + this.backendUserGetPath;
     url = url.replace('[id]', this.state.userId);
-    var request: Observable<any> = this.http.get(url, this.httpOptions);
+    const request: Observable<any> = this.http.get(url, this.httpOptions);
     request.subscribe(data => {
       // console.log('user data: ', data);
       if (! (data.hasOwnProperty('data') && data.data.hasOwnProperty('attributes'))) {
@@ -178,9 +174,9 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
    * @return          [description]
    */
   postFile(fileData: string | ArrayBuffer, fileName: string): Observable<Object> {
-    const endpoint = this.settings.backendBaseUrl + '/jsonapi/node/page/field_image';
+    const endpoint: string = this.settings.backendBaseUrl + '/jsonapi/node/page/field_image';
 
-    var httpOptions = {
+    let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':   'application/octet-stream',
         'Accept':         'application/vnd.api+json',
@@ -225,21 +221,21 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
    */
   attachFile(fileId: string, pageId: string): Observable<Object> {
     // console.log('attachFile()');
-    var url: string = this.settings.backendBaseUrl
+    let url: string = this.settings.backendBaseUrl
       + '/jsonapi/node/page/[id]/relationships/field_files';
     url = url.replace('[id]', pageId);
 
-    var data = this.createFilesPayload(fileId);
+    let data = this.createFilesPayload(fileId);
 
     return this.http.post(url, data, this.httpOptions);
   }
 
   updateFile(fileId: string, makePermanent = true) {
     console.log('updateFile()');
-    var url = this.settings.backendBaseUrl + '/jsonapi/file/file/[id]';
+    let url: string = this.settings.backendBaseUrl + '/jsonapi/file/file/[id]';
     url = url.replace('[id]', fileId);
 
-    var data = {
+    const data = {
       data: {
         type: "file--file",
         id: fileId,
@@ -255,8 +251,8 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   }
 
   fetchUsers(): Observable<Object> {
-    var url: string = this.settings.backendBaseUrl + this.backendUsersGetPath;
-    var request: Observable<Object> = this.http.get(url)
+    let url: string = this.settings.backendBaseUrl + this.backendUsersGetPath;
+    return this.http.get(url)
       .pipe(
         retry(1), // retry a failed request up to 1 times
         switchMap((data: any) => {
@@ -266,12 +262,11 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
         // map(page => this.transformDataToPage(page)),
         catchError(this.errorHandler.handleError)
       );
-    return request;
   }
 
   logout(): Observable<Object> {
-    var url = this.settings.backendBaseUrl + this.backendLogoutPagePath;
-    var data = [];
+    let url: string = this.settings.backendBaseUrl + this.backendLogoutPagePath;
+    const data = [];
     // Http.post expects JSON response, so provide new headers to change that.
     return this.http.post(url, data, {responseType: "text", withCredentials: true});
   }

@@ -52,17 +52,17 @@ export class TextBlockComponent extends StructureComponentBase implements OnInit
   }
 
   ngOnInit() {
-      // console.log('this.editor', this.editor);
-      // When the pages are first fetched
-      document.addEventListener('modeChanged', (event) => {
-        // console.log('this.state.mode: ', this.state.mode);
-        if (this.state.mode == 'edit') {
-          this.editor.isReadOnly = false;
-        }
-        else {
-          this.editor.isReadOnly = true;
-        }
-      }, false);
+    // console.log('this.editor', this.editor);
+    // When the pages are first fetched
+    document.addEventListener('modeChanged', (event) => {
+      // console.log('this.state.mode: ', this.state.mode);
+      if (this.state.mode == 'edit') {
+        this.editor.isReadOnly = false;
+      }
+      else {
+        this.editor.isReadOnly = true;
+      }
+    }, false);
   }
 
   public editorReady(editor: object) {

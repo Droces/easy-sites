@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
 import { PageService } from '../../page.service';
@@ -45,7 +46,7 @@ export class PageComponent extends StructureComponentBase implements OnInit {
       // If there are saved pages
       if (this.pageService.pages.length) {
         // If the URL is for a valid page, navigate to it
-        var fetchedPage = this.getPage(this.urlParamId);
+        const fetchedPage: Page = this.getPage(this.urlParamId);
         if (! fetchedPage) {
           // console.log('this.route.snapshot: ', this.route.snapshot);
           if (this.route.snapshot.routeConfig.path == "") {
@@ -65,7 +66,7 @@ export class PageComponent extends StructureComponentBase implements OnInit {
   }
 
   getPage(id: string): Page {
-    var fetchedPage = this.pageService.getPage(id);
+    const fetchedPage: Page = this.pageService.getPage(id);
     // console.log('fetchedPage: ', fetchedPage);
     if (fetchedPage) {
       this.page = fetchedPage;
@@ -76,14 +77,17 @@ export class PageComponent extends StructureComponentBase implements OnInit {
     }
   }
 
-  savePage(): void {
+  savePage(): Observable<Page> {
     if (! this.state.inDemoMode) {
-      this.pageService.savePage(null, 'patch', 0);
+      return this.pageService.savePage(null, 'patch', 0);
+    }
+    else {
+      return null;
     }
   }
 
   addSection(): void {
-    var newSection = {
+    const newSection = {
       colourStyle: 'default',
       groups: [{
         blocks: [{
@@ -96,20 +100,18 @@ export class PageComponent extends StructureComponentBase implements OnInit {
   }
 
   removeSection(section: Section): void {
-    var currentPos = this.page.sections.indexOf(section);
+    let currentPos: number = this.page.sections.indexOf(section);
     this.page.sections.splice(currentPos, 1);
   }
 
-  moveSectionUp(section: Section) {
-    var currentPos = this.page.sections.indexOf(section);
-    if (currentPos <= 0) {
-      return null;
-    }
+  moveSectionUp(section: Section): void {
+    let currentPos: number = this.page.sections.indexOf(section);
+    if (currentPos <= 0) return null;
     this.page.sections.splice(currentPos - 1, 0, this.page.sections.splice(currentPos, 1)[0]);
   }
 
   moveSectionDown(section: Section) {
-    var currentPos = this.page.sections.indexOf(section);
+    let currentPos: number = this.page.sections.indexOf(section);
     // No check needed for last section
     this.page.sections.splice(currentPos + 1, 0, this.page.sections.splice(currentPos, 1)[0]);
   }

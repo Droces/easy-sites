@@ -21,7 +21,7 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
   }
 
   addGroup(): void {
-    var newGroup = {
+    const newGroup = {
       blocks: [{
         type: 'text',
         content: ''
@@ -52,7 +52,7 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
   }
 
   moveGroupLeft(group: Group) {
-    var currentPos = this.section.groups.indexOf(group);
+    let currentPos: number = this.section.groups.indexOf(group);
     if (currentPos <= 0) {
       return null;
     }
@@ -60,13 +60,13 @@ export class SectionComponent extends StructureComponentBase implements OnInit {
   }
 
   moveGroupRight(group: Group) {
-    var currentPos = this.section.groups.indexOf(group);
+    let currentPos: number = this.section.groups.indexOf(group);
     // No check needed for last section
     this.section.groups.splice(currentPos + 1, 0, this.section.groups.splice(currentPos, 1)[0]);
   }
 
   removeGroup(group: Group): void {
-    var currentPos = this.section.groups.indexOf(group);
+    let currentPos: number = this.section.groups.indexOf(group);
     this.section.groups.splice(currentPos, 1);
   }
 }

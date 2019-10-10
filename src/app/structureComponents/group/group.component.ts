@@ -26,7 +26,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   ngOnInit() { }
 
   moveBlockUp(block: BlockInterface) {
-    var currentPos = this.group.blocks.indexOf(block);
+    let currentPos: number = this.group.blocks.indexOf(block);
     if (currentPos <= 0) {
       return null;
     }
@@ -34,7 +34,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   }
 
   moveBlockDown(block: BlockInterface) {
-    var currentPos = this.group.blocks.indexOf(block);
+    let currentPos: number = this.group.blocks.indexOf(block);
     // No check needed for last section
     this.group.blocks.splice(currentPos + 1, 0, this.group.blocks.splice(currentPos, 1)[0]);
   }
@@ -46,29 +46,25 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   addBlock(type: string): void {
     switch (type) {
       case 'text': {
-        var textBlock: TextBlock = {type: 'text', content: ''};
+        const textBlock: TextBlock = {type: 'text', content: ''};
         this.group.blocks.push(textBlock);
         break;
       }
       case 'image': {
-        var imageBlock: ImageBlock = {type: 'image', fileId: ''};
+        const imageBlock: ImageBlock = {type: 'image', fileId: ''};
         this.group.blocks.push(imageBlock);
         break;
       }
       case 'line': {
-        var lineBlock: LineBlock = {type: 'line'};
+        const lineBlock: LineBlock = {type: 'line'};
         this.group.blocks.push(lineBlock);
-        break;
-      }
-      default: {
-        // @todo throw error
         break;
       }
     }
   }
 
   removeBlock(block: BlockInterface): void {
-    var currentPos = this.group.blocks.indexOf(block);
+    let currentPos: number = this.group.blocks.indexOf(block);
     this.group.blocks.splice(currentPos, 1);
   }
 }

@@ -62,14 +62,12 @@ export class PagesListComponent implements OnInit {
   }
 
   up(page: Page): void {
-    var currentPos = this.pageService.pages.indexOf(page);
-    if (currentPos <= 0) {
-      return null;
-    }
+    let currentPos: number = this.pageService.pages.indexOf(page);
+    if (currentPos <= 0) return null;
     this.pageService.pages.splice(currentPos - 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }
   down(page: Page): void {
-    var currentPos = this.pageService.pages.indexOf(page);
+    let currentPos: number = this.pageService.pages.indexOf(page);
     // No check needed for last section
     this.pageService.pages.splice(currentPos + 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }

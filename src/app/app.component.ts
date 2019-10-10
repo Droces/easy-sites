@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { SettingsService } from './settings.service';
 import { StateService } from './state.service';
@@ -12,11 +13,11 @@ import { PageService } from './page.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'easy-sites';
-  tabSelected = 'pages';
+  title: string = 'easy-sites';
+  tabSelected: string = 'pages';
 
-  modeChangedEvent = new Event('modeChanged');
-  userMenuOpen = false;
+  modeChangedEvent: Event = new Event('modeChanged');
+  userMenuOpen: boolean = false;
 
   constructor(
     public settings: SettingsService,
@@ -62,7 +63,7 @@ export class AppComponent {
   }
 
   logout(): void {
-    var logoutRequest = this.httpService.logout();
+    const logoutRequest: Observable<Object> = this.httpService.logout();
     logoutRequest.subscribe(() => {
       this.state.userName = '';
       this.state.userId = '';

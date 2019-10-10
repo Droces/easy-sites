@@ -22,7 +22,7 @@ export class ErrorHandlerService {
     else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      var responseBody = JSON.parse(error.error);
+      const responseBody = JSON.parse(error.error);
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: `, responseBody);

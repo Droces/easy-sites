@@ -50,8 +50,8 @@ export abstract class BackendBaseService {
       responseType: "text",
       withCredentials: true
     };
-    var url = this.settings.backendBaseUrl + this.backendTokenPath;
-    var request: Observable<string> = this.http.get<string>(url, options)
+    let url: string = this.settings.backendBaseUrl + this.backendTokenPath;
+    return this.http.get<string>(url, options)
       .pipe(
         retry(1), // retry a failed request up to 1 times
         tap(
@@ -63,8 +63,6 @@ export abstract class BackendBaseService {
         ),
         catchError(this.errorHandler.handleError)
       );
-
-    return request;
   }
 
   saveToken(token: string): void {

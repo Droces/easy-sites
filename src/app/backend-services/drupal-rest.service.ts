@@ -50,9 +50,9 @@
 //   };
 //
 //   fetchCurrentUser(): Observable<Object> {
-//     var url: string = this.settings.backendBaseUrl + this.backendUserGetPath;
+//     let url: string = this.settings.backendBaseUrl + this.backendUserGetPath;
 //     url = url.replace('[id]', this.state.userId);
-//     var request: Observable<any> = this.http.get(url, this.httpOptions);
+//     const request: Observable<any> = this.http.get(url, this.httpOptions);
 //     request.subscribe(data => {
 //       // console.log('user data: ', data);
 //       // if (! data.hasOwnProperty('')) {
@@ -72,7 +72,7 @@
 //     const formData: FormData = new FormData();
 //     formData.append('fileKey', fileToUpload, fileToUpload.name);
 //
-//     var httpOptions = {
+//     const httpOptions = {
 //       headers: new HttpHeaders({
 //         'Content-Type':   'application/octet-stream',
 //         'Accept':         'application/vnd.api+json',

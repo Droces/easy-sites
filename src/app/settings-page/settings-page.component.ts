@@ -21,7 +21,7 @@ export class SettingsPageComponent implements OnInit {
 
   storeSetting(field: string, value: string) {
     // console.log('value: ', value);
-    var fields = ['siteName', 'backendBaseUrl', 'backendCms'];
+    const fields = ['siteName', 'backendBaseUrl', 'backendCms'];
     if (! fields.includes(field))
       return null;
     localStorage.setItem(field, value);
@@ -36,14 +36,14 @@ export class SettingsPageComponent implements OnInit {
   changePlugin(plugin: string) {
     if (! this.httpService.backendServices.includes(plugin))
       return null;
-    console.log('plugin: ', plugin);
+    // console.log('plugin: ', plugin);
     localStorage.setItem('backendPlugin', plugin);
     this.httpService.switchBackendService(plugin);
   }
 
   fetchPages() {
-      // this.httpService.authenticate();
-      // this.httpService.fetchCurrentUserId();
-      this.httpService.instance.fetchPages();
+    // this.httpService.authenticate();
+    // this.httpService.fetchCurrentUserId();
+    this.httpService.instance.fetchPages();
   }
 }
