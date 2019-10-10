@@ -1,0 +1,7 @@
+<ul class="users">
+  <li *ngFor="let user of users"
+    class="user" 
+    [class.selected]="user.id === state.userId">
+    <span class="name">{{ user.attributes.name }}</span>
+  </li>
+</ul>
