@@ -18,7 +18,7 @@ import { StructureComponentBase } from '../structureComponentBase.component';
 })
 export class PageComponent extends StructureComponentBase implements OnInit {
   page: Page;
-  urlParamId: string;
+  urlParamPath: string;
 
   constructor(
     public settings: SettingsService,
@@ -32,13 +32,13 @@ export class PageComponent extends StructureComponentBase implements OnInit {
   ngOnInit(): void {
     // When the current route changes (page load)
     this.route.params.subscribe((params) => {
-      this.urlParamId = this.route.snapshot.paramMap.get('id');
-      // console.log('this.urlParamId: ', this.urlParamId);
+      this.urlParamPath = this.route.snapshot.paramMap.get('path');
+      // console.log('this.urlParamPath: ', this.urlParamPath);
 
-      if (this.urlParamId == 'temporary-id' && ! this.pageService.pages) {
+      if (this.urlParamPath == 'temporary-id' && ! this.pageService.pages) {
         this.pageService.addPage();
       }
-      this.getPage(this.urlParamId);
+      this.getPage(this.urlParamPath);
     });
 
     // When the pages are first fetched
@@ -46,7 +46,7 @@ export class PageComponent extends StructureComponentBase implements OnInit {
       // If there are saved pages
       if (this.pageService.pages.length) {
         // If the URL is for a valid page, navigate to it
-        const fetchedPage: Page = this.getPage(this.urlParamId);
+        const fetchedPage: Page = this.getPage(this.urlParamPath);
         if (! fetchedPage) {
           // console.log('this.route.snapshot: ', this.route.snapshot);
           if (this.route.snapshot.routeConfig.path == "") {
@@ -65,8 +65,8 @@ export class PageComponent extends StructureComponentBase implements OnInit {
     }, false);
   }
 
-  getPage(id: string): Page {
-    const fetchedPage: Page = this.pageService.getPage(id);
+  getPage(path: string): Page {
+    const fetchedPage: Page = this.pageService.getPageByPath(path);
     // console.log('fetchedPage: ', fetchedPage);
     if (fetchedPage) {
       this.page = fetchedPage;

@@ -1,8 +1,9 @@
 <nav>
   <span class="siteName">{{ settings.siteName }}</span>
   <ul class="pages">
-    <li *ngFor="let page of pageService.pages" [class.selected]="page.id === currentPageId">
-      <a routerLink="/page/{{ page.id }}" [innerHTML]="page.title" routerLinkActive="active"></a>
+    <li *ngFor="let page of pageService.pages"
+        [class.selected]="page.id === pageService.currentPage.id">
+      <a routerLink="/page/{{ page.path }}" [innerHTML]="page.title" routerLinkActive="active"></a>
     </li>
   </ul>
 </nav>

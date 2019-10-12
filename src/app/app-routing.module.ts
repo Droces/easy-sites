@@ -10,7 +10,7 @@ import { UsersPageComponent } from './users-page/users-page.component';
 const routes: Routes = [
   // { path: '', redirectTo: '/page/1', pathMatch: 'full' },
   { path: '', component: HomeComponent },
-  { path: 'page/:id', component: PageComponent },
+  { path: 'page/:path', component: PageComponent },
   { path: 'settings', component: SettingsPageComponent },
   { path: 'users', component: UsersPageComponent },
   { path: '**', component: PageNotFoundComponent }

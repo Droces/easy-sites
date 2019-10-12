@@ -10,7 +10,6 @@ import { PageService } from '../page.service';
   styleUrls: ['./primary-nav.component.scss']
 })
 export class PrimaryNavComponent implements OnInit {
-  currentPageId: string;
 
   constructor(
     public settings: SettingsService,
@@ -19,7 +18,6 @@ export class PrimaryNavComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.currentPageId = this.route.snapshot.paramMap.get('id');
     });
   }
 

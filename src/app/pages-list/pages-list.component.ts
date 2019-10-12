@@ -11,7 +11,6 @@ import { Page } from '../structureComponents/page';
   styleUrls: ['./pages-list.component.scss']
 })
 export class PagesListComponent implements OnInit {
-  currentPageId: string;
 
   constructor(
     public pageService: PageService,
@@ -22,32 +21,8 @@ export class PagesListComponent implements OnInit {
     this.router.events.subscribe(val=> {
       /* Only react if it's the final active route */
       if (val instanceof NavigationEnd) {
-        this.currentPageId = this.getCurrentPageId(val);
       }
     });
-  }
-
-  getCurrentPageId(val: NavigationEnd): string {
-    // console.log('this.router.url: ', this.router.url);
-    /* Holds all params, queryParams, segments and fragments from the current (active) route */
-    let currentUrlTree = this.router.parseUrl(this.router.url);
-    // console.info(currentUrlTree);
-    const group = currentUrlTree.root.children["primary"];
-    // console.log('group: ', group);
-
-    if (typeof group == 'undefined') {
-      document.addEventListener('pagesFetched', (event) => {
-        this.getCurrentPageId(val);
-      });
-      return null;
-    }
-
-    const segments = group.segments; // returns 2 segments 'team' and '33'
-    // console.log('segments: ', segments);
-    if (segments.length == 2 && segments[0].path == 'page') {
-      return segments[1].path;
-    }
-    // @todo Else throw exception
   }
 
   addPage(): void {
@@ -55,7 +30,7 @@ export class PagesListComponent implements OnInit {
   }
 
   removePage(page: Page): void {
-    if (page.id == this.currentPageId) {
+    if (page.id == this.pageService.currentPage.id) {
       this.router.navigate(['page/' + this.pageService.pages[0].id]);
     }
     this.pageService.removePage(page);

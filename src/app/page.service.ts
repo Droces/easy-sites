@@ -43,7 +43,19 @@ export class PageService {
         return page;
       }
     }
-    console.error('Page not found');
+    return null;
+  }
+
+  getPageByPath(path: string): Page {
+    if (typeof this.pages == 'undefined' || this.pages == []) {
+      return null;
+    }
+    for (let page of this.pages) {
+      if (page.path == path) {
+        this.currentPage = page;
+        return page;
+      }
+    }
     return null;
   }
 
@@ -51,6 +63,8 @@ export class PageService {
     return {
       id: 'temporary-id',
       title: 'New page...',
+      path: 'new-page',
+      navWeight: 0,
       sections: [{
         colourStyle: 'default',
         groups: [{
@@ -80,6 +94,7 @@ export class PageService {
       (page: any) => {
         // Store returned pages
         this.pages.push(page);
+        // console.log('this.pages:', this.pages);
       },
       () => {}, // @todo handle error
       () => {
@@ -102,7 +117,7 @@ export class PageService {
       this.savePage(page, 'post');
     }
 
-    this.router.navigate(['page/' + page.id]);
+    this.router.navigate(['page/' + page.path]);
     return page;
   }
 
@@ -145,10 +160,11 @@ export class PageService {
     // Parameters are functions: next(), error(), finished().
     request.subscribe(
       (pageReturned: any) => {
+        // console.log('pageReturned', pageReturned);
         if (method == 'post') {
           // Store returned page
           page.id = pageReturned.id;
-          this.router.navigate(['page/' + pageReturned.id]);
+          this.router.navigate(['page/' + pageReturned.path]);
         }
       },
       () => {},
@@ -159,6 +175,7 @@ export class PageService {
   }
 
   navigateToFirstPage(): void {
-    this.router.navigate(['page/' + this.pages[0].id]);
+    // console.log('this.pages[0]:', this.pages[0]);
+    this.router.navigate(['page/' + this.pages[0].path]);
   }
 }

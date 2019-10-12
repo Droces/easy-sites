@@ -53,23 +53,35 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   }
 
   transformPageToPayload(page: Page) {
+    let body = {
+      metadata: {
+        path: page.path,
+        navWeight: page.navWeight,
+      },
+      sections: JSON.stringify(page.sections)
+    };
     return {
       data: {
         type: "node--page",
         attributes: {
           title: page.title,
-          body: JSON.stringify(page.sections)
+          body: body
         }
       }
     };
   }
 
+  /**
+   * Convert Drupal's response format to a Page
+   */
   transformDataToPage(data: any): Page {
-    // Convert Drupal's response format to a Page
+    let body = JSON.parse(data.attributes.body.value);
     return {
       id: data.id,
+      path: body.metadata.path,
+      navWeight: body.metadata.navWeight,
       title: data.attributes.title,
-      sections: JSON.parse(data.attributes.body.value)
+      sections: body.sections
     };
   }
 
@@ -231,7 +243,6 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   }
 
   updateFile(fileId: string, makePermanent = true) {
-    console.log('updateFile()');
     let url: string = this.settings.backendBaseUrl + '/jsonapi/file/file/[id]';
     url = url.replace('[id]', fileId);
 
