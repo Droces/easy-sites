@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
+import { SafePipeModule } from 'safe-pipe';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -46,7 +48,8 @@ import { UsersPageComponent } from './users-page/users-page.component';
     AppRoutingModule,
     FormsModule,
     CKEditorModule,
-    HttpClientModule
+    HttpClientModule,
+    SafePipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

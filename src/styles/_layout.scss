@@ -51,6 +51,7 @@ header {
 }
 [data-mode="view"] .aside-container {
   width: 0;
+  min-width: 0;
 }
 
 aside {
@@ -106,6 +107,9 @@ app-page {
     color: white;
     padding: 0.2em 0.3em;
     box-shadow: none;
+  }
+  select {
+    color: inherit;
   }
 }
 header,

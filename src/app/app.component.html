@@ -1,4 +1,5 @@
-<header>
+<link [attr.href]="'https://fonts.googleapis.com/css' + state.font.url | safe: 'resourceUrl'" rel="stylesheet">
+<header [attr.data-font]="state.font.id">
   <div role="presentation">
     <p class="es-title">Easy Sites</p>
 
@@ -44,7 +45,7 @@
 
   </div>
 </header>
-<div id="main-and-sidebar" [attr.data-mode]="state.mode">
+<div id="main-and-sidebar" [attr.data-mode]="state.mode" [attr.data-font]="state.font.id">
   <router-outlet></router-outlet>
 
   <div class="aside-container">

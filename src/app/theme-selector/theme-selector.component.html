@@ -5,3 +5,11 @@
   [attr.data-colour]="colour.name"
   (click)="changeTheme(colour.name)">
   {{ colour.name }}</span>
+
+<h3>Fonts</h3>
+<select name="font" (change)="changeFont($event.target.value)">
+  <option *ngFor="let font of fonts | keyvalue"
+    [value]="font.value.id">
+    {{ font.value.name }}
+  </option>
+</select>
