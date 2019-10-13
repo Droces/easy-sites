@@ -9,16 +9,16 @@
 
     <ul class="appMode tabs">
       <li><a (click)="changeMode('edit')"
-        href="{{ this.router.url.split('#')[0] }}#"
+        [routerLink]="pageService.currentPage ? 'page/' + pageService.currentPage.path : ''"
         [attr.aria-selected]="state.mode === 'edit'">
         <i class="material-icons">edit</i></a>
       </li>
       <li><a (click)="changeMode('view')"
-        href="{{ this.router.url.split('#')[0] }}#"
+        [routerLink]="pageService.currentPage ? 'page/' + pageService.currentPage.path : ''"
         [attr.aria-selected]="state.mode === 'view'">
         <i class="material-icons">play_arrow</i></a>
       </li>
-      <li><a [attr.href]="state.inDemoMode ? null : 'settings'"
+      <li><a routerLink="settings"
           [attr.disabled]="state.inDemoMode ? true : null">
         <i class="material-icons">settings</i></a>
       </li>

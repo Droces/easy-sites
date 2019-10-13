@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import { PageService } from '../page.service';
+import { StateService } from '../state.service';
 
 import { Page } from '../structureComponents/page';
 
@@ -14,6 +15,7 @@ export class PagesListComponent implements OnInit {
 
   constructor(
     public pageService: PageService,
+    public state: StateService,
     private router: Router) { }
 
   ngOnInit() {
@@ -45,5 +47,9 @@ export class PagesListComponent implements OnInit {
     let currentPos: number = this.pageService.pages.indexOf(page);
     // No check needed for last section
     this.pageService.pages.splice(currentPos + 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
+  }
+
+  toggleMenu(page: Page): void {
+    page.state.isListMenuOpen = page.state.isListMenuOpen ? false : true;
   }
 }

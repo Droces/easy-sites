@@ -33,7 +33,7 @@ export class PageService {
     return this.pages;
   }
 
-  getPage(id: string): Page {
+  getPageById(id: string): Page {
     if (typeof this.pages == 'undefined' || this.pages == []) {
       return null;
     }
@@ -47,16 +47,24 @@ export class PageService {
   }
 
   getPageByPath(path: string): Page {
+    // console.log('this.pages:', this.pages);
     if (typeof this.pages == 'undefined' || this.pages == []) {
       return null;
     }
     for (let page of this.pages) {
       if (page.path == path) {
         this.currentPage = page;
+        // console.log('this.currentPage:', this.currentPage);
         return page;
       }
     }
-    return null;
+    return this.setFirstPageCurrent();
+  }
+
+  setFirstPageCurrent(): Page {
+    this.currentPage = this.pages[0];
+    console.log('this.currentPage:', this.currentPage);
+    return this.currentPage;
   }
 
   provideNewPage(): Page {
@@ -73,7 +81,10 @@ export class PageService {
             content: ''
           }]
         }]
-      }]
+      }],
+      state: {
+        isListMenuOpen: false
+      }
     };
   }
 

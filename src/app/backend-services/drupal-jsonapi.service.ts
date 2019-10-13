@@ -81,7 +81,10 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
       path: body.metadata.path,
       navWeight: body.metadata.navWeight,
       title: data.attributes.title,
-      sections: body.sections
+      sections: body.sections,
+      state: {
+        isListMenuOpen: false
+      }
     };
   }
 

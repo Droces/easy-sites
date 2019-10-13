@@ -17,6 +17,7 @@ export class SettingsPageComponent implements OnInit {
     public pageService: PageService) { }
 
   ngOnInit() {
+    this.fetchPages();
   }
 
   storeSetting(field: string, value: string) {
@@ -45,5 +46,10 @@ export class SettingsPageComponent implements OnInit {
     // this.httpService.authenticate();
     // this.httpService.fetchCurrentUserId();
     this.httpService.instance.fetchPages();
+
+    document.addEventListener('pagesFetched', (event) => {
+      this.pageService.setFirstPageCurrent();
+      console.log('this.pageService.currentPage:', this.pageService.currentPage);
+    });
   }
 }
