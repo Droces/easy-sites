@@ -1,4 +1,5 @@
-.hidden {
+.hidden,
+[aria-hidden] {
   display: none;
 }
 .subtle {
@@ -16,11 +17,13 @@
 .menu {
   margin: 0;
   padding-left: 0;
+  display: flex;
 
   li {
+    flex: 1 1 auto;
+    margin: 0;
     list-style-type: none;
-    display: inline-block;
-
+    text-align: center;
     a {
       text-decoration: none;
     }
@@ -50,8 +53,13 @@
     }
   }
 }
-section[role="tabpanel"]:not([aria-selected="true"]) {
-  display: none;
+section[role="tabpanel"] {
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &:not([aria-selected="true"]) {
+    display: none;
+  }
 }
 
 
@@ -109,11 +117,21 @@ app-section {
   }
 }
 .ck {
-  .ck-balloon-panel {
+  .ck.ck-balloon-panel {
   // Somehow this is overridden when using this custom build
     position: absolute !important;
   }
   button {
     text-transform: inherit;
+  }
+  .ck.ck-link-form {
+    background: white;
+    padding: 4px;
+  }
+  .cd.ck-editor__editable_inline > :last-child {
+    margin-bottom: 0.3em;
+  }
+  .cd.ck-editor__editable_inline > :first-child {
+    margin-top: 0.3em;
   }
 }

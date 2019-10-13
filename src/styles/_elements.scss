@@ -35,6 +35,15 @@ li {
 /* -----------------------------------------------------------------------------
  *                                                      Headings
  */
+h1, h2, h3 {
+  line-height: 1.1em;
+
+  input[type="text"] {
+    border: none;
+    background: none;
+    padding: 0;
+  }
+}
 h1 {
   font-size: 2em;
 }
@@ -43,13 +52,6 @@ h2 {
 }
 h3 {
   font-size: 1.2em;
-}
-h1, h2, h3 {
-  input[type="text"] {
-    border: none;
-    background: none;
-    padding: 0;
-  }
 }
 
 
@@ -74,13 +76,15 @@ button {
 button.icon {
   padding: 0;
   line-height: 1;
-  width: 2em;
-  height: 2em;
+  min-width: 2em;
+  min-height: 2em;
   vertical-align: middle;
   background: none;
   box-shadow: none;
+  cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: rgba(black, 0.05);
     color: inherit;
   }
@@ -94,7 +98,7 @@ button.colour {
   bottom: 2px;
   left: 2px;
 }
-button.remove {
+main button.remove {
   position: absolute;
   top: 2px;
   right: 2px;
@@ -133,6 +137,7 @@ button.add {
 label:first-child {
   display: inline-block;
   min-width: 150px;
+  margin-right: 0.5em;
 
   &::after {
     content: ": ";
@@ -147,6 +152,8 @@ input[type="password"] {
   border: solid 1px #cbcbcb;
   background: whitesmoke;
   border-radius: 4px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 select {
   margin: 0.4em 0.6em 0.4em 0;

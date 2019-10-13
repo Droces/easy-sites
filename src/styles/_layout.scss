@@ -1,4 +1,4 @@
-$breakpoint: 800px;
+$breakpoint: 800px; // Google Sites uses 770px
 
 header > [role="presentation"],
 nav,
@@ -7,8 +7,8 @@ section > .column,
 .page-max-width {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 7%;
-  padding-right: 7%;
+  padding-left: 6vw;
+  padding-right: 6vw;
   box-sizing: content-box;
 
   @media all and (min-width: $breakpoint) {
@@ -23,6 +23,11 @@ app-root {
   display: flex;
   flex-direction: column;
 }
+header {
+  > [role="presentation"] {
+    max-width: 100%;
+  }
+}
 
 [id="main-and-sidebar"] {
   display: flex;
@@ -33,12 +38,13 @@ app-root {
   router-outlet {
     display: none;
   }
-  .aside-container,
-  aside {
-    width: 200px;
+  .aside-container {
+    min-width: 200px;
+    max-width: 300px;
+    width: 20%;
   }
   .aside-container {
-    flex-grow: 0;
+    flex: 0 0 auto;
     transition: width 0.4s ease-in-out;
     overflow-x: hidden;
   }
@@ -50,8 +56,6 @@ app-root {
 aside {
   // border-left: solid 1px #dadada;
   border-top: solid 3px #1f272b;
-  padding-left: 20px;
-  padding-right: 20px;
   box-sizing: border-box;
 
   h2, h3, h4 {
@@ -91,6 +95,11 @@ app-page {
   }
   .material-icons {
     color: rgba(white, 0.6);
+
+    &:hover,
+    &:focus {
+      color: rgba(white, 0.9);
+    }
   }
   button {
     background: none;
