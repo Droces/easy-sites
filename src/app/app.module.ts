@@ -25,6 +25,7 @@ import { PrimaryNavComponent }    from './primary-nav/primary-nav.component';
 import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
 import { SettingsPageComponent }  from './settings-page/settings-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
+import { TemplatesPageComponent } from './templates-page/templates-page.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UsersPageComponent } from './users-page/users-page.component';
     SettingsPageComponent,
     ImageBlockComponent,
     LineBlockComponent,
-    UsersPageComponent
+    UsersPageComponent,
+    TemplatesPageComponent
   ],
   imports: [
     BrowserModule,

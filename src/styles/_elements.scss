@@ -29,6 +29,25 @@ li {
   margin-top: 0.6em;
   margin-bottom: 0.6em;
 }
+details {
+  border: solid 1px #cbcbcb;
+  border-radius: 6px;
+  padding: 1.5em;
+  margin: 20px auto;
+
+  summary {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0.6em;
+    cursor: pointer;
+
+    h1, h2, h3, h4 {
+      display: inline-block;
+      margin: 0;
+    }
+  }
+}
 
 
 /* -----------------------------------------------------------------------------
@@ -66,6 +85,7 @@ button {
   border-radius: 3px;
   font-weight: 600;
   text-transform: uppercase;
+  cursor: pointer;
 
   &:hover {
     background: #3f51b5; // blue
@@ -80,7 +100,6 @@ button.icon {
   vertical-align: middle;
   background: none;
   box-shadow: none;
-  cursor: pointer;
 
   &:hover,
   &:focus {
@@ -156,19 +175,6 @@ input[type="password"] {
 }
 select {
   margin: 0.4em 0.6em 0.4em 0;
-}
-details {
-  border: solid 1px #cbcbcb;
-  border-radius: 6px;
-  padding: 1.5em;
-  margin: 20px auto;
-
-  summary {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 0.6em;
-  }
 }
 // Field prefix (eg. $)
 .prefix {

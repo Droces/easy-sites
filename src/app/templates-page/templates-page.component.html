@@ -1,0 +1,12 @@
+<div class="page-max-width">
+  <h1>Page templates</h1>
+
+  <details open *ngFor="let templateGroup of templates">
+    <summary><h2>{{ templateGroup.name }}</h2></summary>
+    <ul>
+      <li *ngFor="let template of templateGroup.templates">
+        {{ template.name }}
+        <button *ngIf="template.machineName" (click)="addPage(template.machineName)">Add</button></li>
+    </ul>
+  </details>
+</div>
