@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { SettingsService } from '../settings.service';
 import { HttpService } from '../http.service';
 import { PageService } from '../page.service';
+
+import { Page } from '../structureComponents/page';
 
 @Component({
   selector: 'app-settings-page',
@@ -16,9 +19,7 @@ export class SettingsPageComponent implements OnInit {
     public httpService: HttpService,
     public pageService: PageService) { }
 
-  ngOnInit() {
-    this.fetchPages();
-  }
+  ngOnInit() {}
 
   storeSetting(field: string, value: string) {
     // console.log('value: ', value);
@@ -45,11 +46,9 @@ export class SettingsPageComponent implements OnInit {
   fetchPages() {
     // this.httpService.authenticate();
     // this.httpService.fetchCurrentUserId();
-    this.httpService.instance.fetchPages();
-
-    document.addEventListener('pagesFetched', (event) => {
+    let request: Observable<Page> = this.pageService.fetchPages();
+    request.subscribe(data => {
       this.pageService.setFirstPageCurrent();
-      console.log('this.pageService.currentPage:', this.pageService.currentPage);
     });
   }
 }

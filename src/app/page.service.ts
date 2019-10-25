@@ -63,7 +63,7 @@ export class PageService {
 
   setFirstPageCurrent(): Page {
     this.currentPage = this.pages[0];
-    console.log('this.currentPage:', this.currentPage);
+    // console.log('this.currentPage:', this.currentPage);
     return this.currentPage;
   }
 
@@ -96,16 +96,15 @@ export class PageService {
     this.httpService.instance.deletePage(page);
   }
 
-  fetchPages(): Observable<Object> {
+  fetchPages(): Observable<Page> {
     this.pages = [];
 
-    const request: Observable<Object> = this.httpService.instance.fetchPages();
+    const request: Observable<Page> = this.httpService.instance.fetchPages();
     // Parameters are functions: next(), error(), finished().
     request.subscribe(
       (page: any) => {
         // Store returned pages
         this.pages.push(page);
-        // console.log('this.pages:', this.pages);
       },
       () => {}, // @todo handle error
       () => {
@@ -116,12 +115,15 @@ export class PageService {
     return request;
   }
 
-  addPage(): Page {
+  addPage(page: Page = null): Page {
     if (typeof this.pages == 'undefined') {
       this.pages = [];
     }
 
-    const page: Page = this.provideNewPage();
+    if (! page) {
+      page = this.provideNewPage();
+    }
+    
     this.pages.push(page);
 
     if (! this.state.inDemoMode) {

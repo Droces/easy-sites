@@ -1,6 +1,6 @@
 <ul class="pages">
   <li *ngFor="let page of pageService.pages"
-      [class.selected]="page.id === pageService.currentPage.id">
+      [class.selected]="page.id === pageService.currentPage ? pageService.currentPage.id : null">
 
     <div role="presentation">
       <button (click)="up(page)" class="icon move">

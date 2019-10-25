@@ -134,6 +134,9 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
     return request;
   }
 
+  /**
+   * Should only be called through the PageService.fetchPages().
+   */
   fetchPages(): Observable<Page> {
     let url: string = this.settings.backendBaseUrl + this.backendPagesGetPath;
     return this.http.get<DrupalPagesResponse>(url)
