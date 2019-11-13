@@ -53,13 +53,13 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
   }
 
   transformPageToPayload(page: Page) {
-    let body = {
+    let body = JSON.stringify({
       metadata: {
         path: page.path,
         navWeight: page.navWeight,
       },
-      sections: JSON.stringify(page.sections)
-    };
+      sections: page.sections
+    });
     return {
       data: {
         type: "node--page",
