@@ -3,6 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Group } from '../group';
 import { StructureComponentBase } from '../structureComponentBase.component';
 
+import { PageService } from '../../page.service';
+
 import { BlockInterface } from '../block-interface';
 import { TextBlock } from '../blocks/text-block';
 import { ImageBlock } from '../blocks/image-block';
@@ -19,7 +21,7 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
 
   blockSelectionVisible = false;
 
-  constructor() {
+  constructor(public pageService: PageService) {
     super();
   }
 
@@ -66,5 +68,6 @@ export class GroupComponent extends StructureComponentBase implements OnInit {
   removeBlock(block: BlockInterface): void {
     let currentPos: number = this.group.blocks.indexOf(block);
     this.group.blocks.splice(currentPos, 1);
+    this.pageService.savePage(null, 'patch', 3);
   }
 }
