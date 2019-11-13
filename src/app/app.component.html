@@ -26,6 +26,12 @@
       <li><a routerLink="templates">
         Templates</a>
       </li>
+      <li>
+        <button (click)="openSidebar('pages')"><i class="material-icons">insert_drive_file</i></button>
+      </li>
+      <li>
+        <button (click)="openSidebar('style')"><i class="material-icons">brush</i></button>
+      </li>
     </ul>
 
     <div class="user">
@@ -51,7 +57,7 @@
 <div id="main-and-sidebar" [attr.data-mode]="state.mode" [attr.data-font]="state.font.id">
   <router-outlet></router-outlet>
 
-  <div class="aside-container">
+  <div class="aside-container" [attr.aria-expanded]="sidebarOpen">
     <aside>
       <ul role="tablist">
         <li role="presentation">

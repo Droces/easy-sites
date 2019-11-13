@@ -19,6 +19,7 @@ export class AppComponent {
   modeChangedEvent: Event = new Event('modeChanged');
   userMenuOpen: boolean = false;
 
+  sidebarOpen: boolean = false;
   constructor(
     public settings: SettingsService,
     public state: StateService,
@@ -52,6 +53,9 @@ export class AppComponent {
   changeMode(mode: string): void {
     this.state.mode = mode;
     document.dispatchEvent(this.modeChangedEvent);
+    if (mode === 'view') {
+      this.sidebarOpen = false;
+    }
   }
 
   openTab(tab: string): void {
@@ -69,5 +73,17 @@ export class AppComponent {
       this.state.userId = '';
       this.state.userRoles = [];
     });
+  }
+
+
+
+  openSidebar(tab: string): void {
+    if (this.sidebarOpen && tab === this.tabSelected) {
+      this.sidebarOpen = false;
+    }
+    else {
+      this.sidebarOpen = true;
+    }
+    this.tabSelected = tab;
   }
 }
