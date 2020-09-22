@@ -20,6 +20,7 @@ Currently Drupal is supported, but any popular CMS should work. The CMS simply n
 
 #### Drupal
 Drupal 8.7 and newer is supported. Make sure to enable the following core modules: Serialization &bull; JSON:API &bull; HTTP Basic Authentication.
+In Configuration » Web services » JSON:API, select the "Accept all JSON:API create, read, update, and delete operations." option.
 
 Also make sure you have a `services.yml` file in the `/sites` directory. Make sure that it contains at least the following:
 ```
