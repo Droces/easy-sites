@@ -26,6 +26,8 @@ import { ThemeSelectorComponent } from './theme-selector/theme-selector.componen
 import { SettingsPageComponent }  from './settings-page/settings-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { TemplatesPageComponent } from './templates-page/templates-page.component';
+import { PagesListItemComponent } from './pages-list/pages-list-item/pages-list-item.component';
+import { NavItemComponent } from './primary-nav/nav-item/nav-item.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { TemplatesPageComponent } from './templates-page/templates-page.componen
     ImageBlockComponent,
     LineBlockComponent,
     UsersPageComponent,
-    TemplatesPageComponent
+    TemplatesPageComponent,
+    PagesListItemComponent,
+    NavItemComponent
   ],
   imports: [
     BrowserModule,

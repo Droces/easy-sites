@@ -58,7 +58,8 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
         path: page.path,
         navWeight: page.navWeight,
       },
-      sections: page.sections
+      sections: page.sections,
+      parent: page.parent,
     });
     return {
       data: {
@@ -75,8 +76,15 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
    * Convert Drupal's response format to a Page
    */
   transformDataToPage(data: any): Page {
-    let body = JSON.parse(data.attributes.body.value);
-    return {
+    let body: any;
+    try {
+      body = JSON.parse(data.attributes.body.value);
+    }
+    catch (error) {
+      console.error(error);
+    }
+    // console.log('body:', body);
+    const page: Page = {
       id: data.id,
       path: body.metadata.path,
       navWeight: body.metadata.navWeight,
@@ -84,8 +92,10 @@ export class DrupalJsonApiBackendService extends BackendBaseService implements B
       sections: body.sections,
       state: {
         isListMenuOpen: false
-      }
+      },
+      parent: body.parent
     };
+    return page;
   }
 
   createPage(page: Page): Observable<Page> {

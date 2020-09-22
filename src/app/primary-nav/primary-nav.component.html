@@ -1,9 +1,10 @@
 <nav>
   <span class="siteName">{{ settings.siteName }}</span>
   <ul class="pages">
-    <li *ngFor="let page of pageService.pages"
+    <ng-container *ngFor="let page of pageService.pages">
+      <li nav-item *ngIf="! page.parent" [page]="page"
         [class.selected]="page.id === pageService.currentPage.id">
-      <a routerLink="/page/{{ page.path }}" [innerHTML]="page.title" routerLinkActive="active"></a>
-    </li>
+      </li>
+    </ng-container>
   </ul>
 </nav>

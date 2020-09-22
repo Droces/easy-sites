@@ -71,6 +71,28 @@ section[role="tabpanel"] {
 
 
 /* -----------------------------------------------------------------------------
+ *                                                      Primary nav
+ */
+app-primary-nav {
+  ul {
+    li {
+      // Second level
+      ul {
+        padding-left: 0;
+        position: absolute;
+        background: grey;
+        display: none;
+      }
+      &:hover ul,
+      &:focus ul {
+        display: block;
+      }
+    }
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
  *                                                      Structure components
  */
 .section,

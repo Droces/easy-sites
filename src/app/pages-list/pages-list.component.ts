@@ -41,19 +41,4 @@ export class PagesListComponent implements OnInit {
     }
     this.pageService.removePage(page);
   }
-
-  up(page: Page): void {
-    let currentPos: number = this.pageService.pages.indexOf(page);
-    if (currentPos <= 0) return null;
-    this.pageService.pages.splice(currentPos - 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
-  }
-  down(page: Page): void {
-    let currentPos: number = this.pageService.pages.indexOf(page);
-    // No check needed for last section
-    this.pageService.pages.splice(currentPos + 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
-  }
-
-  toggleMenu(page: Page): void {
-    page.state.isListMenuOpen = page.state.isListMenuOpen ? false : true;
-  }
 }

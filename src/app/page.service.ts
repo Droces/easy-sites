@@ -70,7 +70,7 @@ export class PageService {
   provideNewPage(title: string = null): Page {
     if (! title)
       title = 'New page...';
-    let path: string = title.replace(/\W+/g, '-').toLowerCase();;
+    let path: string = title.replace(/\W+/g, '-').toLowerCase();
     return {
       id: 'temporary-id',
       title: title,
@@ -87,7 +87,8 @@ export class PageService {
       }],
       state: {
         isListMenuOpen: false
-      }
+      },
+      parent: null,
     };
   }
 

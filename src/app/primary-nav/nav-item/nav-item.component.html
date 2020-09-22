@@ -1,0 +1,10 @@
+<a routerLink="/page/{{ page.path }}" [innerHTML]="page.title" routerLinkActive="active"></a>
+
+<ul>
+  <ng-container *ngFor="let pageI of pageService.pages">
+    <ng-container *ngIf="pageI.parent === page.id && pageI.id !== page.id">
+      <li nav-item [page]="pageI"
+        [class.selected]="page.id === pageService.currentPage.id">
+    </ng-container>
+  </ng-container>
+</ul>

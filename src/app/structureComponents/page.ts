@@ -11,4 +11,5 @@ export class Page {
   title: string;
   sections: Section[];
   state: PageState;
+  parent: string; // IDs of the parent page
 }
