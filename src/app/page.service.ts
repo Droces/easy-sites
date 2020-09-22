@@ -67,11 +67,14 @@ export class PageService {
     return this.currentPage;
   }
 
-  provideNewPage(): Page {
+  provideNewPage(title: string = null): Page {
+    if (! title)
+      title = 'New page...';
+    let path: string = title.replace(/\W+/g, '-').toLowerCase();;
     return {
       id: 'temporary-id',
-      title: 'New page...',
-      path: 'new-page',
+      title: title,
+      path: path,
       navWeight: 0,
       sections: [{
         colourStyle: 'default',
@@ -125,6 +128,7 @@ export class PageService {
     }
     
     this.pages.push(page);
+    this.currentPage = page;
 
     if (! this.state.inDemoMode) {
       this.savePage(page, 'post');

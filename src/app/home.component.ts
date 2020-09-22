@@ -36,9 +36,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Creates and shows a new blank page.
+   */
   showBlankPage() {
     // Show a blank page ready for adding text
-    const page: Page = this.pageService.addPage();
+    const page: Page = this.pageService.provideNewPage('Home');
+    this.pageService.addPage(page);
     this.router.navigate(['page/' + page.path]); // Redirect
 
     if (! this.state.inDemoMode) {
