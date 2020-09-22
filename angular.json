@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "easy-sites"
+  "defaultProject": "easy-sites",
+  "cli": {
+    "analytics": "b2fefc9b-7b3a-4b3f-8748-88eca4f6d608"
+  }
 }
