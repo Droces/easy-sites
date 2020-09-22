@@ -109,7 +109,6 @@ app-page {
   button {
     background: none;
     color: white;
-    padding: 0.2em 0.3em;
     box-shadow: none;
   }
   select {
@@ -119,4 +118,8 @@ app-page {
 header,
 .aside-container {
   @include dark-blue;
+  
+  button {
+    padding: 0.2em 0.8em;
+  }
 }

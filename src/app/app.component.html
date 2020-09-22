@@ -26,12 +26,6 @@
       <li><a routerLink="templates">
         Templates</a>
       </li>
-      <li>
-        <button (click)="openSidebar('pages')"><i class="material-icons">insert_drive_file</i></button>
-      </li>
-      <li>
-        <button (click)="openSidebar('style')"><i class="material-icons">brush</i></button>
-      </li>
     </ul>
 
     <div class="user">
@@ -50,6 +44,17 @@
         <li><a routerLink="/users">Users</a></li>
         <li><a id="logout" (click)="logout()">Log out</a></li>
       </ul>
+    </div>
+
+    <div class="panels-buttons">
+      <button (click)="openSidebar('pages')">
+        <i class="material-icons">insert_drive_file</i>
+        <span class="visuallyhidden">Pages panel</span>
+      </button>
+      <button (click)="openSidebar('style')">
+        <i class="material-icons">brush</i>
+        <span class="visuallyhidden">Style panel</span>
+      </button>
     </div>
 
   </div>
