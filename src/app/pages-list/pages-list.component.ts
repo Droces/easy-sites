@@ -21,6 +21,10 @@ export class PagesListComponent implements OnInit {
   ngOnInit() {
     /* This subscription will fire when the route changes */
     this.router.events.subscribe(val=> {
+      // console.log('val:', val);
+      
+      // @todo If the new route has the same path as the current route, throw exception
+
       /* Only react if it's the final active route */
       if (val instanceof NavigationEnd) {
       }

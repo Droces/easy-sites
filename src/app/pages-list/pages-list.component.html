@@ -20,7 +20,8 @@
       <div class="field path">
         <label>Path</label>
         <input type="text" name="page-{{ page.id }}-path"
-          [(ngModel)]="page.path">
+          [(ngModel)]="page.path"
+          (change)="pageService.savePage(page)">
       </div>
       <div class="field path">
         <button (click)="removePage(page)" class="remove">
