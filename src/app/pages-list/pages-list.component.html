@@ -1,6 +1,11 @@
+<!-- <p>Current page ID: {{ pageService.currentPage.id }}</p> -->
 <ul class="pages">
   <ng-container *ngFor="let page of pageService.pages">
-    <li pages-list-item *ngIf="! page.parent" [page]="page" [class.selected]="page.id === pageService.currentPage.id">
+    <li pages-list-item [page]="page"
+      *ngIf="! page.parent || pageService.isOrphan(page)"
+      [attr.data-page-id]="page.id"
+      [class.selected]="page.id === pageService.currentPage.id"
+      (removed)="removePage(page)">
   </ng-container>
 </ul>
 <button (click)="addPage()">Add page</button>

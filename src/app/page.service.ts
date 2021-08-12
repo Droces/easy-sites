@@ -33,6 +33,14 @@ export class PageService {
     return this.pages;
   }
 
+  /**
+   * Returns true if the page references a parent that doesn't exist, otherwise false.
+   */
+  isOrphan(page: Page): boolean {
+    let parent: Page[] = this.pages.filter((pageI: Page) => {return page.parent === pageI.id});
+    return ! parent.length;
+  }
+
   getPageById(id: string): Page {
     if (typeof this.pages == 'undefined' || this.pages == []) {
       return null;
@@ -92,7 +100,17 @@ export class PageService {
     };
   }
 
+  getChildren(page: Page): Page[] {
+    return this.pages.filter((pageI: Page) => {return pageI.parent === page.id});
+  }
+
   removePage(page: Page): void {
+    // If this page has children, set their "parent" to null
+    this.getChildren(page).forEach((child: Page) => {
+      child.parent = null;
+      this.savePage(child);
+    });
+
     let index: number = this.pages.indexOf(page);
     if (index > -1) {
       this.pages.splice(index, 1);

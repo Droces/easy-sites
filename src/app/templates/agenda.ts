@@ -81,7 +81,7 @@ export const template = {
       "groups": [{
         "blocks": [{
           "type": "text",
-          "content": "<p>Annually</p>"
+          "content": "<h2>Annually</h2>"
         }]
       }]
     },

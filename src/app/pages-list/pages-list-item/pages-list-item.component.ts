@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Page } from '../../structureComponents/page';
 
@@ -12,24 +12,30 @@ import { PageService } from '../../page.service';
 export class PagesListItemComponent implements OnInit {
   @Input() page: Page;
 
+  @Output() removed = new EventEmitter<Page>();
+
   constructor(public pageService: PageService) { }
 
   ngOnInit() {
   }
 
-  up(page: Page): void {
-    let currentPos: number = this.pageService.pages.indexOf(page);
+  up(): void {
+    let currentPos: number = this.pageService.pages.indexOf(this.page);
     if (currentPos <= 0) return null;
     this.pageService.pages.splice(currentPos - 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }
-  down(page: Page): void {
-    let currentPos: number = this.pageService.pages.indexOf(page);
+  down(): void {
+    let currentPos: number = this.pageService.pages.indexOf(this.page);
     // No check needed for last section
     this.pageService.pages.splice(currentPos + 1, 0, this.pageService.pages.splice(currentPos, 1)[0]);
   }
 
-  toggleMenu(page: Page): void {
-    page.state.isListMenuOpen = page.state.isListMenuOpen ? false : true;
+  toggleMenu(): void {
+    this.page.state.isListMenuOpen = this.page.state.isListMenuOpen ? false : true;
+  }
+
+  remove(page: Page = this.page): void {
+    this.removed.emit(page);
   }
 
 }

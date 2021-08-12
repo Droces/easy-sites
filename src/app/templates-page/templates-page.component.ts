@@ -26,7 +26,7 @@ export class TemplatesPageComponent implements OnInit {
   ngOnInit() {}
 
   addPage(): void {
-    const page: Page = this.pageService.provideNewPage();
+    const page: Page = this.pageService.provideNewPage(template.title);
     page.sections = template.sections;
     this.pageService.addPage(page);
   }

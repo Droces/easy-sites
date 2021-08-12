@@ -55,14 +55,28 @@
   label {
     min-width: 0;
   }
+  .field {
+    display: grid;
+    grid-template-columns: 4em 1fr;
+    grid-gap: 1em;
+  }
+  input[type="text"],
+  select {
+    background: rgba(white, 0.7);
+    color: #333;
+    border: none;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+  }
   .menu {
     &[aria-hidden] {
       display: none;
     }
   }
   .pageOptions {
-    background: rgba(0, 0, 0, 0.2);
+    background: #3C484F; // rgba(0, 0, 0, 0.2);
     padding: 0.2em 0.4em;
+    border-radius: 4px;
 
     label {
       font-size: 0.85em;

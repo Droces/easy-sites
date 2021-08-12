@@ -1,13 +1,13 @@
 <div role="presentation">
-  <button (click)="up(page)" class="icon move">
+  <button (click)="up()" class="icon move">
     <i class="material-icons">arrow_upward</i></button>
-  <button (click)="down(page)" class="icon move">
+  <button (click)="down()" class="icon move">
     <i class="material-icons">arrow_downward</i></button>
   
   <a routerLink="/page/{{ page.path }}" [innerHTML]="page.title"
     routerLinkActive="active"></a>
 
-  <button (click)="toggleMenu(page)" class="icon menu">
+  <button (click)="toggleMenu()" class="icon menu">
     <i class="material-icons">more_vert</i></button>
 </div>
 
@@ -26,15 +26,15 @@
     <select name="page-{{ page.id }}-parent"
       [(ngModel)]="page.parent"
       (change)="pageService.savePage(page)">
-      <option value="">No parent</option>
+      <option [ngValue]="null">No parent</option>
       <ng-container *ngFor="let pageI of pageService.pages">
         <option *ngIf="pageI.id !== page.id" [value]="pageI.id">{{ pageI.title }}</option>
       </ng-container>
     </select>
   </div>
   
-  <div class="field path">
-    <button (click)="removePage(page)" class="remove">
+  <div class="actions">
+    <button (click)="remove()" class="remove">
       Delete page
       <i class="icon material-icons">close</i></button>
   </div>
@@ -43,7 +43,9 @@
 <ul>
   <ng-container *ngFor="let pageI of pageService.pages">
     <ng-container *ngIf="pageI.parent === page.id && pageI.id !== page.id">
-      <li pages-list-item [page]="pageI" [class.selected]="page.id === pageService.currentPage.id">
+      <li pages-list-item [page]="pageI"
+        [class.selected]="pageI.id === pageService.currentPage.id"
+        (removed)="remove(pageI)">
     </ng-container>
   </ng-container>
 </ul>
